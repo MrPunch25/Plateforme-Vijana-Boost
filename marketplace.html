@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijana Boost - Entrepreneurs & Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00; /* Orange */
+            --secondary: #0033A0; /* Bleu foncé */
+            --light: #FFFFFF; /* Blanc */
+            --light-blue: #E6F0FF; /* Bleu très clair */
+            --light-orange: #FFF5EF; /* Orange très clair */
+            --text: #2D3748;
+            --text-light: #718096;
+            --success: #38A169;
+            --warning: #DD6B20;
+            --danger: #E53E3E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: #fff;
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--secondary);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .header-container {
+            background-color: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.7rem;
+            font-weight: 800;
+            
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Navigation Desktop */
+        .nav-desktop {
+            display: flex;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 0.8rem;
+        }
+
+        .nav-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            border: 2px solid var(--primary);
+            color: var(--light);
+        }
+
+        .btn-signup:hover {
+            background: var(--light);
+            border-color: #FF6B00;
+            color: #FF6B00;
+            transition: 0.5s;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--secondary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--light);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .nav-mobile ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .nav-mobile li {
+            margin: 1.5rem 0;
+        }
+
+        .mobile-nav-link {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-auth {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 80%;
+            max-width: 250px;
+            align-items: center;
+            
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-desktop, .auth-buttons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 160, 0.7), rgba(0, 51, 160, 0.7)), 
+                        url('marketplace.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+           
+            padding-top: 120px;
+            height: calc(95vh - 60px); /* Adjust for header height */
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-size: 65px;
+            color: white;
+            padding-top: 60px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #E2E8F0;
+        }
+        
+        .tab-btn {
+            padding: 16px 44px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            border-bottom: 2px solid #E2E8F0;
+
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+        }
+        
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 3px;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-light);
+        }
+        
+        /* Filtres et recherche */
+        .search-filter-container {
+            background-color: var(--light-blue);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #FF6B00;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px 0 0 6px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+        
+        .search-bar button {
+            padding: 0 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: #e05d00;
+        }
+        
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 180px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            background-color: white;
+            font-size: 0.9rem;
+        }
+        
+        .apply-filters {
+            margin-top: 10px;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .apply-filters:hover {
+            background-color: #e05d00;
+        }
+        
+        /* Cartes */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .entrepreneur-card, .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #EDF2F7;
+        }
+        
+        .entrepreneur-card:hover, .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .card-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+        
+        .card-content p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            background-color: var(--light-blue);
+            padding: 4px 10px;
+            border-radius: 50px;
+        }
+        
+        .meta-item i {
+            color: var(--primary);
+            font-size: 0.7rem;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-old-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .view-btn {
+            background-color: var(--light-blue);
+            color: var(--primary);
+            border: 1px solid #BEE3F8;
+        }
+        
+        .view-btn:hover {
+            background-color: #d0e2ff;
+        }
+        
+        .contact-btn {
+            background-color: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+        
+        .contact-btn:hover {
+            background-color: #e05d00;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #e05d00;
+        }
+        
+        /* Onglets de contenu */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+       /* Section Footer */
+    .footer-vijana {
+        background: var(--secondary);
+        color: var(--light);
+        padding: 80px 0 40px;
+        position: relative;
+        border-top: 4px solid var(--primary);
+    }
+
+    .footer-vijana::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23FF6B00" opacity="0.1"></path></svg>');
+        background-size: cover;
+        z-index: 1;
+    }
+
+    .container-vijana {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 60px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .brand-vijana {
+        position: relative;
+    }
+
+    .logo-vijana {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .logo-icon-vijana {
+        width: 55px;
+        height: 55px;
+        background: var(--primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        transform: rotate(-10deg);
+        box-shadow: var(--glow);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .logo-icon-vijana:hover {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    .logo-text-vijana {
+        font-size: 30px;
+        font-weight: 1000;
+        color: var(--light);
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .slogan-vijana {
+        font-size: 17px;
+        line-height: 1.8;
+        margin-bottom: 35px;
+        color: var(--light-blue);
+        font-weight: 400;
+    }
+
+    .cta-vijana {
+        display: inline-flex;
+        align-items: center;
+        background: var(--primary);
+        color: var(--light);
+        border: none;
+        padding: 16px 32px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 25px rgba(255, 107, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .cta-vijana:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+        background: linear-gradient(to right, var(--primary), #FF8C00);
+    }
+
+    .section-vijana h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+        color: var(--light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-vijana h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60%;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 4px;
+        transition: width 0.4s ease;
+    }
+
+    .section-vijana h3:hover::after {
+        width: 100%;
+    }
+
+    .links-vijana {
+        list-style: none;
+    }
+
+    .links-vijana li {
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover {
+        transform: translateX(5px);
+    }
+
+    .links-vijana li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover::before {
+        opacity: 1;
+        left: -5px;
+    }
+
+    .links-vijana a {
+        color: var(--light-blue);
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 4px 0;
+    }
+
+    .links-vijana a:hover {
+        color: var(--light);
+    }
+
+    .contact-vijana .item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover {
+        transform: translateX(5px);
+    }
+
+    .contact-vijana .icon {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--primary);
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover .icon {
+        background: var(--primary);
+        color: var(--light);
+        transform: rotate(15deg) scale(1.1);
+        box-shadow: var(--glow);
+    }
+
+    .contact-vijana .text {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--light-blue);
+    }
+
+    .social-vijana {
+        margin-top: 40px;
+    }
+
+    .social-vijana .title {
+        display: block;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--light);
+    }
+
+    .social-links-vijana {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-links-vijana a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--light);
+        font-size: 18px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .social-links-vijana a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .social-links-vijana a:hover {
+        transform: translateY(-5px) scale(1.1);
+    }
+
+    .social-links-vijana a:hover::before {
+        opacity: 1;
+    }
+
+    .social-links-vijana a i {
+        position: relative;
+        z-index: 2;
+    }
+
+    .copyright-vijana {
+        text-align: center;
+        margin-top: 80px;
+        padding-top: 30px;
+        position: relative;
+        font-size: 14px;
+        color: var(--light-blue);
+        z-index: 2;
+    }
+
+    .copyright-vijana::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+
+    .copyright-vijana a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .copyright-vijana a:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container-vijana {
+            grid-template-columns: 1fr;
+            gap: 50px;
+            padding: 0 30px;
+        }
+        
+        .logo-vijana {
+            margin-bottom: 25px;
+        }
+        
+        .copyright-vijana {
+            margin-top: 60px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-vijana {
+            padding: 60px 0 30px;
+        }
+        
+        .logo-icon-vijana {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .logo-text-vijana {
+            font-size: 28px;
+        }
+        
+        .cta-vijana {
+            padding: 14px 25px;
+            font-size: 15px;
+        }
+    }
+        
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            max-width: 900px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #EDF2F7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--light-blue);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-header h3 {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Styles spécifiques pour les détails projet/produit */
+        .detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-image {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .detail-price {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .detail-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .detail-meta {
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            margin-bottom: 0.8rem;
+            align-items: center;
+        }
+
+        .meta-item i {
+            width: 25px;
+            color: var(--primary);
+        }
+
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-tag {
+            background-color: var(--light-blue);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        /* Section entrepreneur dans le modal */
+        .entrepreneur-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #EDF2F7;
+        }
+
+        .entrepreneur-profile {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .entrepreneur-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .entrepreneur-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .entrepreneur-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Section commentaires */
+        .comments-section {
+            margin-top: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .comments-title {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comments-title i {
+            color: var(--primary);
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+            background: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .comment-form h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            font-family: 'Open Sans', sans-serif;
+            background-color: white;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-comment {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .submit-comment:hover {
+            background-color: #e05d00;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comment-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #EDF2F7;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comment-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .comment-rating {
+            color: var(--primary);
+            margin-left: auto;
+        }
+
+        .comment-text {
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #e05d00;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s;
+        }   
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Section commande produit */
+        .order-details {
+            background: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border: 1px solid #E2E8F0;
+        }
+
+        .order-details h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #CBD5E0;
+            background: white;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            color: var(--text);
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            padding: 0.3rem;
+            border: 1px solid #CBD5E0;
+            border-radius: 4px;
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .order-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        /* Boutons de partage */
+        .social-share {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-share span {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .social-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .facebook {
+            background-color: #3B5998;
+        }
+
+        .whatsapp {
+            background-color: #25D366;
+        }
+
+        .twitter {
+            background-color: #1DA1F2;
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.success {
+            background-color: var(--success);
+        }
+
+        .toast.warning {
+            background-color: var(--warning);
+        }
+
+        /* Bouton favori */
+        .favorite-btn.active i {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .filter-row {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+                     
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 40px 0;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+            }
+            
+            .detail-actions {
+                flex-direction: column;
+            }
+            
+            .tabs-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-container">
+        <div class="header-content">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <i class="fas fa-rocket"></i> VIJANA BOOST
+            </a>
+
+            <!-- Navigation Desktop -->
+            <nav class="nav-desktop">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Accueil</a></li>
+                    <li><a href="about.html" class="nav-link">À propos</a></li>
+                    <li><a href="services.html" class="nav-link">Services</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="Actualite.html" class="nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Boutons Auth Desktop -->
+            <div class="auth-buttons">
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-login">Connexion</a>
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-signup">Inscription</a>
+            </div>
+
+            <!-- Menu Hamburger Mobile -->
+            <button class="hamburger" aria-label="Menu mobile" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <nav class="nav-mobile">
+                <ul>
+                    <li><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                    <li><a href="about.html" class="mobile-nav-link">À propos</a></li>
+                    <li><a href="services.html" class="mobile-nav-link">Services</a></li>
+                    <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+                    <li><a href="Actualite.html" class="mobile-nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-auth">
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-login">Connexion</a>
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-signup">Inscription</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Marketplace Vijana Boost</h1>
+            <p>Découvrez et soutenez les projets innovants des jeunes entrepreneurs congolais ou achetez leurs produits et services de qualité</p>
+        </div>
+    </section>
+    
+    <!-- Tabs Navigation -->
+    <div class="container">
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="entrepreneurs">Jeunes Entrepreneurs</button>
+            <button class="tab-btn" data-tab="marketplace">Produits & Services</button>
+        </div>
+    </div>
+    
+    <!-- Section Entrepreneurs -->
+    <section id="entrepreneurs" class="section tab-content active">
+        <div class="container">
+            <div class="section-title">
+                <h2>Jeunes Entrepreneurs & Porteurs de Projets</h2>
+                <p>Découvrez et soutenez les projets innovants des jeunes entrepreneurs congolais</p>
+            </div>
+            
+            <div class="search-filter-container">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher des projets, entrepreneurs...">
+                    <button id="search-projects-btn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <form id="entrepreneur-filters">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="sector-filter">Secteur</label>
+                            <select id="sector-filter">
+                                <option value="">Tous les secteurs</option>
+                                <option value="agriculture">Agriculture</option>
+                                <option value="technologie">Technologie</option>
+                                <option value="manufacturing">Manufacture</option>
+                                <option value="education">Éducation</option>
+                                <option value="sante">Santé</option>
+                                <option value="energie">Énergie</option>
+                                <option value="construction">Construction</option>
+                                <option value="artisanat">Artisanat</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="opportunity-filter">Type d'opportunité</label>
+                            <select id="opportunity-filter">
+                                <option value="">Toutes les opportunités</option>
+                                <option value="investissement">Investissement</option>
+                                <option value="partenariat">Partenariat</option>
+                                <option value="mentorat">Mentorat</option>
+                                <option value="donation">Donation</option>
+                                <option value="collaboration">Collaboration</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="city-filter">Ville</label>
+                            <select id="city-filter">
+                                <option value="">Toutes les villes</option>
+                                <option value="kinshasa">Kinshasa</option>
+                                <option value="lubumbashi">Lubumbashi</option>
+                                <option value="mbuji-mayi">Mbuji-Mayi</option>
+                                <option value="kananga">Kananga</option>
+                                <option value="kisangani">Kisangani</option>
+                                <option value="bukavu">Bukavu</option>
+                                <option value="goma">Goma</option>
+                                <option value="matadi">Matadi</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="apply-filters">Appliquer les filtres</button>
+                </form>
+            </div>
+            
+            <div class="cards-grid" id="entrepreneurs-grid">
+                <!-- Carte Entrepreneur 1 -->
+                <div class="entrepreneur-card" data-sector="technologie" data-opportunity="investissement" data-city="kinshasa">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Technologie</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Plateforme de Livraison Intelligente</h3>
+                        <p>Solution logistique optimisant les livraisons dans les grandes villes grâce à l'IA</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Investissement</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kinshasa</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>Jean K.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="action-btn view-btn" onclick="showProjectDetails(1)">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="action-btn contact-btn" onclick="contactEntrepreneur(1)">
+                                <i class="fas fa-envelope"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carte Entrepreneur 2 -->
+                <div class="entrepreneur-card" data-sector="agriculture" data-opportunity="partenariat" data-city="lubumbashi">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Agriculture</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Ferme Agroécologique Moderne</h3>
+                        <p>Production biologique et transformation de produits agricoles dans le Haut-Katanga</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Partenariat</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Lubumbashi</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>Sarah M.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="action-btn view-btn" onclick="showProjectDetails(2)">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="action-btn contact-btn" onclick="contactEntrepreneur(2)">
+                                <i class="fas fa-envelope"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carte Entrepreneur 3 -->
+                <div class="entrepreneur-card" data-sector="education" data-opportunity="mentorat" data-city="goma">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Éducation</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Centre de Formation aux Métiers Numériques</h3>
+                        <p>Formation des jeunes aux compétences digitales pour améliorer leur employabilité</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Mentorat</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Goma</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>Patrick L.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="action-btn view-btn" onclick="showProjectDetails(3)">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="action-btn contact-btn" onclick="contactEntrepreneur(3)">
+                                <i class="fas fa-envelope"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carte Entrepreneur 4 -->
+                <div class="entrepreneur-card" data-sector="construction" data-opportunity="investissement" data-city="kinshasa">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Construction</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Logements Économiques Écologiques</h3>
+                        <p>Construction de maisons abordables utilisant des matériaux locaux et durables</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Investissement</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kinshasa</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>David K.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="action-btn view-btn" onclick="showProjectDetails(4)">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="action-btn contact-btn" onclick="contactEntrepreneur(4)">
+                                <i class="fas fa-envelope"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carte Entrepreneur 5 -->
+                <div class="entrepreneur-card" data-sector="artisanat" data-opportunity="collaboration" data-city="bukavu">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Artisanat</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Atelier de Céramique Traditionnelle</h3>
+                        <p>Création d'objets artisanaux inspirés du patrimoine culturel congolais</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Collaboration</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Bukavu</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>Marie T.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="action-btn view-btn" onclick="showProjectDetails(5)">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="action-btn contact-btn" onclick="contactEntrepreneur(5)">
+                                <i class="fas fa-envelope"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carte Entrepreneur 6 -->
+                <div class="entrepreneur-card" data-sector="sante" data-opportunity="donation" data-city="kisangani">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Santé</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Clinique Mobile pour Zones Rurales</h3>
+                        <p>Unités médicales mobiles apportant des soins de base aux populations isolées</p>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-handshake"></i>
+                                <span>Donation</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kisangani</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-user"></i>
+                                <span>Dr. Paul M.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="action-btn view-btn" onclick="showProjectDetails(6)">
+                                <i class="fas fa-eye"></i> Voir
+                            </button>
+                            <button class="action-btn contact-btn" onclick="contactEntrepreneur(6)">
+                                <i class="fas fa-envelope"></i> Contacter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Marketplace -->
+    <section id="marketplace" class="section tab-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>Marketplace des Produits & Services</h2>
+                <p>Découvrez et achetez des produits et services de qualité proposés par nos entrepreneurs</p>
+            </div>
+            
+            <div class="search-filter-container">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher des produits, services...">
+                    <button id="search-products-btn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <form id="marketplace-filters">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="category-filter">Catégorie</label>
+                            <select id="category-filter">
+                                <option value="">Toutes catégories</option>
+                                <option value="alimentaire">Alimentaire</option>
+                                <option value="artisanat">Artisanat</option>
+                                <option value="cosmetique">Cosmétique</option>
+                                <option value="textile">Textile & Mode</option>
+                                <option value="service">Services</option>
+                                <option value="technologie">Technologie</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="price-filter">Fourchette de prix</label>
+                            <select id="price-filter">
+                                <option value="">Tous prix</option>
+                                <option value="0-20">0 - 20$</option>
+                                <option value="20-50">20 - 50$</option>
+                                <option value="50-100">50 - 100$</option>
+                                <option value="100+">100$ et plus</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="delivery-filter">Livraison</label>
+                            <select id="delivery-filter">
+                                <option value="">Tous</option>
+                                <option value="local">Livraison locale</option>
+                                <option value="national">Livraison nationale</option>
+                                <option value="international">Envoi international</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="marketplace-city-filter">Ville</label>
+                            <select id="marketplace-city-filter">
+                                <option value="">Toutes les villes</option>
+                                <option value="kinshasa">Kinshasa</option>
+                                <option value="lubumbashi">Lubumbashi</option>
+                                <option value="mbuji-mayi">Mbuji-Mayi</option>
+                                <option value="kananga">Kananga</option>
+                                <option value="kisangani">Kisangani</option>
+                                <option value="bukavu">Bukavu</option>
+                                <option value="goma">Goma</option>
+                                <option value="matadi">Matadi</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="apply-filters">Appliquer les filtres</button>
+                </form>
+            </div>
+            
+            <div class="cards-grid" id="marketplace-grid">
+                <!-- Produit 1 -->
+                <div class="product-card" data-category="artisanat" data-price="15" data-delivery="international" data-city="bukavu">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Artisanat</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Paniers en Rafia Naturel</h3>
+                        <p>Paniers artisanaux tressés à la main avec des fibres 100% naturelles</p>
+                        
+                        <div class="product-price">
+                            $15.00 <span class="product-old-price">$20.00</span>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Bukavu</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-truck"></i>
+                                <span>International</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (24)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart" onclick="showProductDetails(1)">
+                            <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produit 2 -->
+                <div class="product-card" data-category="cosmetique" data-price="12.5" data-delivery="national" data-city="kinshasa">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Cosmétique</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Huile Essentielle de Moringa</h3>
+                        <p>Huile 100% pure aux multiples vertus cosmétiques et médicinales</p>
+                        
+                        <div class="product-price">
+                            $12.50
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kinshasa</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Nationale</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (37)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart" onclick="showProductDetails(2)">
+                            <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produit 3 -->
+                <div class="product-card" data-category="textile" data-price="18" data-delivery="local" data-city="lubumbashi">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Textile</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>T-shirts Wax Personnalisés</h3>
+                        <p>Créations uniques imprimées sur des tissus africains de qualité</p>
+                        
+                        <div class="product-price">
+                            $18.00
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Lubumbashi</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Locale</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.7 (42)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart" onclick="showProductDetails(3)">
+                            <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produit 4 -->
+                <div class="product-card" data-category="alimentaire" data-price="8" data-delivery="local" data-city="goma">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Alimentaire</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Café Arabica du Kivu</h3>
+                        <p>Café bio cultivé en altitude dans la région des Grands Lacs</p>
+                        
+                        <div class="product-price">
+                            $8.00
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Goma</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Locale</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.5 (56)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart" onclick="showProductDetails(4)">
+                            <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produit 5 -->
+                <div class="product-card" data-category="service" data-price="50" data-delivery="local" data-city="kinshasa">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Service</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Conception de Sites Web</h3>
+                        <p>Création de sites web professionnels adaptés aux petites entreprises</p>
+                        
+                        <div class="product-price">
+                            À partir de $50.00
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kinshasa</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-laptop"></i>
+                                <span>Service digital</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (18)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart" onclick="showProductDetails(5)">
+                            <i class="fas fa-shopping-cart"></i> Commander
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produit 6 -->
+                <div class="product-card" data-category="technologie" data-price="120" data-delivery="national" data-city="lubumbashi">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80')">
+                        <span class="card-badge">Technologie</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Chargeur Solaire Portable</h3>
+                        <p>Chargeur haute capacité avec panneau solaire intégré pour zones sans électricité</p>
+                        
+                        <div class="product-price">
+                            $120.00
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Lubumbashi</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Nationale</span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span>4.6 (31)</span>
+                            </div>
+                        </div>
+                        
+                        <button class="add-to-cart" onclick="showProductDetails(6)">
+                            <i class="fas fa-shopping-cart"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Footer -->
+
+    <footer class="footer-vijana">
+        <div class="container-vijana">
+            <!-- Brand Section -->
+            <div class="brand-vijana">
+                <div class="logo-vijana">
+                    <div class="logo-icon-vijana">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="logo-text-vijana">VIJANA BOOST</div>
+                </div>
+                <p class="slogan-vijana">
+                    La plateforme qui connecte les jeunes congolais aux meilleures opportunités professionnelles.
+                </p>
+                <button class="cta-vijana" id="ctaVijana">
+                    <i class="fas fa-download" style="margin-right: 12px;"></i> Télécharger l'app
+                </button>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="section-vijana">
+                <h3>Navigation</h3>
+                <ul class="links-vijana">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="Actualite.html">Actualités</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="section-vijana">
+                <h3>Nos Services</h3>
+                <ul class="links-vijana">
+                    <li><a href="emploi-stage.html">Emploi et Stage</a></li>
+                    <li><a href="formations.html">Formation Professionnelle</a></li>
+                    <li><a href="mentorat-coaching.html">Mentorat et Coaching</a></li>
+                    <li><a href="reseautage-professionnel.html">Réseautage Professionnel</a></li>
+                    <li><a href="marketplace.html">Marketplace Entrepreneuriale</a></li>
+                    <li><a href="ateliers-evenements.html">Ateliers et Événements</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div class="section-vijana contact-vijana">
+                <h3>Contacts</h3>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="text">Kinshasa, RDC</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="text">+243 824 919 938 <br>+243 892 612 200</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="text">ctshipadi2018@gmail.com <br>contact@vijanaboost.cd</div>
+                </div>
+                
+                <div class="social-vijana">
+                    <span class="title">Suivez-nous sur</span>
+                    <div class="social-links-vijana">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="copyright-vijana">
+            <p>© 2025 Vijana Boost. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a> | <a href="#">Mentions légales</a></p>
+        </div>
+    </footer>
+    
+    <!-- Modal Détail Projet -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Détails du Projet</h3>
+                <button class="close-btn" onclick="closeModal('project-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-container" id="project-detail-content">
+                    <!-- Contenu chargé dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Contact Entrepreneur -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Contacter l'Entrepreneur</h3>
+                <button class="close-btn" onclick="closeModal('contact-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="entrepreneur-profile">
+                    <img src="https://randomuser.me/api/portraits/men/42.jpg" class="entrepreneur-avatar" id="contact-entrepreneur-avatar">
+                    <div class="entrepreneur-info">
+                        <h4 id="contact-entrepreneur-name">Patrick M.</h4>
+                        <div class="entrepreneur-rating">
+                            <span>★★★★☆</span>
+                            <span>(12 avis)</span>
+                        </div>
+                        <div class="entrepreneur-location" id="contact-entrepreneur-location">
+                            <i class="fas fa-map-marker-alt"></i> Kinshasa, RDC
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="contact-form" style="margin-top: 2rem;">
+                    <div class="form-group">
+                        <label for="contact-subject">Sujet</label>
+                        <input type="text" id="contact-subject" class="form-control" placeholder="Objet de votre message" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" class="form-control" rows="6" placeholder="Détaillez votre demande..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Votre email</label>
+                        <input type="email" id="contact-email" class="form-control" placeholder="email@exemple.com" required>
+                    </div>
+                    <div class="form-actions" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn btn-outline" onclick="closeModal('contact-modal')">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Détail Produit -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Détails du Produit</h3>
+                <button class="close-btn" onclick="closeModal('product-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-container" id="product-detail-content">
+                    <!-- Contenu chargé dynamiquement -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Paiement -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3>Paiement Sécurisé</h3>
+                <button class="close-btn" onclick="closeModal('payment-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-methods">
+                    <div class="payment-method active" data-method="mobile">
+                        <img src="https://via.placeholder.com/80x40?text=Orange" alt="Orange Money">
+                        <img src="https://via.placeholder.com/80x40?text=M-Pesa" alt="M-Pesa">
+                        <img src="https://via.placeholder.com/80x40?text=Airtel" alt="Airtel Money">
+                    </div>
+                    <div class="payment-method" data-method="card">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                    </div>
+                </div>
+                
+                <div class="payment-form" id="mobile-payment-form">
+                    <div class="form-group">
+                        <label>Opérateur</label>
+                        <select class="form-control">
+                            <option>Orange Money</option>
+                            <option>M-Pesa</option>
+                            <option>Airtel Money</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Numéro de téléphone</label>
+                        <input type="tel" class="form-control" placeholder="+243 XX XXX XXXX">
+                    </div>
+                    <div class="order-details" style="margin-top: 1.5rem;">
+                        <div class="order-row">
+                            <span>Total à payer</span>
+                            <span class="order-total">$20.00</span>
+                        </div>
+                    </div>
+                    <button class="btn-submit" onclick="processPayment()" style="width: 100%; margin-top: 1.5rem;">
+                        Payer maintenant
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Hamburger
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const header = document.querySelector('.header-container');
+        
+        // Gestion du clic sur le hamburger
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Mise à jour de l'attribut ARIA
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            
+            // Empêcher le défilement lorsque le menu est ouvert
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Fermer le menu lorsqu'un lien est cliqué
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Animation du header au scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Animation du hamburger en croix
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.querySelectorAll('.hamburger-line').forEach((line, index) => {
+                    if (index === 0) {
+                        line.style.transform = 'translateY(7px) rotate(45deg)';
+                    } else if (index === 1) {
+                        line.style.opacity = '0';
+                    } else if (index === 2) {
+                        line.style.transform = 'translateY(-7px) rotate(-45deg)';
+                    }
+                });
+            } else {
+                this.querySelectorAll('.hamburger-line').forEach(line => {
+                    line.style.transform = '';
+                    line.style.opacity = '';
+                });
+            }
+        });
+
+        // Données des projets
+        const projectsData = [
+            {
+                id: 1,
+                title: "Plateforme de Livraison Intelligente",
+                description: "Notre solution utilise l'intelligence artificielle pour optimiser les routes de livraison dans les grandes villes congolaises, réduisant les coûts et les temps de livraison jusqu'à 40%. La plateforme connecte les commerçants, les livreurs et les clients via une application mobile intuitive. Nous recherchons des investisseurs pour développer la technologie et étendre notre réseau de livreurs partenaires.",
+                image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                sector: "technologie",
+                opportunity: "investissement",
+                city: "kinshasa",
+                investment: "$50,000",
+                tags: ["logistique", "IA", "mobilité"],
+                entrepreneur: {
+                    name: "Jean K.",
+                    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                    bio: "Ingénieur en informatique avec 5 ans d'expérience dans le développement d'applications mobiles. Passionné par les solutions technologiques pour les défis africains."
+                }
+            },
+            {
+                id: 2,
+                title: "Ferme Agroécologique Moderne",
+                description: "Notre ferme de 10 hectares dans la région du Katanga combine techniques agricoles modernes et savoir-faire traditionnel pour produire des cultures biologiques à haut rendement. Nous transformons également nos produits sur place (confitures, jus, farines) pour augmenter la valeur ajoutée. Nous cherchons des partenaires pour développer nos canaux de distribution et exporter vers la région.",
+                image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                sector: "agriculture",
+                opportunity: "partenariat",
+                city: "lubumbashi",
+                investment: "$30,000",
+                tags: ["agriculture biologique", "transformation", "export"],
+                entrepreneur: {
+                    name: "Sarah M.",
+                    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                    bio: "Agronome formée à l'Université de Lubumbashi, spécialisée dans les techniques agricoles durables. A travaillé avec des coopératives agricoles pendant 3 ans avant de lancer son projet."
+                }
+            },
+            {
+                id: 3,
+                title: "Centre de Formation aux Métiers Numériques",
+                description: "Notre centre offre des formations pratiques en développement web, design graphique et marketing digital aux jeunes défavorisés de Goma. Les cours sont dispensés par des professionnels et incluent un accompagnement vers l'emploi ou l'entrepreneuriat. Nous recherchons des mentors bénévoles et du matériel informatique pour équiper notre nouveau campus.",
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                sector: "education",
+                opportunity: "mentorat",
+                city: "goma",
+                investment: "$25,000",
+                tags: ["formation", "numérique", "insertion"],
+                entrepreneur: {
+                    name: "Patrick L.",
+                    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+                    bio: "Développeur full-stack avec une passion pour l'éducation. A fondé plusieurs startups tech avant de se consacrer à la formation des jeunes dans sa région natale."
+                }
+            },
+            {
+                id: 4,
+                title: "Logements Économiques Écologiques",
+                description: "Nous construisons des maisons abordables utilisant des matériaux locaux et des techniques de construction durables (terre stabilisée, toits végétalisés). Nos modèles vont du studio à 5 pièces, avec des prix 30% inférieurs au marché. Nous cherchons des investisseurs pour acquérir des terrains et développer nos prototypes à plus grande échelle.",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                sector: "construction",
+                opportunity: "investissement",
+                city: "kinshasa",
+                investment: "$75,000",
+                tags: ["habitat", "écoconstruction", "matériaux locaux"],
+                entrepreneur: {
+                    name: "David K.",
+                    avatar: "https://randomuser.me/api/portraits/men/45.jpg",
+                    bio: "Architecte spécialisé dans les constructions durables. A travaillé sur des projets d'habitat social en Afrique de l'Ouest avant de revenir appliquer son expertise en RDC."
+                }
+            },
+            {
+                id: 5,
+                title: "Atelier de Céramique Traditionnelle",
+                description: "Nous produisons des objets artisanaux en céramique inspirés du patrimoine culturel congolais (vases, sculptures, vaisselle). Chaque pièce est unique et fabriquée à la main par des artisans locaux formés aux techniques traditionnelles. Nous cherchons des collaborations avec des boutiques et galeries d'art pour élargir notre distribution.",
+                image: "https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                sector: "artisanat",
+                opportunity: "collaboration",
+                city: "bukavu",
+                investment: "$15,000",
+                tags: ["artisanat", "culture", "savoir-faire"],
+                entrepreneur: {
+                    name: "Marie T.",
+                    avatar: "https://randomuser.me/api/portraits/women/33.jpg",
+                    bio: "Artiste céramiste formée aux Beaux-Arts de Kinshasa. Travaille depuis 10 ans à préserver et moderniser les techniques traditionnelles de poterie congolaise."
+                }
+            },
+            {
+                id: 6,
+                title: "Clinique Mobile pour Zones Rurales",
+                description: "Nos unités médicales mobiles apportent des soins de base et des campagnes de prévention dans les villages isolés du Nord-Kivu. Chaque unité est équipée pour les consultations, les tests de base et les petites interventions. Nous dépendons des dons pour maintenir nos activités et étendre notre couverture géographique.",
+                image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                sector: "sante",
+                opportunity: "donation",
+                city: "kisangani",
+                investment: "$40,000",
+                tags: ["santé", "mobile", "communauté"],
+                entrepreneur: {
+                    name: "Dr. Paul M.",
+                    avatar: "https://randomuser.me/api/portraits/men/55.jpg",
+                    bio: "Médecin généraliste engagé dans l'accès aux soins pour tous. A travaillé avec Médecins Sans Frontières avant de lancer cette initiative locale."
+                }
+            }
+        ];
+
+        // Données des produits
+        const productsData = [
+            {
+                id: 1,
+                title: "Paniers en Rafia Naturel",
+                description: "Ces paniers artisanaux sont tressés à la main par des artisans locaux utilisant des fibres de rafia 100% naturelles. Chaque pièce est unique et fabriquée avec soin. Les paniers sont disponibles en plusieurs tailles (petit: 20cm, moyen: 30cm, grand: 40cm) et peuvent être personnalisés sur demande avec des motifs traditionnels ou des initiales. Parfait pour le rangement ou comme élément décoratif ethnique chic. Livraison soignée dans un emballage écologique.",
+                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                category: "artisanat",
+                seller: "Artisans du Kivu",
+                city: "bukavu",
+                price: 15.00,
+                oldPrice: 20.00,
+                delivery: "international",
+                tags: ["fait main", "écologique", "décoratif"]
+            },
+            {
+                id: 2,
+                title: "Huile Essentielle de Moringa",
+                description: "Notre huile de Moringa est extraite à froid pour préserver toutes ses propriétés bénéfiques. Riche en antioxydants, vitamines A, C et E, et acides gras essentiels, elle est idéale pour les soins de la peau (hydratation, anti-âge) et des cheveux (stimulation de la pousse, brillance). 100% pure et naturelle, sans additifs ni conservateurs. Conditionnée dans des flacons en verre violet de 30ml pour protéger des UV. Livraison avec notice d'utilisation détaillée en français et anglais.",
+                image: "https://images.unsplash.com/photo-1560343090-f0409e92791a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                category: "cosmetique",
+                seller: "Nature RDC",
+                city: "kinshasa",
+                price: 12.50,
+                oldPrice: 0,
+                delivery: "national",
+                tags: ["bio", "beauté", "soin naturel"]
+            },
+            {
+                id: 3,
+                title: "T-shirts Wax Personnalisés",
+                description: "Nos T-shirts sont confectionnés à partir de wax africain de qualité supérieure, sélectionné pour sa résistance et ses couleurs vives. Chaque design est unique et inspiré de la culture congolaise (motifs traditionnels, symboles, paysages). Disponibles en plusieurs tailles (S à XXL) et modèles (col rond, V, manches longues). Possibilité de personnalisation avec des motifs ou textes supplémentaires (supplément selon complexité). Lavage à 30°C recommandé pour préserver les couleurs.",
+                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                category: "textile",
+                seller: "Wax & Style",
+                city: "lubumbashi",
+                price: 18.00,
+                oldPrice: 0,
+                delivery: "local",
+                tags: ["mode", "wax", "personnalisable"]
+            },
+            {
+                id: 4,
+                title: "Café Arabica du Kivu",
+                description: "Notre café est cultivé en altitude (1500-2000m) dans la région des Grands Lacs, réputée pour son terroir exceptionnel. Les cerises sont récoltées à la main, puis séchées et torréfiées artisanalement pour développer des arômes complexes avec des notes de fruits rouges et de cacao. Conditionné en sachet de 250g avec valve de conservation. 100% Arabica, bio et équitable. Livré avec des conseils de préparation pour une dégustation optimale. Parfait pour les amateurs de café de spécialité.",
+                image: "https://images.unsplash.com/photo-1550583724-b2692b85b150?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                category: "alimentaire",
+                seller: "Kivu Coffee Co.",
+                city: "goma",
+                price: 8.00,
+                oldPrice: 10.00,
+                delivery: "local",
+                tags: ["gourmet", "bio", "torréfaction artisanale"]
+            },
+            {
+                id: 5,
+                title: "Conception de Sites Web",
+                description: "Service complet de création de sites web professionnels adaptés aux petites entreprises et entrepreneurs. Nous proposons :\n- Sites vitrine (5 pages) avec design responsive\n- Sites e-commerce avec paiement en ligne\n- Hébergement et nom de domaine inclus la première année\n- Formation à la gestion du contenu\n- Référencement SEO de base\nTous nos sites sont optimisés pour les connexions mobiles et lents. Exemples de réalisations disponibles sur demande. Premier rendez-vous de consultation gratuit pour discuter de vos besoins.",
+                image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                category: "service",
+                seller: "Digital Congo",
+                city: "kinshasa",
+                price: 50.00,
+                oldPrice: 0,
+                delivery: "local",
+                tags: ["web", "digital", "création site"]
+            },
+            {
+                id: 6,
+                title: "Chargeur Solaire Portable",
+                description: "Chargeur haute capacité (20,000mAh) avec panneau solaire intégré, idéal pour les zones sans accès fiable à l'électricité. Caractéristiques :\n- 2 ports USB (2.4A et 1A)\n- LED indicateur de charge\n- Résistant aux chocs et à l'eau (IP65)\n- Temps de charge solaire : 8-10h (plein soleil)\n- Poids léger : 350g\nInclus : câble micro-USB et notice en français. Parfait pour les voyageurs, randonneurs et personnes vivant en zones rurales. Garantie 1 an contre les défauts de fabrication.",
+                image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80",
+                category: "technologie",
+                seller: "SolarTech RDC",
+                city: "lubumbashi",
+                price: 120.00,
+                oldPrice: 150.00,
+                delivery: "national",
+                tags: ["solaire", "énergie", "portable"]
+            }
+        ];
+
+        // Fonctions utilitaires
+        function getSectorName(sector) {
+            const sectors = {
+                'agriculture': 'Agriculture',
+                'technologie': 'Technologie',
+                'manufacturing': 'Manufacture',
+                'education': 'Éducation',
+                'sante': 'Santé',
+                'energie': 'Énergie',
+                'construction': 'Construction',
+                'artisanat': 'Artisanat'
+            };
+            return sectors[sector] || sector;
+        }
+
+        function getOpportunityName(opportunity) {
+            const opportunities = {
+                'investissement': 'Investissement',
+                'partenariat': 'Partenariat',
+                'mentorat': 'Mentorat',
+                'donation': 'Donation',
+                'collaboration': 'Collaboration'
+            };
+            return opportunities[opportunity] || opportunity;
+        }
+
+        function getCityName(city) {
+            const cities = {
+                'kinshasa': 'Kinshasa',
+                'lubumbashi': 'Lubumbashi',
+                'mbuji-mayi': 'Mbuji-Mayi',
+                'kananga': 'Kananga',
+                'kisangani': 'Kisangani',
+                'bukavu': 'Bukavu',
+                'goma': 'Goma',
+                'matadi': 'Matadi'
+            };
+            return cities[city] || city;
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'alimentaire': 'Alimentaire',
+                'artisanat': 'Artisanat',
+                'cosmetique': 'Cosmétique',
+                'textile': 'Textile & Mode',
+                'service': 'Services',
+                'technologie': 'Technologie'
+            };
+            return categories[category] || category;
+        }
+
+        // Fonctions pour les modals
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Fermeture en cliquant à l'extérieur
+            const modal = document.getElementById(modalId);
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeModal(modalId);
+            });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fonction pour afficher les détails d'un projet
+        function showProjectDetails(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+
+            const modalContent = document.getElementById('project-detail-content');
+            modalContent.innerHTML = `
+                <div class="detail-image" style="background-image: url('${project.image}')"></div>
+                <div class="detail-info">
+                    <h2 class="detail-title">${project.title}</h2>
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-industry"></i>
+                            <span>Secteur: ${getSectorName(project.sector)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-handshake"></i>
+                            <span>Type d'opportunité: ${getOpportunityName(project.opportunity)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Localisation: ${getCityName(project.city)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Investissement recherché: ${project.investment}</span>
+                        </div>
+                    </div>
+                    <p class="detail-description">${project.description}</p>
+                    <div class="detail-tags">
+                        ${project.tags.map(tag => `<span class="detail-tag">#${tag}</span>`).join('')}
+                    </div>
+                    
+                    <div class="social-share">
+                        <span>Partager :</span>
+                        <button class="social-btn facebook" onclick="shareOnFacebook('${project.title}', '${window.location.href}?project=${project.id}')">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="social-btn whatsapp" onclick="shareOnWhatsapp('Découvre ce projet sur Vijana Boost: ${project.title} - ${window.location.href}?project=${project.id}')">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="social-btn twitter" onclick="shareOnTwitter('Je viens de découvrir ce projet sur @VijanaBoost: ${project.title} - ${window.location.href}?project=${project.id}')">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="detail-actions">
+                        <button class="action-btn contact-btn" onclick="contactEntrepreneur(${project.id})">
+                            <i class="fas fa-envelope"></i> Contacter
+                        </button>
+                        <button class="action-btn view-btn favorite-btn" onclick="toggleFavorite(this, ${project.id}, 'project')">
+                            <i class="far fa-heart"></i> Favoris
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="entrepreneur-section">
+                    <h3><i class="fas fa-user-tie"></i> Porteur du Projet</h3>
+                    <div class="entrepreneur-profile">
+                        <img src="${project.entrepreneur.avatar}" class="entrepreneur-avatar">
+                        <div class="entrepreneur-info">
+                            <h4>${project.entrepreneur.name}</h4>
+                            <p style="margin-bottom: 0.5rem; color: var(--text);">${project.entrepreneur.bio}</p>
+                            <div class="entrepreneur-rating">
+                                <span>★★★★☆</span>
+                                <span>(12 avis)</span>
+                            </div>
+                            <div class="entrepreneur-location">
+                                <i class="fas fa-map-marker-alt"></i> ${getCityName(project.city)}, RDC
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="comments-section">
+                    <h3 class="comments-title"><i class="fas fa-comments"></i> Commentaires (3)</h3>
+                    
+                    <div class="comment-form">
+                        <h4>Ajouter un commentaire</h4>
+                        <form id="project-comment-form">
+                            <div class="form-group">
+                                <label for="project-comment-rating">Note</label>
+                                <select id="project-comment-rating" class="form-control">
+                                    <option value="5">★★★★★ Excellent</option>
+                                    <option value="4">★★★★☆ Très bien</option>
+                                    <option value="3">★★★☆☆ Bien</option>
+                                    <option value="2">★★☆☆☆ Moyen</option>
+                                    <option value="1">★☆☆☆☆ Décevant</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="project-comment-text">Votre commentaire</label>
+                                <textarea id="project-comment-text" class="form-control" placeholder="Dites-nous ce que vous pensez de ce projet..." required></textarea>
+                            </div>
+                            <button type="submit" class="submit-comment">Publier</button>
+                        </form>
+                    </div>
+                    
+                    <div class="comments-list">
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="comment-avatar">
+                                <div>
+                                    <div class="comment-author">Jean K.</div>
+                                    <div class="comment-date">15 Mars 2023</div>
+                                </div>
+                                <div class="comment-rating">★★★★★</div>
+                            </div>
+                            <div class="comment-text">
+                                Ce projet est très innovant et répond à un réel besoin dans notre pays. J'apprécie particulièrement l'approche écologique. Je serais intéressé pour en savoir plus sur les opportunités d'investissement.
+                            </div>
+                        </div>
+                        
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="comment-avatar">
+                                <div>
+                                    <div class="comment-author">Sarah M.</div>
+                                    <div class="comment-date">10 Mars 2023</div>
+                                </div>
+                                <div class="comment-rating">★★★★☆</div>
+                            </div>
+                            <div class="comment-text">
+                                Bonne initiative, mais je me demande comment vous allez gérer la concurrence sur ce marché déjà assez saturé. Avez-vous fait une étude de marché approfondie ?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Gestion de la soumission du formulaire de commentaire
+            const commentForm = document.getElementById('project-comment-form');
+            commentForm.onsubmit = function(e) {
+                e.preventDefault();
+                
+                const rating = document.getElementById('project-comment-rating').value;
+                const text = document.getElementById('project-comment-text').value.trim();
+                
+                if (!text) {
+                    showToast('Veuillez écrire un commentaire', 'warning');
+                    return;
+                }
+                
+                // Simulation de publication
+                setTimeout(() => {
+                    showToast('Votre commentaire a été publié avec succès!', 'success');
+                    document.getElementById('project-comment-text').value = '';
+                }, 1000);
+            };
+
+            openModal('project-modal');
+        }
+
+        // Fonction pour contacter un entrepreneur
+        function contactEntrepreneur(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (!project) return;
+            
+            document.getElementById('contact-entrepreneur-name').textContent = project.entrepreneur.name;
+            document.getElementById('contact-entrepreneur-avatar').src = project.entrepreneur.avatar;
+            document.getElementById('contact-entrepreneur-location').innerHTML = 
+                `<i class="fas fa-map-marker-alt"></i> ${getCityName(project.city)}, RDC`;
+            
+            document.getElementById('contact-subject').value = `À propos de votre projet: ${project.title}`;
+            
+            closeModal('project-modal');
+            openModal('contact-modal');
+        }
+
+        // Fonction pour afficher les détails d'un produit
+        function showProductDetails(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            const modalContent = document.getElementById('product-detail-content');
+            modalContent.innerHTML = `
+                <div class="detail-image" style="background-image: url('${product.image}')"></div>
+                <div class="detail-info">
+                    <h2 class="detail-title">${product.title}</h2>
+                    <div class="detail-price">
+                        $${product.price.toFixed(2)}
+                        ${product.oldPrice > 0 ? `<span class="product-old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                    </div>
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-tag"></i>
+                            <span>Catégorie: ${getCategoryName(product.category)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-store"></i>
+                            <span>Vendeur: ${product.seller}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Localisation: ${getCityName(product.city)}</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Livraison: ${product.delivery === 'international' ? 'Envoi international' : 
+                                product.delivery === 'national' ? 'Livraison nationale' : 'Retrait sur place'}</span>
+                        </div>
+                    </div>
+                    <p class="detail-description">${product.description.replace(/\n/g, '<br>')}</p>
+                    
+                    <div class="detail-tags">
+                        ${product.tags.map(tag => `<span class="detail-tag">#${tag}</span>`).join('')}
+                    </div>
+                    
+                    <div class="social-share">
+                        <span>Partager :</span>
+                        <button class="social-btn facebook" onclick="shareOnFacebook('${product.title}', '${window.location.href}?product=${product.id}')">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="social-btn whatsapp" onclick="shareOnWhatsapp('Découvre ce produit sur Vijana Boost: ${product.title} - ${window.location.href}?product=${product.id}')">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="social-btn twitter" onclick="shareOnTwitter('Je viens de découvrir ce produit sur @VijanaBoost: ${product.title} - ${window.location.href}?product=${product.id}')">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="detail-actions">
+                        <button class="action-btn contact-btn" onclick="contactSeller(${product.id})">
+                            <i class="fas fa-envelope"></i> Contacter
+                        </button>
+                        <button class="action-btn view-btn favorite-btn" onclick="toggleFavorite(this, ${product.id}, 'product')">
+                            <i class="far fa-heart"></i> Favoris
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="order-details">
+                    <h4><i class="fas fa-shopping-cart"></i> Passer commande</h4>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn minus">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1">
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    
+                    <div class="order-row">
+                        <span>Prix unitaire</span>
+                        <span id="unit-price">$${product.price.toFixed(2)}</span>
+                    </div>
+                    <div class="order-row">
+                        <span>Livraison</span>
+                        <span id="delivery-price">${product.delivery === 'international' ? '$10.00' : 
+                            product.delivery === 'national' ? '$5.00' : 'Gratuit'}</span>
+                    </div>
+                    <div class="order-row order-total">
+                        <span>Total</span>
+                        <span id="total-price">$${(product.price + (product.delivery === 'international' ? 10 : 
+                            product.delivery === 'national' ? 5 : 0)).toFixed(2)}</span>
+                    </div>
+                    
+                    <button class="add-to-cart" style="width: 100%; margin-top: 1rem;" onclick="openPaymentModal(${product.id})">
+                        <i class="fas fa-shopping-cart"></i> Commander maintenant
+                    </button>
+                </div>
+                
+                <div class="comments-section">
+                    <h3 class="comments-title"><i class="fas fa-comments"></i> Avis clients (5)</h3>
+                    
+                    <div class="comment-form">
+                        <h4>Ajouter un avis</h4>
+                        <form id="product-comment-form">
+                            <div class="form-group">
+                                <label for="product-comment-rating">Note</label>
+                                <select id="product-comment-rating" class="form-control">
+                                    <option value="5">★★★★★ Excellent</option>
+                                    <option value="4">★★★★☆ Très bien</option>
+                                    <option value="3">★★★☆☆ Bien</option>
+                                    <option value="2">★★☆☆☆ Moyen</option>
+                                    <option value="1">★☆☆☆☆ Décevant</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-comment-text">Votre avis</label>
+                                <textarea id="product-comment-text" class="form-control" placeholder="Dites-nous ce que vous pensez de ce produit..." required></textarea>
+                            </div>
+                            <button type="submit" class="submit-comment">Publier</button>
+                        </form>
+                    </div>
+                    
+                    <div class="comments-list">
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="comment-avatar">
+                                <div>
+                                    <div class="comment-author">Marie T.</div>
+                                    <div class="comment-date">20 Mars 2023</div>
+                                </div>
+                                <div class="comment-rating">★★★★★</div>
+                            </div>
+                            <div class="comment-text">
+                                Produit de très haute qualité, exactement comme sur la description. Livraison rapide et emballage soigné. Je recommande ce vendeur !
+                            </div>
+                        </div>
+                        
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" class="comment-avatar">
+                                <div>
+                                    <div class="comment-author">Paul K.</div>
+                                    <div class="comment-date">15 Mars 2023</div>
+                                </div>
+                                <div class="comment-rating">★★★★☆</div>
+                            </div>
+                            <div class="comment-text">
+                                Bon produit dans l'ensemble, mais la taille était légèrement différente de ce que j'attendais. Le service client a été réactif pour résoudre le problème.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Gestion de la quantité
+            const quantityInput = document.querySelector('#product-modal .quantity-input');
+            const minusBtn = document.querySelector('#product-modal .quantity-btn.minus');
+            const plusBtn = document.querySelector('#product-modal .quantity-btn.plus');
+            
+            minusBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value) || 1;
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                    updateTotalPrice(product.price, product.delivery);
+                }
+            });
+            
+            plusBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value) || 1;
+                quantityInput.value = value + 1;
+                updateTotalPrice(product.price, product.delivery);
+            });
+            
+            quantityInput.addEventListener('change', () => {
+                updateTotalPrice(product.price, product.delivery);
+            });
+
+            // Gestion de la soumission du formulaire d'avis
+            const commentForm = document.getElementById('product-comment-form');
+            commentForm.onsubmit = function(e) {
+                e.preventDefault();
+                
+                const rating = document.getElementById('product-comment-rating').value;
+                const text = document.getElementById('product-comment-text').value.trim();
+                
+                if (!text) {
+                    showToast('Veuillez écrire un avis', 'warning');
+                    return;
+                }
+                
+                // Simulation de publication
+                setTimeout(() => {
+                    showToast('Votre avis a été publié avec succès!', 'success');
+                    document.getElementById('product-comment-text').value = '';
+                }, 1000);
+            };
+
+            openModal('product-modal');
+        }
+
+        // Fonction pour contacter le vendeur
+        function contactSeller(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+            
+            document.getElementById('contact-entrepreneur-name').textContent = product.seller;
+            document.getElementById('contact-entrepreneur-avatar').src = 'https://randomuser.me/api/portraits/' + 
+                (Math.random() > 0.5 ? 'men' : 'women') + '/' + Math.floor(Math.random() * 50) + '.jpg';
+            document.getElementById('contact-entrepreneur-location').innerHTML = 
+                `<i class="fas fa-map-marker-alt"></i> ${getCityName(product.city)}, RDC`;
+            
+            document.getElementById('contact-subject').value = `À propos de votre produit: ${product.title}`;
+            
+            closeModal('product-modal');
+            openModal('contact-modal');
+        }
+
+        // Fonction pour mettre à jour le prix total
+        function updateTotalPrice(unitPrice, deliveryType) {
+            const quantity = parseInt(document.querySelector('#product-modal .quantity-input').value) || 1;
+            let deliveryFee = 0;
+            
+            if (deliveryType === 'international') {
+                deliveryFee = 10;
+            } else if (deliveryType === 'national') {
+                deliveryFee = 5;
+            }
+            
+            const total = (unitPrice * quantity) + deliveryFee;
+            document.getElementById('total-price').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Fonction pour ouvrir le modal de paiement
+        function openPaymentModal(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+            
+            const quantity = parseInt(document.querySelector('#product-modal .quantity-input').value) || 1;
+            let deliveryFee = 0;
+            
+            if (product.delivery === 'international') {
+                deliveryFee = 10;
+            } else if (product.delivery === 'national') {
+                deliveryFee = 5;
+            }
+            
+            const total = (product.price * quantity) + deliveryFee;
+            document.querySelector('#payment-modal .order-total').textContent = `$${total.toFixed(2)}`;
+            
+            closeModal('product-modal');
+            openModal('payment-modal');
+        }
+
+        // Fonction pour traiter le paiement
+        function processPayment() {
+            showToast('Paiement en cours de traitement...');
+            setTimeout(() => {
+                closeModal('payment-modal');
+                showToast('Paiement effectué avec succès !', 'success');
+            }, 2000);
+        }
+
+        // Fonction pour basculer les favoris
+        function toggleFavorite(btn, itemId, type) {
+            btn.classList.toggle('active');
+            const icon = btn.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
+            
+            // Sauvegarder en localStorage
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || { projects: [], products: [] };
+            
+            if (type === 'project') {
+                const index = favorites.projects.indexOf(itemId);
+                if (index === -1) {
+                    favorites.projects.push(itemId);
+                } else {
+                    favorites.projects.splice(index, 1);
+                }
+            } else {
+                const index = favorites.products.indexOf(itemId);
+                if (index === -1) {
+                    favorites.products.push(itemId);
+                } else {
+                    favorites.products.splice(index, 1);
+                }
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            
+            // Afficher une notification
+            showToast(btn.classList.contains('active') ? 'Ajouté aux favoris' : 'Retiré des favoris');
+        }
+
+        // Fonctions de partage
+        function shareOnFacebook(title, url) {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`, '_blank');
+        }
+
+        function shareOnWhatsapp(text) {
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function shareOnTwitter(text) {
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Fonction pour afficher des notifications toast
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // Filtrage des projets
+        function filterProjects() {
+            const sector = document.getElementById('sector-filter').value;
+            const opportunity = document.getElementById('opportunity-filter').value;
+            const city = document.getElementById('city-filter').value;
+            
+            const cards = document.querySelectorAll('#entrepreneurs-grid .entrepreneur-card');
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const cardSector = card.dataset.sector;
+                const cardOpportunity = card.dataset.opportunity;
+                const cardCity = card.dataset.city;
+                
+                const sectorMatch = !sector || cardSector === sector;
+                const opportunityMatch = !opportunity || cardOpportunity === opportunity;
+                const cityMatch = !city || cardCity === city;
+                
+                if (sectorMatch && opportunityMatch && cityMatch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Message de résultats
+            const message = visibleCount === 0 ? 
+                'Aucun projet ne correspond à vos critères' :
+                `${visibleCount} projet(s) trouvé(s)`;
+            
+            showToast(message, visibleCount > 0 ? 'success' : 'warning');
+        }
+
+        // Filtrage des produits
+        function filterProducts() {
+            const category = document.getElementById('category-filter').value;
+            const priceRange = document.getElementById('price-filter').value;
+            const delivery = document.getElementById('delivery-filter').value;
+            const city = document.getElementById('marketplace-city-filter').value;
+            
+            // Convertir la fourchette de prix
+            let minPrice = 0, maxPrice = Infinity;
+            if (priceRange) {
+                const [min, max] = priceRange.split('-').map(Number);
+                minPrice = min || 0;
+                maxPrice = max || (priceRange.endsWith('+') ? Infinity : minPrice);
+            }
+            
+            const cards = document.querySelectorAll('#marketplace-grid .product-card');
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                const cardPrice = parseFloat(card.dataset.price);
+                const cardDelivery = card.dataset.delivery;
+                const cardCity = card.dataset.city;
+                
+                const categoryMatch = !category || cardCategory === category;
+                const priceMatch = cardPrice >= minPrice && cardPrice <= maxPrice;
+                const deliveryMatch = !delivery || cardDelivery === delivery;
+                const cityMatch = !city || cardCity === city;
+                
+                if (categoryMatch && priceMatch && deliveryMatch && cityMatch) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Message de résultats
+            const message = visibleCount === 0 ? 
+                'Aucun produit ne correspond à vos critères' :
+                `${visibleCount} produit(s) trouvé(s)`;
+            
+            showToast(message, visibleCount > 0 ? 'success' : 'warning');
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion de la touche ESC pour fermer les modals
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const openModal = document.querySelector('.modal[style="display: block;"]');
+                    if (openModal) closeModal(openModal.id);
+                }
+            });
+
+            // Configuration des onglets
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Désactiver tous les onglets
+                    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Activer l'onglet cliqué
+                    btn.classList.add('active');
+                    const tabId = btn.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Filtrage des entrepreneurs
+            document.getElementById('entrepreneur-filters').addEventListener('submit', function(e) {
+                e.preventDefault();
+                filterProjects();
+            });
+
+            // Filtrage des produits
+            document.getElementById('marketplace-filters').addEventListener('submit', function(e) {
+                e.preventDefault();
+                filterProducts();
+            });
+
+            // Bouton de recherche projets
+            document.getElementById('search-projects-btn').addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-search"></i>';
+                    showToast('Recherche effectuée', 'success');
+                }, 800);
+            });
+
+            // Bouton de recherche produits
+            document.getElementById('search-products-btn').addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-search"></i>';
+                    showToast('Recherche effectuée', 'success');
+                }, 800);
+            });
+
+            // Soumission du formulaire de contact
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const subject = document.getElementById('contact-subject').value;
+                const message = document.getElementById('contact-message').value;
+                const email = document.getElementById('contact-email').value;
+                
+                if (!subject || !message || !email) {
+                    showToast('Veuillez remplir tous les champs', 'warning');
+                    return;
+                }
+                
+                // Simulation d'envoi
+                showToast('Message envoyé avec succès!', 'success');
+                closeModal('contact-modal');
+                
+                // Réinitialisation du formulaire
+                this.reset();
+            });
+        });
+    </script>
+
+    <!-- =================== Scripts pour le footer ================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation du bouton CTA
+        const ctaButton = document.getElementById('ctaVijana');
+        
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', function() {
+                this.querySelector('i').style.transform = 'rotate(360deg)';
+                this.querySelector('i').style.transition = 'transform 0.6s ease';
+            });
+            
+            ctaButton.addEventListener('mouseleave', function() {
+                this.querySelector('i').style.transform = 'rotate(0deg)';
+            });
+        }
+        
+        // Animation des icônes de contact
+        const contactIcons = document.querySelectorAll('.contact-vijana .icon');
+        contactIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(15deg) scale(1.1)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0deg) scale(1)';
+            });
+        });
+        
+        // Effet de soulignement dynamique
+        const navLinks = document.querySelectorAll('.links-vijana a');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.fontWeight = '500';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.fontWeight = '400';
+            });
+        });
+    });
+    </script>
+</body>
+</html>

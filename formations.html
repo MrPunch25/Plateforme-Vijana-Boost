@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations Professionnelles | Vijana Boost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0033A0;
+            --secondary:  #FF6B00;
+            --dark: #1A1A1A;
+            --light:#FFFFFF;
+            --success: #28A745;
+            --danger: #DC3545;
+            --header-height: 80px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+        }
+        
+        /* Header Styles */
+    header {
+        background-color: var(--light);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        padding: 0 5%;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .logo img {
+        height: 36px;
+    }
+
+    .logo-text {
+        color: var(--secondary);
+        font-size: 2.3rem;
+        margin-left: 8px;
+        font-weight: 700;
+    }
+
+    .logo-text span {
+        color: var(--primary);
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .nav-links li {
+        margin-left: 1.8rem;
+        position: relative;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--primary);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 700;
+        transition: color 0.3s;
+        font-size: 0.96rem;
+        position: relative;
+        padding: 0.3rem 0;
+        white-space: nowrap;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--secondary);
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+        width: 100%;
+    }
+
+    .nav-links a:hover {
+        color: var(--secondary);
+    }
+
+    .nav-links a.active {
+        color: var(--secondary);
+    }
+
+    .auth-buttons {
+        display: flex;
+        align-items: center;
+        margin-left: 1.5rem;
+        gap: 0.8rem;
+    }
+
+    .login-btn {
+        background-color: transparent;
+        color: var(--secondary);
+        border: 2px solid var(--secondary);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.90rem;
+        
+    }
+
+    .login-btn:hover {
+        background-color: var(--secondary);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .register-btn {
+        background-color: var(--secondary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.85rem;
+        box-shadow: 0 3px 12px rgba(255, 107, 0, 0.25);
+    }
+
+    .register-btn:hover {
+        background-color: var(--light);
+        color: var(--secondary);
+        border: 2px solid var(--secondary);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 107, 0, 0.35);
+    }
+
+    .hamburger {
+        display: none;
+        cursor: pointer;
+        width: 26px;
+        height: 20px;
+        position: relative;
+        z-index: 1001;
+    }
+
+    .hamburger span {
+        display: block;
+        position: absolute;
+        height: 2.5px;
+        width: 100%;
+        background: var(--primary);
+        border-radius: 3px;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: .25s ease-in-out;
+    }
+
+    .hamburger span:nth-child(1) {
+        top: 0;
+        transform-origin: left center;
+    }
+
+    .hamburger span:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+        transform-origin: left center;
+    }
+
+    .hamburger span:nth-child(3) {
+        top: 100%;
+        transform-origin: left center;
+        transform: translateY(-100%);
+    }
+
+    .hamburger.open span:nth-child(1) {
+        transform: rotate(45deg);
+        top: -1px;
+        left: 3px;
+        width: 110%;
+    }
+
+    .hamburger.open span:nth-child(2) {
+        width: 0%;
+        opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+        transform: rotate(-45deg);
+        top: 100%;
+        left: 3px;
+        width: 110%;
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 992px) {
+        .hamburger {
+            display: block;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background-color: var(--light);
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 80px 25px 30px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .nav-links.active {
+            right: 0;
+        }
+
+        .nav-links li {
+            margin: 0.8rem 0;
+            width: 100%;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            display: block;
+            white-space: normal;
+        }
+
+        .auth-buttons {
+            flex-direction: column;
+            margin: 1.5rem 0 0;
+            width: 100%;
+            gap: 0.8rem;
+        }
+
+        .login-btn, .register-btn {
+            width: 100%;
+            padding: 0.7rem;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+    }
+
+    /* Overlay when menu is open */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+        @media (min-width: 993px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+        /* Hero Section */
+        .formations-hero {
+            background: linear-gradient(135deg, rgba(46, 134, 171, 0.9), rgba(241, 143, 1, 0.8)) ; 
+            color: white;
+            padding: 4rem 5%;
+            text-align: center;
+            padding-top: 100px;
+            height: 80vh;
+            position: relative;
+            background-image: linear-gradient(rgba(0, 51, 160, 0.7), rgba(0, 51, 160, 0.7)), url('formation\ professionnelle.jpg');                        
+            background-size: cover;
+            background-position: center;
+            color: var(--light);
+            overflow: hidden;
+            /* margin-top: var(--header-height); */
+        }
+        
+        .formations-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            margin-top: 60px;
+        }
+        
+        .formations-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Search and Filter */
+        .search-container {
+            background-color: white;
+            padding: 2rem 5%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .search-box {
+            display: flex;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .search-box button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: var(--secondary);
+        }
+        
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0 1rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background-color: white;
+            color: var(--dark);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .filter-tab:hover {
+            border-color: var(--primary);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-select:hover {
+            border-color: var(--primary);
+        }
+        
+        /* Formations Grid */
+        .formations-container {
+            padding: 2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .formations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .formation-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .formation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .formation-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .badge-online {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+        
+        .badge-presentiel {
+            background-color: rgba(46, 134, 171, 0.2);
+            color: var(--primary);
+        }
+        
+        .formation-image {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .formation-content {
+            padding: 1.5rem;
+        }
+        
+        .formation-category {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .formation-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .formation-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .formation-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .formation-meta-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .formation-meta-item i {
+            margin-right: 6px;
+            color: var(--primary);
+        }
+        
+        .formation-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+        
+        .formation-price {
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .free-price {
+            color: var(--success);
+        }
+        
+        .formation-button {
+            padding: 0.5rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .formation-button:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.5rem;
+        }
+        
+        .pagination-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .pagination-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .pagination-item:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .formations-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .formations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 10px;
+            }
+            
+            .search-box input {
+                padding: 1rem;
+            }
+            
+            .search-box button {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="https://via.placeholder.com/36" alt="Logo">
+                <span class="logo-text">Vijana<span>Boost</span></span>
+            </a>
+
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Accueil</a></li>
+                <li><a href="About.html">A propos</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="Actualite.html">Actualités</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <div class="auth-buttons">
+                    <a href="Authentification.html" target="_blank"><button class="login-btn">Connexion</button></a>
+                    <a href="Authentification.html" target="_blank"><button class="register-btn">Inscription</button></a>
+                </div>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="formations-hero">
+        <h1>Boostez votre carrière avec nos formations</h1>
+        <p>Développez des compétences recherchées grâce à nos programmes conçus pour le marché congolais, en ligne ou en présentiel.</p>
+    </section>
+
+    <!-- Search and Filter -->
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" placeholder="Rechercher une formation (mot-clé, compétence...)">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="filter-tabs">
+            <div class="filter-tab active" data-filter="all">Toutes</div>
+            <div class="filter-tab" data-filter="online">En ligne</div>
+            <div class="filter-tab" data-filter="presentiel">En présentiel</div>
+            <div class="filter-tab" data-filter="certifiante">Certifiantes</div>
+            <div class="filter-tab" data-filter="gratuite">Gratuites</div>
+        </div>
+        
+        <div class="filter-options">
+            <select class="filter-select" id="categoryFilter">
+                <option value="all">Toutes catégories</option>
+                <option value="technologie">Technologie</option>
+                <option value="marketing">Marketing Digital</option>
+                <option value="gestion">Gestion d'entreprise</option>
+                <option value="langues">Langues</option>
+                <option value="metiers">Métiers spécialisés</option>
+            </select>
+            
+            <select class="filter-select" id="locationFilter">
+                <option value="all">Toutes localisations</option>
+                <option value="kinshasa">Kinshasa</option>
+                <option value="lubumbashi">Lubumbashi</option>
+                <option value="goma">Goma</option>
+                <option value="en-ligne">En ligne</option>
+            </select>
+            
+            <select class="filter-select" id="durationFilter">
+                <option value="all">Toutes durées</option>
+                <option value="courte">Moins de 1 mois</option>
+                <option value="moyenne">1-3 mois</option>
+                <option value="longue">Plus de 3 mois</option>
+            </select>
+            
+            <select class="filter-select" id="levelFilter">
+                <option value="all">Tous niveaux</option>
+                <option value="debutant">Débutant</option>
+                <option value="intermediaire">Intermédiaire</option>
+                <option value="avance">Avancé</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Formations Grid -->
+    <div class="formations-container">
+        <div class="formations-grid">
+            <!-- Formation 1 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-online">En ligne</span>
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Développement Web" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Technologie</div>
+                    <h3 class="formation-title">Développement Web Fullstack</h3>
+                    <p class="formation-description">Maîtrisez les fondamentaux du développement web avec HTML, CSS, JavaScript et Node.js pour créer des applications modernes.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 3 mois
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-user-graduate"></i> Débutant
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-certificate"></i> Certifiante
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">150$</div>
+                        <a href="formation-developpement-web.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 2 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-presentiel">Présentiel</span>
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1415&q=80" alt="Marketing Digital" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Marketing Digital</div>
+                    <h3 class="formation-title">Expert en Marketing Digital</h3>
+                    <p class="formation-description">Devenez expert en stratégies digitales, réseaux sociaux, publicité en ligne et analyse de données marketing.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 2 mois
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-map-marker-alt"></i> Kinshasa
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-certificate"></i> Certifiante
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">200$</div>
+                        <a href="formation-marketing.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 3 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-online">En ligne</span>
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Gestion d'entreprise" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Gestion d'entreprise</div>
+                    <h3 class="formation-title">Entrepreneuriat pour Débutants</h3>
+                    <p class="formation-description">Apprenez à créer et gérer votre entreprise avec des méthodes adaptées au contexte congolais.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 1 mois
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-user-graduate"></i> Débutant
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price free-price">Gratuite</div>
+                        <a href="formation-entrepreneuriat.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 4 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-presentiel">Présentiel</span>
+                <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Comptabilité" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Gestion</div>
+                    <h3 class="formation-title">Comptabilité de Base</h3>
+                    <p class="formation-description">Acquérez les compétences essentielles en comptabilité pour gérer les finances de votre entreprise.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 6 semaines
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-map-marker-alt"></i> Lubumbashi
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">120$</div>
+                        <a href="formation-comptabilite.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 5 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-online">En ligne</span>
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Soft Skills" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Développement personnel</div>
+                    <h3 class="formation-title">Soft Skills Professionnels</h3>
+                    <p class="formation-description">Développez vos compétences relationnelles, communication et gestion du temps pour exceller en entreprise.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 4 semaines
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-user-graduate"></i> Tous niveaux
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price free-price">Gratuite</div>
+                        <a href="formation-soft-skills.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 6 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-presentiel">Présentiel</span>
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Commerce" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Commerce</div>
+                    <h3 class="formation-title">Techniques de Vente Avancées</h3>
+                    <p class="formation-description">Maîtrisez les techniques de négociation et vente pour booster vos performances commerciales.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 2 mois
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-map-marker-alt"></i> Goma
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-certificate"></i> Certifiante
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">180$</div>
+                        <a href="formation-vente.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 7 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-online">En ligne</span>
+                <img src="https://images.unsplash.com/photo-1542626991-cbc4e32524cc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Design Graphique" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Design</div>
+                    <h3 class="formation-title">Design Graphique avec Adobe</h3>
+                    <p class="formation-description">Apprenez à créer des designs professionnels avec Photoshop, Illustrator et InDesign.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 8 semaines
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-user-graduate"></i> Intermédiaire
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">160$</div>
+                        <a href="formation-design.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 8 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-presentiel">Présentiel</span>
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Ressources Humaines" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Ressources Humaines</div>
+                    <h3 class="formation-title">Gestion des Ressources Humaines</h3>
+                    <p class="formation-description">Formation complète sur le recrutement, la gestion du personnel et les relations sociales en entreprise.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 3 mois
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-map-marker-alt"></i> Kinshasa
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-certificate"></i> Certifiante
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">250$</div>
+                        <a href="formation-rh.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 9 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-online">En ligne</span>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Analyse de Données" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Technologie</div>
+                    <h3 class="formation-title">Initiation à l'Analyse de Données</h3>
+                    <p class="formation-description">Découvrez les bases de l'analyse de données avec Excel et Power BI pour prendre des décisions éclairées.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 5 semaines
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-user-graduate"></i> Débutant
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">90$</div>
+                        <a href="formation-data.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formation 10 -->
+            <div class="formation-card">
+                <span class="formation-badge badge-presentiel">Présentiel</span>
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Langues" class="formation-image">
+                <div class="formation-content">
+                    <div class="formation-category">Langues</div>
+                    <h3 class="formation-title">Anglais Professionnel Intensif</h3>
+                    <p class="formation-description">Développez votre anglais des affaires pour évoluer dans un environnement professionnel international.</p>
+                    <div class="formation-meta">
+                        <div class="formation-meta-item">
+                            <i class="fas fa-clock"></i> 2 mois
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-map-marker-alt"></i> Lubumbashi
+                        </div>
+                        <div class="formation-meta-item">
+                            <i class="fas fa-certificate"></i> Certifiante
+                        </div>
+                    </div>
+                    <div class="formation-footer">
+                        <div class="formation-price">175$</div>
+                        <a href="formation-anglais.html" class="formation-button">Voir détails</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pagination">
+            <div class="pagination-item active">1</div>
+            <div class="pagination-item">2</div>
+            <div class="pagination-item"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.overlay');
+            const loginBtn = document.querySelector('.login-btn');
+            const registerBtn = document.querySelector('.register-btn');
+
+            // Toggle mobile menu
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on overlay or link
+            overlay.addEventListener('click', closeMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            function closeMenu() {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Auth buttons functionality
+            loginBtn.addEventListener('click', function() {
+                alert('Ouverture du formulaire de connexion');
+            });
+
+            registerBtn.addEventListener('click', function() {
+                alert('Ouverture du formulaire d\'inscription');
+            });
+
+            // Close menu when window is resized above breakpoint
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 992) {
+                    closeMenu();
+                }
+            });
+        });
+        
+
+        // Filtrage des formations
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const filterSelects = document.querySelectorAll('.filter-select');
+        const formationCards = document.querySelectorAll('.formation-card');
+        
+        // Filtres actifs
+        let activeFilters = {
+            type: 'all',
+            category: 'all',
+            location: 'all',
+            duration: 'all',
+            level: 'all'
+        };
+        
+        // Gestion des onglets de filtre
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                activeFilters.type = this.dataset.filter;
+                filterFormations();
+            });
+        });
+        
+        // Gestion des selects de filtre
+        filterSelects.forEach(select => {
+            select.addEventListener('change', function() {
+                activeFilters[this.id.replace('Filter', '')] = this.value;
+                filterFormations();
+            });
+        });
+        
+        // Fonction de filtrage
+        function filterFormations() {
+            formationCards.forEach(card => {
+                const cardType = card.querySelector('.formation-badge').classList.contains('badge-online') ? 'online' : 'presentiel';
+                const cardCategory = card.querySelector('.formation-category').textContent.toLowerCase();
+                const cardLocation = card.querySelector('.formation-meta-item:nth-child(2) i').classList.contains('fa-map-marker-alt') 
+                    ? card.querySelector('.formation-meta-item:nth-child(2)').textContent.toLowerCase().replace('kinshasa', 'kinshasa').replace('lubumbashi', 'lubumbashi').replace('goma', 'goma')
+                    : 'en-ligne';
+                const cardDuration = getDurationFilter(card.querySelector('.formation-meta-item:nth-child(1)').textContent);
+                const cardLevel = card.querySelector('.formation-meta-item:nth-child(2)').textContent.toLowerCase().includes('débutant') ? 'debutant' 
+                    : card.querySelector('.formation-meta-item:nth-child(2)').textContent.toLowerCase().includes('intermédiaire') ? 'intermediaire' 
+                    : 'avance';
+                const isCertified = card.querySelector('.formation-meta-item:nth-child(3)')?.textContent.includes('Certifiante');
+                const isFree = card.querySelector('.formation-price').textContent.includes('Gratuite');
+                
+                // Vérification des filtres
+                const typeMatch = activeFilters.type === 'all' || 
+                                 (activeFilters.type === 'online' && cardType === 'online') ||
+                                 (activeFilters.type === 'presentiel' && cardType === 'presentiel') ||
+                                 (activeFilters.type === 'certifiante' && isCertified) ||
+                                 (activeFilters.type === 'gratuite' && isFree);
+                
+                const categoryMatch = activeFilters.category === 'all' || 
+                                     cardCategory.includes(activeFilters.category);
+                
+                const locationMatch = activeFilters.location === 'all' || 
+                                     cardLocation.includes(activeFilters.location);
+                
+                const durationMatch = activeFilters.duration === 'all' || 
+                                     cardDuration === activeFilters.duration;
+                
+                const levelMatch = activeFilters.level === 'all' || 
+                                  cardLevel === activeFilters.level;
+                
+                if (typeMatch && categoryMatch && locationMatch && durationMatch && levelMatch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Helper pour la durée
+        function getDurationFilter(durationText) {
+            if (durationText.includes('semaine') || durationText.includes('1 mois')) return 'courte';
+            if (durationText.includes('2 mois') || durationText.includes('3 mois')) return 'moyenne';
+            return 'longue';
+        }
+        
+        // Animation au scroll
+        function animateCards() {
+            const cards = document.querySelectorAll('.formation-card');
+            
+            cards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (cardPosition < screenPosition) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Initial state
+        document.querySelectorAll('.formation-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+        });
+        
+        window.addEventListener('load', animateCards);
+        window.addEventListener('scroll', animateCards);
+    </script>
+</body>
+</html>

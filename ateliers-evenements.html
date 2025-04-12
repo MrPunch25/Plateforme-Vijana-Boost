@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijana Boost - Réseautage & Événements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables Couleurs */
+        :root {
+            --primary: #FF6B00;
+            --secondary: #0033A0;
+            --light: #FFFFFF;
+            --light-blue: #E6F0FF;
+            --light-orange: #FFF5EF;
+            --dark: #1A1A1A;
+            --gray: #F5F5F5;
+            --success: #28a745;
+            --danger: #dc3545;
+            --header-height: 80px;
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #F8FAFC;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.90rem;
+        }
+
+        .btn-login:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+
+        /* Menu Hamburger amélioré */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--secondary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Navigation mobile */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .navbar {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+            
+            .navbar.active {
+                left: 0;
+            }
+            
+            .navbar a {
+                width: 100%;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+            
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+
+            .auth-btn {
+                display: flex;
+                align-items: center;
+                margin-left: 1.5rem;
+                gap: 0.8rem;
+            }
+            
+            .btn-login {
+                display: none;
+                background-color: transparent;
+                color: var(--primary);
+                border: 2px solid var(--primary);
+                box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+                padding: 0.5rem 1.2rem;
+                border-radius: 30px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s;
+                font-size: 0.90rem;
+            }
+        }
+
+        
+
+        /* Hero Section */
+        .hero {
+            background-size: cover;
+            background-position: center;
+            color: var(--light);
+            text-align: center;
+            padding: 100px 0 100px;
+            background-image: linear-gradient(rgba(0, 51, 160, 0.7), rgba(0, 51, 160, 0.7)), url('event.jpg');
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Barre de recherche et filtres séparés */
+        .search-section {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-container {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            background: var(--light);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-right: none;
+            border-radius: 5px 0 0 5px;
+            border-color: var(--primary); 
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+        }        
+
+        .search-bar button {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-bar button:hover {
+            background-color: #E05B00;
+            transform: scale(1.6);
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        /* Événements */
+        .events {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .filter-btn {
+            background-color: var(--gray);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            border: 1px solid transparent;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary);
+            color: var(--light);
+            border-color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .event-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid #eee;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-info {
+            padding: 1.5rem;
+        }
+
+        .event-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .event-info p {
+            margin-bottom: 0.5rem;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .event-info i {
+            color: var(--primary);
+            width: 20px;
+            text-align: center;
+        }
+
+        .event-intervenants {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .event-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn-details {
+            color: var(--secondary);
+            background-color: transparent;
+            border: 1px solid var(--secondary);
+            flex: 1;
+        }
+
+        .btn-details:hover {
+            background-color: var(--light-blue);
+            transform: scale(1.1);
+        }
+
+        .btn-inscription {
+            background-color: var(--secondary);
+            color: var(--light);
+            flex: 1;
+        }
+
+        .btn-inscription:hover {
+            background-color: #00257A;
+            transform: scale(1.1);
+        }
+
+        .btn-inscription-event {
+            background-color: var(--secondary);
+            color: var(--light);
+            flex: 1;
+            width: 200px; 
+            height: 60px; 
+            padding: 5px 10px; 
+            font-size: 18px; 
+            border: none; 
+            border-radius: 8px;
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+
+        .btn-inscription-event:hover {
+            background-color: #00257A;
+            transform: scale(1.1);
+        }
+
+        .btn-create-event {
+            background-color: var(--success);
+            color: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-create-event:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
+
+        .btn-load-more {
+            display: inline-block;
+            margin-top: 3rem;
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-load-more:hover {
+            background-color: transparent;
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Tableau de Bord */
+        .dashboard {
+            background-color: var(--light-blue);
+            padding: 4rem 0;
+        }
+
+        .dashboard h2 {
+            text-align: center;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .dashboard h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .calendar {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            text-align: center;
+        }
+
+        .calendar-days span {
+            padding: 0.8rem 0.5rem;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .calendar-days span:not(.day-label):hover {
+            background-color: var(--light-blue);
+        }
+
+        .day-label {
+            font-weight: 600;
+            color: var(--secondary);
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .calendar-days .inactive {
+            color: #ccc;
+        }
+
+        .calendar-days .event-day {
+            position: relative;
+            color: var(--primary);
+            font-weight: 700;
+            background-color: rgba(255, 107, 0, 0.1);
+        }
+
+        .event-day .event-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .event-day:hover .event-tooltip {
+            opacity: 1;
+        }
+
+        .event-list {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .event-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-item h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-item p {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-annuler {
+            display: inline-block;
+            margin-top: 0.5rem;
+            color: var(--danger);
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .btn-annuler:hover {
+            color: #c82333;
+        }
+
+        /* Section Footer */
+        .footer-vijana {
+            background: var(--secondary);
+            color: var(--light);
+            padding: 80px 0 40px;
+            position: relative;
+            border-top: 4px solid var(--primary);
+        }
+
+        .footer-vijana::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23FF6B00" opacity="0.1"></path></svg>');
+            background-size: cover;
+            z-index: 1;
+        }
+
+        .container-vijana {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 60px;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-vijana {
+            position: relative;
+        }
+
+        .logo-vijana {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon-vijana {
+            width: 55px;
+            height: 55px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            transform: rotate(-10deg);
+            box-shadow: var(--glow);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .logo-icon-vijana:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .logo-text-vijana {
+            font-size: 30px;
+            font-weight: 1000;
+            color: var(--light);
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .slogan-vijana {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            color: var(--light-blue);
+            font-weight: 400;
+        }
+
+        .cta-vijana {
+            display: inline-flex;
+            align-items: center;
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(255, 107, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-vijana:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+            background: linear-gradient(to right, var(--primary), #FF8C00);
+        }
+
+        .section-vijana h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            color: var(--light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-vijana h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60%;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        .section-vijana h3:hover::after {
+            width: 100%;
+        }
+
+        .links-vijana {
+            list-style: none;
+        }
+
+        .links-vijana li {
+            margin-bottom: 18px;
+            position: relative;
+            padding-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .links-vijana li:hover {
+            transform: translateX(5px);
+        }
+
+        .links-vijana li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .links-vijana li:hover::before {
+            opacity: 1;
+            left: -5px;
+        }
+
+        .links-vijana a {
+            color: var(--light-blue);
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 4px 0;
+        }
+
+        .links-vijana a:hover {
+            color: var(--light);
+        }
+
+        .contact-vijana .item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-vijana .item:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-vijana .icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-vijana .item:hover .icon {
+            background: var(--primary);
+            color: var(--light);
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: var(--glow);
+        }
+
+        .contact-vijana .text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--light-blue);
+        }
+
+        .social-vijana {
+            margin-top: 40px;
+        }
+
+        .social-vijana .title {
+            display: block;
+            margin-bottom: 20px;
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--light);
+        }
+
+        .social-links-vijana {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links-vijana a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .social-links-vijana a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links-vijana a:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .social-links-vijana a:hover::before {
+            opacity: 1;
+        }
+
+        .social-links-vijana a i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .copyright-vijana {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 30px;
+            position: relative;
+            font-size: 14px;
+            color: var(--light-blue);
+            z-index: 2;
+        }
+
+        .copyright-vijana::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .copyright-vijana a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .copyright-vijana a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container-vijana {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                padding: 0 30px;
+            }
+            
+            .logo-vijana {
+                margin-bottom: 25px;
+            }
+            
+            .copyright-vijana {
+                margin-top: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-vijana {
+                padding: 60px 0 30px;
+            }
+            
+            .logo-icon-vijana {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .logo-text-vijana {
+                font-size: 28px;
+            }
+            
+            .cta-vijana {
+                padding: 14px 25px;
+                font-size: 15px;
+            }
+        }
+
+        /* Pages cachées */
+        .page {
+            display: none;
+            padding: 4rem 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-top: 50px;
+        }
+
+        .back-btn i {
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Formulaire */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: var(--light);
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-submit:hover {
+            background-color: #E05B00;
+        }
+
+        /* Détails événement */
+        .event-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .event-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .event-content h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .event-meta {
+            margin-bottom: 1.5rem;
+        }
+
+        .event-meta p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .event-description {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .event-intervenants-list {
+            margin-top: 1.5rem;
+        }
+
+        .intervenant-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--gray);
+            border-radius: 5px;
+        }
+
+        .intervenant-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .intervenant-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .intervenant-info h4 {
+            color: var(--secondary);
+            margin-bottom: 0.2rem;
+        }
+
+        .intervenant-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Section création événement */
+        .create-event-section {
+            padding: 4rem 0;
+        }
+
+        .ticket-option {
+            background-color: var(--gray);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .remove-ticket {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            float: right;
+        }
+
+        .add-intervenant, .add-ticket {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .dashboard-grid,
+            .event-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-image {
+                order: -1;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+            }
+
+            .search-bar {
+                border-radius: 5px;
+                margin-bottom: 1rem;
+            }
+
+            .search-bar input {
+                border-right: 1px solid #ddd;
+                border-radius: 5px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .filter-buttons {
+                gap: 0.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Réorganisé -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo" onclick="showPage('home')">
+                <!-- <img src="https://via.placeholder.com/40x40?text=VB" alt="Logo Vijana Boost"> -->
+                Vijana<span>Boost</span>
+            </a>
+            <nav class="navbar">
+                <a href="index.html" onclick="showPage('home')">Accueil</a>
+                <a href="About.html" onclick="showPage('about')">À propos</a>
+                <a href="index.html#services" onclick="showPage('services')">Services</a>
+                <a href="blog.html" onclick="showPage('blog')">Blog</a>
+                <a href="Actualite.html" onclick="showPage('news')">Actualités</a>
+                <a href="contact.html" onclick="showPage('contact')">Contact</a>
+                <!-- <a href="Authentification.html" class="btn-login auth-btn">Connexion</a>
+                <a href="Authentification.html" class="btn-register auth btn">S'inscrire</a> -->
+            </nav>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Accueil -->
+    <div id="home" class="page active">
+        <!-- Hero Section avec Image de Fond -->
+        <section class="hero">
+            <div class="container">
+                <h1>Ateliers & Événements</h1>
+                <p>Participez à des événements clés en République Démocratique du Congo et Boostez votre avenir professionnel grâce à nos ateliers pratiques.</p>
+                
+                <!-- Barre de Recherche Rapide -->
+                <div class="search-section">
+                    <div class="search-container">
+                        <div class="search-bar">
+                            <input type="text" id="search-input" placeholder="Rechercher un événement...">
+                            <button id="search-button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div class="filter-container">
+                        <select id="category-filter" class="filter-btn">
+                            <option value="all">Toutes catégories</option>
+                            <option value="conference">Conférences</option>
+                            <option value="webinaire">Webinaires</option>
+                            <option value="atelier">Ateliers</option>
+                            <option value="salon">Salons</option>
+                            <option value="formation">Formations</option>
+                        </select>
+                        <select id="location-filter" class="filter-btn">
+                            <option value="all">Tous lieux</option>
+                            <option value="kinshasa">Kinshasa</option>
+                            <option value="lubumbashi">Lubumbashi</option>
+                            <option value="en-ligne">En ligne</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Événements -->
+        <section class="events">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Événements à Venir</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Tous</button>
+                        <button class="filter-btn" data-filter="conference">Conférences</button>
+                        <button class="filter-btn" data-filter="webinaire">Webinaires</button>
+                        <button class="filter-btn" data-filter="atelier">Ateliers</button>
+                        <button class="filter-btn" data-filter="salon">Salons</button>
+                    </div>
+                </div>
+
+                <a href="#" class="btn-create-event" onclick="showPage('create-event')">
+                    <i class="fas fa-plus-circle"></i> Créer un événement
+                </a>
+
+                <div class="events-grid" id="events-container">
+                    <!-- Événements chargés dynamiquement -->
+                </div>
+
+                <div class="text-center">
+                    <button id="load-more" class="btn-load-more">Voir plus d'événements</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Calendrier/Tableau de Bord -->
+        <section class="dashboard">
+            <div class="container">
+                <h2>Vos Événements Inscrits</h2>
+                <div class="dashboard-grid">
+                    <div class="calendar">
+                        <h3><i class="fas fa-calendar-check"></i> Juillet 2024</h3>
+                        <div class="calendar-days">
+                            <span class="day-label">Lun</span>
+                            <span class="day-label">Mar</span>
+                            <span class="day-label">Mer</span>
+                            <span class="day-label">Jeu</span>
+                            <span class="day-label">Ven</span>
+                            <span class="day-label">Sam</span>
+                            <span class="day-label">Dim</span>
+                            <!-- Exemple de jours -->
+                            <span class="inactive">28</span>
+                            <span class="inactive">29</span>
+                            <span class="inactive">30</span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span class="event-day">6<span class="event-tooltip">Atelier CV</span></span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                        </div>
+                    </div>
+                    <div class="event-list">
+                        <div class="event-item">
+                            <h4>Atelier : CV Gagnant</h4>
+                            <p><i class="fas fa-clock"></i> 5 Juillet | 10:00 - 12:30</p>
+                            <a href="#" class="btn-annuler"><i class="fas fa-times"></i> Annuler</a>
+                        </div>
+                        <div class="event-item">
+                            <h4>Webinaire Finance</h4>
+                            <p><i class="fas fa-clock"></i> 30 Juin | 14:00 - 16:00</p>
+                            <a href="#" class="btn-annuler"><i class="fas fa-times"></i> Annuler</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page Détails Événement -->
+    <div id="event-details" class="page">
+        <div class="container">
+            <a href="#" class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Retour aux événements</a>
+            
+            <div class="event-details">
+                <div class="event-image">
+                    <img src="https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Forum des Métiers Tech">
+                </div>
+                <div class="event-content">
+                    <div class="event-badge">Conférence</div>
+                    <h3>Forum des Métiers Tech</h3>
+                    
+                    <div class="event-meta">
+                        <p><i class="fas fa-calendar-alt"></i> 25 Juin 2024 | 09:00 - 17:00</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Hôtel Memling, Kinshasa</p>
+                        <p><i class="fas fa-money-bill-wave"></i> Gratuit</p>
+                    </div>
+                    
+                    <div class="event-description">
+                        <p>Le Forum des Métiers Tech est l'événement incontournable pour les jeunes professionnels et étudiants souhaitant se lancer dans les métiers de la technologie. Rencontrez des experts du secteur, découvrez les dernières tendances et trouvez des opportunités de carrière.</p>
+                        <p>Cet événement réunira les principales entreprises technologiques de la RDC et de la région, offrant des sessions de networking, des présentations inspirantes et des ateliers pratiques.</p>
+                    </div>
+                    
+                    <div class="event-intervenants-list">
+                        <h4>Intervenants :</h4>
+                        <div class="intervenant-item">
+                            <div class="intervenant-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
+                            </div>
+                            <div class="intervenant-info">
+                                <h4>John Doe</h4>
+                                <p>Directeur Technique, Google Africa</p>
+                            </div>
+                        </div>
+                        <div class="intervenant-item">
+                            <div class="intervenant-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
+                            </div>
+                            <div class="intervenant-info">
+                                <h4>Jane Smith</h4>
+                                <p>CEO, Jokkolabs RDC</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-inscription-event" style="width: 100%; margin-top: 2rem;" onclick="showPage('registration')">
+                        <i class="fas fa-user-plus"></i> S'inscrire à cet événement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Inscription -->
+    <div id="registration" class="page">
+        <div class="container">
+            <a href="#" class="back-btn" onclick="showPage('event-details')"><i class="fas fa-arrow-left"></i> Retour aux détails</a>
+            
+            <div class="page-header">
+                <h2>Inscription à l'événement</h2>
+                <p>Remplissez ce formulaire pour vous inscrire au Forum des Métiers Tech</p>
+            </div>
+            
+            <div class="form-container">
+                <form id="registration-form">
+                    <div class="form-group">
+                        <label for="fullname">Nom complet</label>
+                        <input type="text" id="fullname" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profession">Profession</label>
+                            <input type="text" id="profession" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="organization">Organisation/École</label>
+                            <input type="text" id="organization">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Type de billet</label>
+                        <select id="ticket-type">
+                            <option value="standard">Standard - Gratuit</option>
+                            <option value="vip">VIP - 50 000 CDF (accès privilégié)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comments">Commentaires ou questions</label>
+                        <textarea id="comments" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Confirmer l'inscription
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Création d'événement -->
+    <div id="create-event" class="page">
+        <div class="container">
+            <a href="#" class="back-btn" onclick="showPage('home')"><i class="fas fa-arrow-left"></i> Retour aux événements</a>
+            
+            <div class="page-header">
+                <h2>Créer un nouvel événement</h2>
+                <p>Remplissez ce formulaire pour ajouter un événement à la plateforme</p>
+            </div>
+            
+            <div class="form-container">
+                <form id="event-creation-form">
+                    <div class="form-group">
+                        <label for="event-title">Titre de l'événement</label>
+                        <input type="text" id="event-title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-description">Description</label>
+                        <textarea id="event-description" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-type">Type d'événement</label>
+                            <select id="event-type" required>
+                                <option value="">Sélectionnez un type</option>
+                                <option value="conference">Conférence</option>
+                                <option value="webinaire">Webinaire</option>
+                                <option value="atelier">Atelier</option>
+                                <option value="salon">Salon</option>
+                                <option value="formation">Formation</option>
+                                <option value="rencontre">Rencontre professionnelle</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="event-category">Catégorie</label>
+                            <select id="event-category" required>
+                                <option value="">Sélectionnez une catégorie</option>
+                                <option value="emploi">Emploi</option>
+                                <option value="entrepreneuriat">Entrepreneuriat</option>
+                                <option value="formation">Formation</option>
+                                <option value="reseau">Réseautage</option>
+                                <option value="technologie">Technologie</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-date">Date</label>
+                            <input type="date" id="event-date" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="event-time">Heure</label>
+                            <input type="time" id="event-time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-location">Lieu (ou lien pour événement en ligne)</label>
+                        <input type="text" id="event-location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Est-ce un événement en ligne ?</label>
+                        <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="radio" name="online-event" value="yes"> Oui
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="radio" name="online-event" value="no" checked> Non
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Intervenants</label>
+                        <div id="intervenants-container">
+                            <div class="form-row intervenant-row">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Nom complet" class="intervenant-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Fonction/Entreprise" class="intervenant-role" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-intervenant" onclick="addIntervenant()">
+                            <i class="fas fa-plus"></i> Ajouter un intervenant
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Options de billetterie</label>
+                        <div id="tickets-container">
+                            <div class="ticket-option">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Type de billet (ex: Standard)" class="ticket-type" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" placeholder="Prix (CDF)" class="ticket-price" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" placeholder="Description (ex: Accès général)" class="ticket-description">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-ticket" onclick="addTicketOption()">
+                            <i class="fas fa-plus"></i> Ajouter une option de billet
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="event-image">Image de l'événement</label>
+                        <input type="file" id="event-image" accept="image/*">
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-calendar-plus"></i> Publier l'événement
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Autres pages -->
+    <div id="about" class="page">
+        <div class="container">
+            <h2>À propos</h2>
+            <p>Page À propos à compléter...</p>
+        </div>
+    </div>
+
+    <div id="services" class="page">
+        <div class="container">
+            <h2>Services</h2>
+            <p>Page Services à compléter...</p>
+        </div>
+    </div>
+
+    <div id="blog" class="page">
+        <div class="container">
+            <h2>Blog</h2>
+            <p>Page Blog à compléter...</p>
+        </div>
+    </div>
+
+    <div id="news" class="page">
+        <div class="container">
+            <h2>Actualités</h2>
+            <p>Page Actualités à compléter...</p>
+        </div>
+    </div>
+
+    <div id="contact" class="page">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>Page Contact à compléter...</p>
+        </div>
+    </div>
+
+    <!-- Section Footer -->
+
+    <footer class="footer-vijana">
+        <div class="container-vijana">
+            <!-- Brand Section -->
+            <div class="brand-vijana">
+                <div class="logo-vijana">
+                    <div class="logo-icon-vijana">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="logo-text-vijana">VIJANA BOOST</div>
+                </div>
+                <p class="slogan-vijana">
+                    La plateforme qui connecte les jeunes congolais aux meilleures opportunités professionnelles.
+                </p>
+                <button class="cta-vijana" id="ctaVijana">
+                    <i class="fas fa-download" style="margin-right: 12px;"></i> Télécharger l'app
+                </button>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="section-vijana">
+                <h3>Navigation</h3>
+                <ul class="links-vijana">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="Actualite.html">Actualités</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="section-vijana">
+                <h3>Nos Services</h3>
+                <ul class="links-vijana">
+                    <li><a href="emploi-stage.html">Emploi et Stage</a></li>
+                    <li><a href="formations.html">Formation Professionnelle</a></li>
+                    <li><a href="mentorat-coaching.html">Mentorat et Coaching</a></li>
+                    <li><a href="reseautage-professionnel.html">Réseautage Professionnel</a></li>
+                    <li><a href="marketplace.html">Marketplace Entrepreneuriale</a></li>
+                    <li><a href="ateliers-evenements.html">Ateliers et Événements</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div class="section-vijana contact-vijana">
+                <h3>Contacts</h3>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="text">Kinshasa, RDC</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="text">+243 824 919 938 <br>+243 892 612 200</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="text">ctshipadi2018@gmail.com <br>contact@vijanaboost.cd</div>
+                </div>
+                
+                <div class="social-vijana">
+                    <span class="title">Suivez-nous sur</span>
+                    <div class="social-links-vijana">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="copyright-vijana">
+            <p>© 2025 Vijana Boost. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a> | <a href="#">Mentions légales</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Données des événements
+        const eventsData = [
+            {
+                id: 1,
+                title: "Forum des Métiers Tech",
+                type: "conference",
+                date: "25 Juin 2024",
+                time: "09:00 - 17:00",
+                location: "Hôtel Memling, Kinshasa",
+                online: false,
+                price: "Gratuit",
+                description: "Le Forum des Métiers Tech est l'événement incontournable pour les jeunes professionnels et étudiants souhaitant se lancer dans les métiers de la technologie.",
+                speakers: ["Google", "Orange", "Jokkolabs"],
+                image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 2,
+                title: "Finance pour Startups",
+                type: "webinaire",
+                date: "30 Juin 2024",
+                time: "14:00 - 16:00",
+                location: "En ligne (Zoom)",
+                online: true,
+                price: "Gratuit",
+                description: "Apprenez les bases de la gestion financière pour votre startup avec des experts de la Banque Centrale et des investisseurs expérimentés.",
+                speakers: ["Banque Centrale", "Investisseurs"],
+                image: "https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 3,
+                title: "Atelier : CV Gagnant",
+                type: "atelier",
+                date: "5 Juillet 2024",
+                time: "10:00 - 12:30",
+                location: "Espace Bilembo, Lubumbashi",
+                online: false,
+                price: "5 000 CDF",
+                description: "Apprenez à créer un CV qui attire l'attention des recruteurs avec des conseils pratiques des RH de TotalEnergies.",
+                speakers: ["RH TotalEnergies"],
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 4,
+                title: "Salon de l'Emploi Digital",
+                type: "salon",
+                date: "12 Juillet 2024",
+                time: "08:00 - 18:00",
+                location: "Centre Culturel Boboto, Kinshasa",
+                online: false,
+                price: "Gratuit",
+                description: "Rencontrez les entreprises qui recrutent dans le secteur du numérique et découvrez les compétences les plus demandées.",
+                speakers: ["Société Générale", "Vodacom", "Congo Digital"],
+                image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80"
+            },
+            {
+                id: 5,
+                title: "Formation en Marketing Digital",
+                type: "formation",
+                date: "18-20 Juillet 2024",
+                time: "09:00 - 16:00",
+                location: "Espace Texaf Bilembo, Kinshasa",
+                online: false,
+                price: "50 000 CDF",
+                description: "Formation intensive de 3 jours pour maîtriser les fondamentaux du marketing digital et les outils essentiels.",
+                speakers: ["Expert Google Ads", "Spécialiste SEO"],
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            },
+            {
+                id: 6,
+                title: "Webinaire : Entrepreneuriat Féminin",
+                type: "webinaire",
+                date: "22 Juillet 2024",
+                time: "15:00 - 17:00",
+                location: "En ligne (Zoom)",
+                online: true,
+                price: "Gratuit",
+                description: "Table ronde avec des entrepreneures congolaises à succès partageant leurs expériences et conseils.",
+                speakers: ["Fondatrice Malaika", "Directrice AGOA"],
+                image: "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+            }
+        ];
+
+        // Variables pour la pagination
+        let currentPage = 1;
+        const eventsPerPage = 3;
+        let filteredEvents = [...eventsData];
+
+        // Fonction pour afficher une page spécifique
+        function showPage(pageId) {
+            // Masquer toutes les pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Afficher la page demandée
+            document.getElementById(pageId).classList.add('active');
+            
+            // Si on affiche la page d'accueil, charger les événements
+            if (pageId === 'home') {
+                renderEvents();
+            }
+            
+            // Fermer le menu mobile si ouvert
+            document.querySelector('.menu-toggle').classList.remove('active');
+            document.querySelector('.navbar').classList.remove('active');
+            
+            // Faire défiler vers le haut
+            window.scrollTo(0, 0);
+            
+            return false;
+        }
+
+        // Fonction pour afficher les détails d'un événement
+        function showEventDetails(eventId) {
+            // Trouver l'événement dans les données
+            const event = eventsData.find(e => e.id === eventId);
+            
+            if (event) {
+                // Mettre à jour le contenu de la page de détails
+                document.querySelector('#event-details .event-image img').src = event.image;
+                document.querySelector('#event-details .event-image img').alt = event.title;
+                document.querySelector('#event-details .event-badge').textContent = 
+                    event.type === 'conference' ? 'Conférence' : 
+                    event.type === 'webinaire' ? 'Webinaire' : 
+                    event.type === 'atelier' ? 'Atelier' : 
+                    event.type === 'salon' ? 'Salon' : 'Formation';
+                document.querySelector('#event-details .event-content h3').textContent = event.title;
+                
+                // Mettre à jour les métadonnées
+                const metaHTML = `
+                    <p><i class="fas fa-calendar-alt"></i> ${event.date} | ${event.time}</p>
+                    <p><i class="fas fa-${event.online ? 'globe' : 'map-marker-alt'}"></i> ${event.location}</p>
+                    <p><i class="fas fa-money-bill-wave"></i> ${event.price}</p>
+                `;
+                document.querySelector('#event-details .event-meta').innerHTML = metaHTML;
+                
+                // Mettre à jour la description
+                document.querySelector('#event-details .event-description').innerHTML = `
+                    <p>${event.description}</p>
+                `;
+                
+                // Mettre à jour les intervenants (simplifié)
+                // En réalité, vous auriez des données plus détaillées sur les intervenants
+                
+                // Afficher la page de détails
+                showPage('event-details');
+            }
+        }
+
+        // Fonction pour ajouter un intervenant
+        function addIntervenant() {
+            const container = document.getElementById('intervenants-container');
+            const newIntervenant = document.createElement('div');
+            newIntervenant.className = 'form-row intervenant-row';
+            newIntervenant.innerHTML = `
+                <div class="form-group">
+                    <input type="text" placeholder="Nom complet" class="intervenant-name" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Fonction/Entreprise" class="intervenant-role" required>
+                </div>
+                <button type="button" class="remove-intervenant" onclick="this.parentNode.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            container.appendChild(newIntervenant);
+        }
+
+        // Fonction pour ajouter une option de billet
+        function addTicketOption() {
+            const container = document.getElementById('tickets-container');
+            const newTicket = document.createElement('div');
+            newTicket.className = 'ticket-option';
+            newTicket.innerHTML = `
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" placeholder="Type de billet (ex: Standard)" class="ticket-type" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Prix (CDF)" class="ticket-price" required>
+                    </div>
+                    <button type="button" class="remove-ticket" onclick="this.parentNode.parentNode.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Description (ex: Accès général)" class="ticket-description">
+                </div>
+            `;
+            container.appendChild(newTicket);
+        }
+
+        // Fonction pour rendre les événements
+        function renderEvents() {
+            const eventsContainer = document.getElementById('events-container');
+            const startIndex = (currentPage - 1) * eventsPerPage;
+            const endIndex = startIndex + eventsPerPage;
+            const eventsToShow = filteredEvents.slice(0, endIndex);
+            
+            eventsContainer.innerHTML = '';
+            
+            if (eventsToShow.length === 0) {
+                eventsContainer.innerHTML = '<p class="text-center">Aucun événement trouvé.</p>';
+                document.getElementById('load-more').style.display = 'none';
+                return;
+            }
+            
+            eventsToShow.forEach(event => {
+                const eventHTML = `
+                    <div class="event-card" data-category="${event.type}">
+                        <div class="event-badge">
+                            ${event.type === 'conference' ? 'Conférence' : 
+                              event.type === 'webinaire' ? 'Webinaire' : 
+                              event.type === 'atelier' ? 'Atelier' : 
+                              event.type === 'salon' ? 'Salon' : 'Formation'}
+                        </div>
+                        <img src="${event.image}" alt="${event.title}">
+                        <div class="event-info">
+                            <h3>${event.title}</h3>
+                            <p><i class="fas fa-calendar-alt"></i> ${event.date} | ${event.time}</p>
+                            <p><i class="fas fa-${event.online ? 'globe' : 'map-marker-alt'}"></i> ${event.location}</p>
+                            <div class="event-intervenants">
+                                <span><i class="fas fa-users"></i> ${event.speakers.join(', ')}</span>
+                            </div>
+                            <div class="event-actions">
+                                <button class="btn btn-details" onclick="showEventDetails(${event.id})">Détails</button>
+                                <button class="btn btn-inscription" onclick="showPage('registration')">S'inscrire</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                eventsContainer.insertAdjacentHTML('beforeend', eventHTML);
+            });
+            
+            // Cacher le bouton "Voir plus" si on a tout affiché
+            if (endIndex >= filteredEvents.length) {
+                document.getElementById('load-more').style.display = 'none';
+            } else {
+                document.getElementById('load-more').style.display = 'inline-block';
+            }
+        }
+
+        // Fonction pour filtrer les événements
+        function filterEvents() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const categoryFilter = document.getElementById('category-filter').value;
+            const locationFilter = document.getElementById('location-filter').value;
+            
+            filteredEvents = eventsData.filter(event => {
+                // Filtre par recherche
+                const matchesSearch = event.title.toLowerCase().includes(searchTerm) || 
+                                      event.description.toLowerCase().includes(searchTerm) ||
+                                      event.speakers.some(speaker => speaker.toLowerCase().includes(searchTerm));
+                
+                // Filtre par catégorie
+                const matchesCategory = categoryFilter === 'all' || event.type === categoryFilter;
+                
+                // Filtre par lieu
+                let matchesLocation = true;
+                if (locationFilter === 'kinshasa') {
+                    matchesLocation = event.location.includes('Kinshasa');
+                } else if (locationFilter === 'lubumbashi') {
+                    matchesLocation = event.location.includes('Lubumbashi');
+                } else if (locationFilter === 'en-ligne') {
+                    matchesLocation = event.online;
+                }
+                
+                return matchesSearch && matchesCategory && matchesLocation;
+            });
+            
+            currentPage = 1;
+            renderEvents();
+        }
+
+        // Fonction pour filtrer avec les boutons
+        function filterWithButtons(filter) {
+            if (filter === 'all') {
+                filteredEvents = [...eventsData];
+            } else {
+                filteredEvents = eventsData.filter(event => event.type === filter);
+            }
+            
+            currentPage = 1;
+            renderEvents();
+        }
+
+        // Gestionnaire d'événement pour le formulaire d'inscription
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ici, vous enverriez normalement les données à un serveur
+            alert('Inscription réussie ! Vous recevrez un email de confirmation.');
+            
+            // Rediriger vers la page d'accueil
+            showPage('home');
+        });
+
+        // Gestionnaire d'événement pour la création d'événement
+        document.getElementById('event-creation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ici, vous enverriez normalement les données à un serveur
+            alert('Événement créé avec succès ! Il sera visible après validation.');
+            
+            // Rediriger vers la page d'accueil
+            showPage('home');
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu mobile
+            document.querySelector('.menu-toggle').addEventListener('click', function() {
+                this.classList.toggle('active');
+                document.querySelector('.navbar').classList.toggle('active');
+            });
+            
+            // Filtrage avec les boutons
+            document.querySelectorAll('.filter-btn[data-filter]').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    filterWithButtons(this.getAttribute('data-filter'));
+                });
+            });
+            
+            // Barre de recherche
+            document.getElementById('search-button').addEventListener('click', filterEvents);
+            document.getElementById('search-input').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    filterEvents();
+                }
+            });
+            
+            // Filtres déroulants
+            document.getElementById('category-filter').addEventListener('change', filterEvents);
+            document.getElementById('location-filter').addEventListener('change', filterEvents);
+            
+            // Bouton "Voir plus"
+            document.getElementById('load-more').addEventListener('click', function() {
+                currentPage++;
+                renderEvents();
+            });
+            
+            // Afficher les événements initiaux
+            renderEvents();
+        });
+    </script>
+
+    <!-- =================== Scripts pour le footer ================== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation du bouton CTA
+        const ctaButton = document.getElementById('ctaVijana');
+        
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', function() {
+                this.querySelector('i').style.transform = 'rotate(360deg)';
+                this.querySelector('i').style.transition = 'transform 0.6s ease';
+            });
+            
+            ctaButton.addEventListener('mouseleave', function() {
+                this.querySelector('i').style.transform = 'rotate(0deg)';
+            });
+        }
+        
+        // Animation des icônes de contact
+        const contactIcons = document.querySelectorAll('.contact-vijana .icon');
+        contactIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(15deg) scale(1.1)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0deg) scale(1)';
+            });
+        });
+        
+        // Effet de soulignement dynamique
+        const navLinks = document.querySelectorAll('.links-vijana a');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.fontWeight = '500';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.fontWeight = '400';
+            });
+        });
+    });
+    </script>
+</body>
+</html>

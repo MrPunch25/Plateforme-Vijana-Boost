@@ -1,0 +1,3323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijana Boost - Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --secondary: #0033A0;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --light-blue: #E6F0FF;
+            --light-orange: #FFF5EF;
+            --gray: #f5f5f5;
+            --dark-gray: #777;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 36px;
+        }
+
+        .logo-text {
+            color: var(--secondary);
+            font-size: 2.3rem;
+            margin-left: 8px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .nav-links li {
+            margin-left: 1.8rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            transition: color 0.3s;
+            font-size: 0.96rem;
+            position: relative;
+            padding: 0.3rem 0;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            gap: 0.8rem;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.90rem;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .register-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 12px rgba(255, 107, 0, 0.25);
+        }
+
+        .register-btn:hover {
+            background-color: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 26px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2.5px;
+            width: 100%;
+            background: var(--secondary);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 100%;
+            transform-origin: left center;
+            transform: translateY(-100%);
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -1px;
+            left: 3px;
+            width: 110%;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 100%;
+            left: 3px;
+            width: 110%;
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 25px 30px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 0.8rem 0;
+                width: 100%;
+                padding: 0.3rem 0;
+            }
+
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.5rem 0;
+                display: block;
+                white-space: normal;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                margin: 1.5rem 0 0;
+                width: 100%;
+                gap: 0.8rem;
+            }
+
+            .login-btn, .register-btn {
+                width: 100%;
+                padding: 0.7rem;
+                font-size: 0.9rem;
+                margin: 0;
+            }
+        }
+
+        /* Overlay when menu is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(rgba(0, 51, 160, 0.85), rgba(0, 51, 160, 0.85)), url('blog.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 4%;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            margin-top: 50px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-btn:hover {
+            background-color: #e05e00;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.5);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--light);
+            padding: 1.2rem 5%;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            /* position: sticky; */
+            top: 80px;
+            z-index: 900;
+        }
+
+        .filter-options {
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-select {
+            position: relative;
+            margin-right: 1.5rem;
+        }
+
+        .filter-select select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 0.7rem 2rem 0.7rem 1rem;
+            border: 2px solid var(--light-blue);
+            border-radius: 8px;
+            background-color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--secondary);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s;
+            min-width: 180px;
+        }
+
+        .filter-select select:hover {
+            border-color: var(--primary);
+        }
+
+        .filter-select::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            pointer-events: none;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: var(--light-blue);
+            color: var(--secondary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.8rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .tag:hover {
+            background-color: #d0e0ff;
+        }
+
+        .tag.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+        }
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .articles-container {
+            flex: 2;
+            margin-right: 2rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .section-title .line {
+            height: 3px;
+            background-color: var(--primary);
+            flex: 1;
+            margin-left: 1.5rem;
+            border-radius: 3px;
+        }
+
+        /* Article Cards */
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .article-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .article-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.1);
+        }
+
+        .article-content {
+            padding: 1.8rem;
+        }
+
+        .article-category {
+            display: inline-block;
+            background-color: var(--light-orange);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .article-excerpt {
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .read-time {
+            display: flex;
+            align-items: center;
+        }
+
+        .read-time i {
+            margin-right: 0.3rem;
+            color: var(--primary);
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #e05e00;
+            text-decoration: underline;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            flex: 1;
+        }
+
+        .sidebar-widget {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .sidebar-widget:hover {
+            transform: translateY(-5px);
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--light-orange);
+            font-weight: 700;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            margin-bottom: 1rem;
+        }
+
+        .category-list a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            font-weight: 600;
+        }
+
+        .category-list a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .category-list .count {
+            background-color: var(--light-blue);
+            color: var(--secondary);
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .popular-articles {
+            list-style: none;
+        }
+
+        .popular-article {
+            display: flex;
+            margin-bottom: 1.2rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .popular-article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .popular-article img {
+            width: 90px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .popular-article:hover img {
+            transform: scale(1.05);
+        }
+
+        .popular-article-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .popular-article-content a {
+            text-decoration: none;
+            color: var(--dark);
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+
+        .popular-article-content a:hover {
+            color: var(--primary);
+        }
+
+        .popular-article-content .date {
+            font-size: 0.8rem;
+            color: #888;
+            display: flex;
+            align-items: center;
+        }
+
+        .popular-article-content .date i {
+            margin-right: 0.3rem;
+            font-size: 0.7rem;
+            color: var(--primary);
+        }
+
+        /* Newsletter Widget */
+        .newsletter-form {
+            margin-top: 1.8rem;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: var(--light-blue);
+            color: var(--secondary);
+            border-radius: 50%;
+            margin: 0 0.6rem;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Success Stories Section */
+        .success-stories {
+            background-color: var(--light-orange);
+            padding: 5rem 5%;
+            margin: 4rem 0;
+        }
+
+        .stories-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .story-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .story-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story-card {
+            min-width: 320px;
+            scroll-snap-align: start;
+            background-color: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .story-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+
+        .story-card:hover .story-image img {
+            transform: scale(1.1);
+        }
+
+        .story-content {
+            padding: 1.8rem;
+        }
+
+        .story-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .story-excerpt {
+            color: var(--dark-gray);
+            margin-bottom: 1.8rem;
+            line-height: 1.6;
+        }
+
+        .watch-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0, 51, 160, 0.3);
+        }
+
+        .watch-btn i {
+            margin-left: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .watch-btn:hover {
+            background-color: #002a7a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 160, 0.4);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            margin: 0 0.4rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .pagination a:hover {
+            background-color: var(--light-orange);
+            color: var(--primary);
+            border-color: var(--light-orange);
+        }
+
+        .pagination a.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .pagination a.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Section Footer */
+    .footer-vijana {
+        background: var(--secondary);
+        color: var(--light);
+        padding: 80px 0 40px;
+        position: relative;
+        border-top: 4px solid var(--primary);
+    }
+
+    .footer-vijana::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23FF6B00" opacity="0.1"></path></svg>');
+        background-size: cover;
+        z-index: 1;
+    }
+
+    .container-vijana {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 60px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .brand-vijana {
+        position: relative;
+    }
+
+    .logo-vijana {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .logo-icon-vijana {
+        width: 55px;
+        height: 55px;
+        background: var(--primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        transform: rotate(-10deg);
+        box-shadow: var(--glow);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .logo-icon-vijana:hover {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    .logo-text-vijana {
+        font-size: 30px;
+        font-weight: 1000;
+        color: var(--light);
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .slogan-vijana {
+        font-size: 17px;
+        line-height: 1.8;
+        margin-bottom: 35px;
+        color: var(--light-blue);
+        font-weight: 400;
+    }
+
+    .cta-vijana {
+        display: inline-flex;
+        align-items: center;
+        background: var(--primary);
+        color: var(--light);
+        border: none;
+        padding: 16px 32px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 25px rgba(255, 107, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .cta-vijana:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+        background: linear-gradient(to right, var(--primary), #FF8C00);
+    }
+
+    .section-vijana h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+        color: var(--light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-vijana h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60%;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 4px;
+        transition: width 0.4s ease;
+    }
+
+    .section-vijana h3:hover::after {
+        width: 100%;
+    }
+
+    .links-vijana {
+        list-style: none;
+    }
+
+    .links-vijana li {
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover {
+        transform: translateX(5px);
+    }
+
+    .links-vijana li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover::before {
+        opacity: 1;
+        left: -5px;
+    }
+
+    .links-vijana a {
+        color: var(--light-blue);
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 4px 0;
+    }
+
+    .links-vijana a:hover {
+        color: var(--light);
+    }
+
+    .contact-vijana .item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover {
+        transform: translateX(5px);
+    }
+
+    .contact-vijana .icon {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--primary);
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover .icon {
+        background: var(--primary);
+        color: var(--light);
+        transform: rotate(15deg) scale(1.1);
+        box-shadow: var(--glow);
+    }
+
+    .contact-vijana .text {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--light-blue);
+    }
+
+    .social-vijana {
+        margin-top: 40px;
+    }
+
+    .social-vijana .title {
+        display: block;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--light);
+    }
+
+    .social-links-vijana {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-links-vijana a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--light);
+        font-size: 18px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .social-links-vijana a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .social-links-vijana a:hover {
+        transform: translateY(-5px) scale(1.1);
+    }
+
+    .social-links-vijana a:hover::before {
+        opacity: 1;
+    }
+
+    .social-links-vijana a i {
+        position: relative;
+        z-index: 2;
+    }
+
+    .copyright-vijana {
+        text-align: center;
+        margin-top: 80px;
+        padding-top: 30px;
+        position: relative;
+        font-size: 14px;
+        color: var(--light-blue);
+        z-index: 2;
+    }
+
+    .copyright-vijana::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+
+    .copyright-vijana a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .copyright-vijana a:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container-vijana {
+            grid-template-columns: 1fr;
+            gap: 50px;
+            padding: 0 30px;
+        }
+        
+        .logo-vijana {
+            margin-bottom: 25px;
+        }
+        
+        .copyright-vijana {
+            margin-top: 60px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-vijana {
+            padding: 60px 0 30px;
+        }
+        
+        .logo-icon-vijana {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .logo-text-vijana {
+            font-size: 28px;
+        }
+        
+        .cta-vijana {
+            padding: 14px 25px;
+            font-size: 15px;
+        }
+    }
+
+        /* Article Detail Page */
+        .article-detail {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .article-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .article-header .category {
+            display: inline-block;
+            background-color: var(--light-orange);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .article-header h1 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            margin-right: 2rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--dark-gray);
+        }
+
+        .article-date {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .article-date i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .article-image {
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin: 3rem 0 1.5rem;
+            line-height: 1.3;
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin: 2.5rem 0 1.2rem;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--dark-gray);
+            font-size: 1.2rem;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin: 3rem 0;
+        }
+
+        .tags-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .tags-container span {
+            margin-right: 1rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .article-tag {
+            background-color: var(--light-blue);
+            color: var(--secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.7rem;
+            margin-bottom: 0.7rem;
+            transition: all 0.3s;
+        }
+
+        .article-tag:hover {
+            background-color: #d0e0ff;
+            transform: translateY(-2px);
+        }
+
+        .share-buttons {
+            display: flex;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 0.8rem;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .share-btn.facebook {
+            background-color: #3b5998;
+        }
+
+        .share-btn.twitter {
+            background-color: #1da1f2;
+        }
+
+        .share-btn.linkedin {
+            background-color: #0077b5;
+        }
+
+        .share-btn.whatsapp {
+            background-color: #25d366;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Rating System */
+        .rating-section {
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .rating-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-star {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+            margin: 0 0.3rem;
+        }
+
+        .rating-star.active {
+            color: var(--primary);
+        }
+
+        .rating-text {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin: 4rem 0;
+        }
+
+        .section-heading {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+
+        .comments-list {
+            margin-bottom: 3rem;
+        }
+
+        .comment {
+            display: flex;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-content {
+            flex: 1;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .comment-author {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+        }
+
+        .comment-text {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .comment-reply {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .comment-reply:hover {
+            color: #e05e00;
+            text-decoration: underline;
+        }
+
+        .reply-form {
+            margin-top: 1.5rem;
+            padding-left: 2rem;
+            border-left: 2px solid var(--light-blue);
+        }
+
+        /* Comment Form */
+        .comment-form {
+            background-color: var(--light);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+            outline: none;
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin: 5rem 0;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            animation: modalFadeIn 0.4s;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .article-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .articles-container {
+                margin-right: 0;
+                margin-bottom: 3rem;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .article-image {
+                height: 400px;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .filter-options {
+                margin-bottom: 1.5rem;
+                width: 100%;
+            }
+            
+            .filter-select {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .filter-select select {
+                width: 100%;
+            }
+            
+            .tags {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links, .search-bar, .subscribe-btn {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .article-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .author {
+                margin-right: 0;
+                margin-bottom: 1.5rem;
+            }
+            
+            .article-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .share-buttons {
+                margin-top: 1.5rem;
+            }
+            
+            .comment {
+                flex-direction: column;
+            }
+            
+            .comment-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-banner {
+                padding: 4rem 1rem;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .hero-btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .article-grid, .related-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .article-image {
+                height: 250px;
+            }
+            
+            .article-header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .section-title h3, .section-heading {
+                font-size: 1.5rem;
+            }
+            
+            .comment-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="https://via.placeholder.com/36" alt="Logo">
+                <span class="logo-text">Vijana<span>Boost</span></span>
+            </a>
+
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">A propos</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="Actualite.html">Actualités</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <div class="auth-buttons">
+                    <a href="Authentification.html" target="_blank"><button class="login-btn">Connexion</button></a>
+                    <a href="Authentification.html" target="_blank"><button class="register-btn">Inscription</button></a>
+                </div>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+    </header>
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h2 class="animate__animated animate__fadeInDown">Découvrez les opportunités qui changent des vies</h2>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Des conseils pratiques pour booster votre carrière et votre entreprise en RDC</p>
+            <button class="hero-btn animate__animated animate__fadeInUp animate__delay-2s" id="explore-btn">Explorer les articles</button>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-options">
+            <div class="filter-select">
+                <select id="sort-select">
+                    <option value="newest">Trier par: Plus récent</option>
+                    <option value="popular">Plus populaire</option>
+                    <option value="commented">Plus commenté</option>
+                </select>
+            </div>
+            <div class="filter-select">
+                <select id="category-select">
+                    <option value="all">Toutes catégories</option>
+                    <option value="emploi">Emploi</option>
+                    <option value="entrepreneuriat">Entrepreneuriat</option>
+                    <option value="formations">Formations</option>
+                    <option value="success-stories">Success Stories</option>
+                    <option value="conseils-rh">Conseils RH</option>
+                    <option value="metiers">Métiers d'avenir</option>
+                    <option value="financement">Financement</option>
+                </select>
+            </div>
+        </div>
+        <div class="tags">
+            <div class="tag active" data-tag="all">Tout</div>
+            <div class="tag" data-tag="cv">#CV</div>
+            <div class="tag" data-tag="entretien">#Entretien</div>
+            <div class="tag" data-tag="financement">#Financement</div>
+            <div class="tag" data-tag="reseau">#Réseautage</div>
+            <div class="tag" data-tag="metiers">#Métiers</div>
+            <div class="tag" data-tag="startup">#Startup</div>
+            <div class="tag" data-tag="digital">#Digital</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Articles Section -->
+        <div class="articles-container">
+            <div class="section-title">
+                <h3>Articles Récents</h3>
+                <div class="line"></div>
+            </div>
+            
+            <div class="article-grid" id="article-grid">
+                <!-- Articles will be loaded here dynamically -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <a href="#" class="disabled" id="prev-page"><i class="fas fa-chevron-left"></i></a>
+                <a href="#" class="active" data-page="1">1</a>
+                <a href="#" data-page="2">2</a>
+                <a href="#" data-page="3">3</a>
+                <a href="#" data-page="4">4</a>
+                <a href="#" data-page="5">5</a>
+                <a href="#" id="next-page"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Categories Widget -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Catégories</h3>
+                <ul class="category-list" id="category-list">
+                    <li><a href="#" data-category="all">Tous les articles <span class="count">72</span></a></li>
+                    <li><a href="#" data-category="emploi">Emploi <span class="count">24</span></a></li>
+                    <li><a href="#" data-category="entrepreneuriat">Entrepreneuriat <span class="count">18</span></a></li>
+                    <li><a href="#" data-category="formations">Formations <span class="count">15</span></a></li>
+                    <li><a href="#" data-category="success-stories">Success Stories <span class="count">12</span></a></li>
+                    <li><a href="#" data-category="conseils-rh">Conseils RH <span class="count">8</span></a></li>
+                </ul>
+            </div>
+            
+            <!-- Popular Articles Widget -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Articles Populaires</h3>
+                <ul class="popular-articles" id="popular-articles">
+                    <!-- Popular articles will be loaded here dynamically -->
+                </ul>
+            </div>
+            
+            <!-- Newsletter Widget -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">Newsletter</h3>
+                <p>Abonnez-vous pour recevoir nos derniers articles et offres spéciales.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="Votre email" required>
+                    <button type="submit">S'abonner</button>
+                </form>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Stories Section -->
+    <section class="success-stories">
+        <div class="stories-container">
+            <div class="section-title">
+                <h3>Success Stories</h3>
+                <div class="line"></div>
+            </div>
+            
+            <div class="story-slider" id="story-slider">
+                <!-- Stories will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Footer -->
+
+    <footer class="footer-vijana">
+        <div class="container-vijana">
+            <!-- Brand Section -->
+            <div class="brand-vijana">
+                <div class="logo-vijana">
+                    <div class="logo-icon-vijana">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="logo-text-vijana">VIJANA BOOST</div>
+                </div>
+                <p class="slogan-vijana">
+                    La plateforme qui connecte les jeunes congolais aux meilleures opportunités professionnelles.
+                </p>
+                <button class="cta-vijana" id="ctaVijana">
+                    <i class="fas fa-download" style="margin-right: 12px;"></i> Télécharger l'app
+                </button>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="section-vijana">
+                <h3>Navigation</h3>
+                <ul class="links-vijana">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="Actualite.html">Actualités</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="section-vijana">
+                <h3>Nos Services</h3>
+                <ul class="links-vijana">
+                    <li><a href="emploi-stage.html">Emploi et Stage</a></li>
+                    <li><a href="formations.html">Formation Professionnelle</a></li>
+                    <li><a href="mentorat-coaching.html">Mentorat et Coaching</a></li>
+                    <li><a href="reseautage-professionnel.html">Réseautage Professionnel</a></li>
+                    <li><a href="marketplace.html">Marketplace Entrepreneuriale</a></li>
+                    <li><a href="ateliers-evenements.html">Ateliers et Événements</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div class="section-vijana contact-vijana">
+                <h3>Contacts</h3>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="text">Kinshasa, RDC</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="text">+243 824 919 938 <br>+243 892 612 200</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="text">ctshipadi2018@gmail.com <br>contact@vijanaboost.cd</div>
+                </div>
+                
+                <div class="social-vijana">
+                    <span class="title">Suivez-nous sur</span>
+                    <div class="social-links-vijana">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="copyright-vijana">
+            <p>© 2025 Vijana Boost. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a> | <a href="#">Mentions légales</a></p>
+        </div>
+    </footer>
+
+    <!-- Article Detail Modal -->
+    <div class="modal" id="article-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="article-detail" id="article-detail-content">
+                <!-- Article detail will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.overlay');
+            const loginBtn = document.querySelector('.login-btn');
+            const registerBtn = document.querySelector('.register-btn');
+
+            // Toggle mobile menu
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on overlay or link
+            overlay.addEventListener('click', closeMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            function closeMenu() {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Auth buttons functionality
+            loginBtn.addEventListener('click', function() {
+                alert('Ouverture du formulaire de connexion');
+            });
+
+            registerBtn.addEventListener('click', function() {
+                alert('Ouverture du formulaire d\'inscription');
+            });
+
+            // Close menu when window is resized above breakpoint
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 992) {
+                    closeMenu();
+                }
+            });
+        });
+        
+
+        // Sample data for articles
+        const articlesData = [
+            {
+                id: 1,
+                title: "Comment décrocher un stage à Kinshasa sans expérience",
+                excerpt: "Découvrez les stratégies efficaces pour obtenir un stage même sans expérience préalable dans votre domaine.",
+                category: "emploi",
+                tags: ["cv", "entretien"],
+                date: "12 Juin 2023",
+                readTime: "4 min",
+                image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+                views: 1250,
+                comments: 24,
+                rating: 4.5,
+                content: `
+                    <p>Dans le marché du travail actuel en RDC, décrocher un stage sans expérience préalable peut sembler décourageant. Cependant, avec les bonnes stratégies, il est tout à fait possible de se démarquer.</p>
+                    
+                    <h2>1. Mettez en valeur vos compétences transférables</h2>
+                    <p>Même sans expérience directe, vous possédez certainement des compétences acquises lors de vos études, activités parascolaires ou même dans votre vie quotidienne qui peuvent être utiles en entreprise.</p>
+                    
+                    <blockquote>"Les employeurs cherchent souvent des attitudes plus que des expériences spécifiques pour les stages d'entrée de gamme." - Directeur RH, Entreprise X</blockquote>
+                    
+                    <h2>2. Créez un CV efficace</h2>
+                    <p>Votre CV doit mettre en avant vos points forts :</p>
+                    <ul>
+                        <li>Vos formations et certifications</li>
+                        <li>Vos projets académiques pertinents</li>
+                        <li>Vos compétences techniques et linguistiques</li>
+                        <li>Vos engagements associatifs ou communautaires</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="CV efficace">
+                    
+                    <h2>3. Utilisez votre réseau</h2>
+                    <p>En RDC, le réseautage est crucial. Parlez à vos professeurs, anciens élèves, famille et amis de votre recherche de stage. Participez à des événements professionnels et n'hésitez pas à approcher directement les entreprises qui vous intéressent.</p>
+                    
+                    <h2>4. Préparez-vous aux entretiens</h2>
+                    <p>Même sans expérience, vous pouvez impressionner par votre préparation :</p>
+                    <ul>
+                        <li>Renseignez-vous sur l'entreprise</li>
+                        <li>Anticipez les questions courantes</li>
+                        <li>Préparez des questions pertinentes à poser</li>
+                        <li>Exercez-vous avec un ami ou devant un miroir</li>
+                    </ul>
+                    
+                    <p>En suivant ces conseils et en persévérant, vous augmenterez considérablement vos chances de décrocher ce premier stage si important pour votre carrière.</p>
+                `,
+                author: {
+                    name: "Jean Kabasele",
+                    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+                    position: "Expert en recrutement"
+                }
+            },
+            {
+                id: 2,
+                title: "5 étapes pour lancer sa startup agro en RDC",
+                excerpt: "Guide pratique pour transformer votre idée agricole en une entreprise viable avec des exemples locaux.",
+                category: "entrepreneuriat",
+                tags: ["startup", "financement"],
+                date: "5 Juin 2023",
+                readTime: "6 min",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                views: 980,
+                comments: 15,
+                rating: 4.2,
+                content: `
+                    <p>Le secteur agricole en RDC offre d'immenses opportunités pour les jeunes entrepreneurs. Voici comment lancer votre startup agro en 5 étapes clés.</p>
+                    
+                    <h2>1. Identifier un besoin spécifique</h2>
+                    <p>Analysez les problèmes concrets du secteur agricole congolais : logistique, transformation, accès au marché, etc. Votre solution doit répondre à un besoin réel.</p>
+                    
+                    <h2>2. Valider votre idée</h2>
+                    <p>Avant d'investir, parlez aux agriculteurs, distributeurs et consommateurs. Testez votre concept à petite échelle.</p>
+                    
+                    <blockquote>"La validation sur le terrain est cruciale en agro-business" - Fondateur de AgriTech RDC</blockquote>
+                    
+                    <h2>3. Trouver le bon modèle économique</h2>
+                    <p>Plusieurs options s'offrent à vous :</p>
+                    <ul>
+                        <li>Vente directe de produits</li>
+                        <li>Services aux agriculteurs</li>
+                        <li>Plateforme de mise en relation</li>
+                        <li>Transformation de produits</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Modèle économique">
+                    
+                    <h2>4. Lever des fonds</h2>
+                    <p>Plusieurs options de financement existent en RDC :</p>
+                    <ul>
+                        <li>Concours d'entrepreneuriat</li>
+                        <li>Investisseurs locaux</li>
+                        <li>Micro-crédits</li>
+                        <li>Programmes gouvernementaux</li>
+                    </ul>
+                    
+                    <h2>5. Construire une équipe solide</h2>
+                    <p>Entourez-vous de personnes complémentaires : un expert agricole, un commercial, un gestionnaire. Le succès d'une startup est souvent une question d'équipe.</p>
+                    
+                    <p>Avec de la persévérance et une bonne exécution, votre startup agro peut devenir un acteur clé du développement économique en RDC.</p>
+                `,
+                author: {
+                    name: "Sarah Mbuyi",
+                    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                    position: "Entrepreneure agricole"
+                }
+            },
+            {
+                id: 3,
+                title: "Les compétences tech les plus demandées en 2023",
+                excerpt: "Quelles compétences technologiques maîtriser pour maximiser vos chances d'emploi cette année?",
+                category: "formations",
+                tags: ["digital", "metiers"],
+                date: "29 Mai 2023",
+                readTime: "5 min",
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+                views: 2100,
+                comments: 32,
+                rating: 4.8,
+                content: `
+                    <p>Le marché des technologies en RDC est en pleine expansion. Voici les compétences les plus recherchées par les employeurs cette année.</p>
+                    
+                    <h2>1. Développement Web et Mobile</h2>
+                    <p>Maîtriser JavaScript, React, Node.js ou Flutter ouvre de nombreuses portes. Les entreprises locales et internationales recherchent activement ces profils.</p>
+                    
+                    <h2>2. Data Science et Analyse</h2>
+                    <p>Avec l'explosion des données, savoir utiliser Python, SQL et des outils comme Power BI est un atout majeur.</p>
+                    
+                    <blockquote>"Les analystes de données compétents sont rares et très demandés" - CTO, Startup Y</blockquote>
+                    
+                    <h2>3. Cybersécurité</h2>
+                    <p>La protection des données devient cruciale. Les certifications en sécurité informatique sont très valorisées.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Compétences tech">
+                    
+                    <h2>4. Cloud Computing</h2>
+                    <p>Les compétences en AWS, Azure ou Google Cloud sont de plus en plus nécessaires pour les entreprises qui migrent vers le cloud.</p>
+                    
+                    <h2>5. UI/UX Design</h2>
+                    <p>Créer des interfaces utilisateur intuitives est essentiel pour les applications modernes. Figma et Adobe XD sont les outils à maîtriser.</p>
+                    
+                    <p>Pour acquérir ces compétences, de nombreuses formations en ligne et locales sont disponibles. Investir dans l'une de ces spécialisations peut considérablement booster votre employabilité.</p>
+                `,
+                author: {
+                    name: "Patrick Lumumba",
+                    avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+                    position: "Expert en technologies"
+                }
+            },
+            {
+                id: 4,
+                title: "De chômeur à CEO: L'histoire de Patrick",
+                excerpt: "Comment Patrick a créé une entreprise de recyclage qui emploie maintenant 15 personnes.",
+                category: "success-stories",
+                tags: ["entrepreneuriat", "reseau"],
+                date: "22 Mai 2023",
+                readTime: "8 min",
+                image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+                views: 3200,
+                comments: 45,
+                rating: 5.0,
+                content: `
+                    <p>Patrick, 28 ans, était au chômage depuis 2 ans après ses études en gestion. Aujourd'hui, il dirige une entreprise de recyclage qui transforme les déchets plastiques en matériaux de construction.</p>
+                    
+                    <h2>Les débuts difficiles</h2>
+                    <p>Après des dizaines de candidatures sans réponse, Patrick a décidé de prendre son destin en main. "J'ai réalisé qu'au lieu de chercher un emploi, je pouvais en créer", explique-t-il.</p>
+                    
+                    <h2>L'idée qui a tout changé</h2>
+                    <p>En observant les montagnes de déchets plastiques dans sa commune, Patrick a eu l'idée de les transformer en pavés écologiques. Après des mois de recherche et de prototypes, son premier produit était né.</p>
+                    
+                    <blockquote>"Le plus difficile a été de convaincre les premiers clients d'essayer nos pavés" - Patrick</blockquote>
+                    
+                    <h2>Les étapes clés de sa réussite</h2>
+                    <ul>
+                        <li>Participation à un concours d'entrepreneuriat local</li>
+                        <li>Obtention d'un premier financement de 10 000$</li>
+                        <li>Partenaire avec des collecteurs de déchets informels</li>
+                        <li>Contrat avec la mairie pour fournir des pavés</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Entreprise de recyclage">
+                    
+                    <h2>Les défis rencontrés</h2>
+                    <p>Patrick a dû faire face à plusieurs obstacles :</p>
+                    <ul>
+                        <li>Accès difficile à des machines adaptées</li>
+                        <li>Résistance au changement des clients</li>
+                        <li>Problèmes de trésorerie au démarrage</li>
+                    </ul>
+                    
+                    <h2>Conseils aux jeunes entrepreneurs</h2>
+                    <p>"Ne sous-estimez pas la puissance d'un petit début. Commencez avec ce que vous avez, où vous êtes. La persévérance paie toujours."</p>
+                    
+                    <p>Aujourd'hui, l'entreprise de Patrick emploie 15 personnes et recycle 5 tonnes de plastique par mois, tout en fournissant des matériaux de construction abordables.</p>
+                `,
+                author: {
+                    name: "Grace Kabeya",
+                    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
+                    position: "Journaliste économique"
+                }
+            },
+            {
+                id: 5,
+                title: "Rédiger un CV qui attire l'attention des recruteurs",
+                excerpt: "Les éléments clés que tous les recruteurs congolais recherchent dans un CV en 2023.",
+                category: "emploi",
+                tags: ["cv", "entretien"],
+                date: "15 Mai 2023",
+                readTime: "4 min",
+                image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+                views: 1800,
+                comments: 18,
+                rating: 4.3,
+                content: `
+                    <p>Dans un marché du travail compétitif, votre CV doit immédiatement capter l'attention. Voici comment le rendre efficace.</p>
+                    
+                    <h2>1. Structure claire et professionnelle</h2>
+                    <p>Un bon CV suit généralement cet ordre :</p>
+                    <ul>
+                        <li>Coordonnées et photo professionnelle</li>
+                        <li>Titre professionnel clair</li>
+                        <li>Profil/résumé (3-4 lignes max)</li>
+                        <li>Expérience professionnelle</li>
+                        <li>Formation</li>
+                        <li>Compétences</li>
+                        <li>Langues et centres d'intérêt</li>
+                    </ul>
+                    
+                    <h2>2. Adaptez votre CV à chaque poste</h2>
+                    <p>Ne postulez jamais avec un CV générique. Soulignez les expériences et compétences les plus pertinentes pour le poste visé.</p>
+                    
+                    <blockquote>"Je rejette immédiatement les CV qui ne montrent pas d'effort d'adaptation" - Responsable RH, Banque Z</blockquote>
+                    
+                    <h2>3. Utilisez des verbes d'action</h2>
+                    <p>Décrivez vos réalisations avec des verbes forts : "Développé", "Géré", "Augmenté", "Optimisé", etc.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="CV efficace">
+                    
+                    <h2>4. Mettez en avant les résultats</h2>
+                    <p>Plutôt que "Responsable des ventes", écrivez "Augmenté les ventes de 30% en 6 mois". Les chiffres parlent plus que les descriptions.</p>
+                    
+                    <h2>5. Soignez la forme</h2>
+                    <p>Votre CV doit être :</p>
+                    <ul>
+                        <li>Max 2 pages</li>
+                        <li>Police professionnelle (Arial, Calibri, Times New Roman)</li>
+                        <li>Taille de police 10-12 pts</li>
+                        <li>Marges suffisantes</li>
+                        <li>Pas de fautes d'orthographe</li>
+                    </ul>
+                    
+                    <p>En suivant ces conseils, votre CV aura beaucoup plus de chances d'être remarqué et d'aboutir à un entretien.</p>
+                `,
+                author: {
+                    name: "David Nkosi",
+                    avatar: "https://randomuser.me/api/portraits/men/41.jpg",
+                    position: "Consultant en recrutement"
+                }
+            },
+            {
+                id: 6,
+                title: "Où trouver des financements pour son projet en RDC?",
+                excerpt: "Liste complète des organismes et programmes qui financent les jeunes entrepreneurs congolais.",
+                category: "entrepreneuriat",
+                tags: ["financement", "startup"],
+                date: "8 Mai 2023",
+                readTime: "7 min",
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                views: 2500,
+                comments: 29,
+                rating: 4.6,
+                content: `
+                    <p>Le financement est souvent le principal défi des entrepreneurs congolais. Voici un guide des options disponibles en 2023.</p>
+                    
+                    <h2>1. Concours et compétitions</h2>
+                    <p>Plusieurs organisations organisent des concours avec prix en argent :</p>
+                    <ul>
+                        <li>Concours d'innovation de la BCC</li>
+                        <li>Prix de l'entrepreneur jeune de la FEC</li>
+                        <li>Compétitions organisées par les ambassades</li>
+                    </ul>
+                    
+                    <h2>2. Incubateurs et accélérateurs</h2>
+                    <p>Ces structures offrent souvent un financement initial :</p>
+                    <ul>
+                        <li>Kinshasa Digital</li>
+                        <li>CTIC</li>
+                        <li>AgriTech Hub</li>
+                    </ul>
+                    
+                    <blockquote>"Les incubateurs offrent bien plus que de l'argent : mentorat, réseau et visibilité" - Directeur d'incubateur</blockquote>
+                    
+                    <h2>3. Microfinance et banques</h2>
+                    <p>Certaines institutions financières ont des programmes spéciaux :</p>
+                    <ul>
+                        <li>Fonds spécial jeunes entrepreneurs de Rawbank</li>
+                        <li>Crédits adaptés de la Microfinance XYZ</li>
+                        <li>Programme de garantie de la BGF</li>
+                    </ul>
+                    
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2111&q=80" alt="Financement">
+                    
+                    <h2>4. Investisseurs individuels</h2>
+                    <p>Les "business angels" congolais investissent souvent dans :</p>
+                    <ul>
+                        <li>Technologie</li>
+                        <li>Agro-business</li>
+                        <li>Énergie renouvelable</li>
+                    </ul>
+                    
+                    <h2>5. Financement participatif</h2>
+                    <p>Les plateformes comme GoFundMe ou les initiatives locales permettent de lever des fonds auprès du public.</p>
+                    
+                    <p>Quelle que soit la source de financement, préparez un business plan solide et soyez prêt à défendre votre projet avec passion et précision.</p>
+                `,
+                author: {
+                    name: "Rachel Mputu",
+                    avatar: "https://randomuser.me/api/portraits/women/33.jpg",
+                    position: "Spécialiste en financement"
+                }
+            },
+            {
+                id: 7,
+                title: "Les métiers du numérique qui recrutent en RDC",
+                excerpt: "Découvrez les professions tech les plus prometteuses et comment se former localement.",
+                category: "metiers",
+                tags: ["digital", "metiers"],
+                date: "1 Mai 2023",
+                readTime: "6 min",
+                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                views: 1900,
+                comments: 21,
+                rating: 4.4,
+                content: `
+                    <p>Le secteur numérique congolais est en plein boom. Voici les métiers qui offrent les meilleures perspectives.</p>
+                    
+                    <h2>1. Développeur Full-Stack</h2>
+                    <p>Capable de travailler sur le front-end et le back-end, c'est le profil le plus recherché. Salaire moyen : 1500-3000$/mois.</p>
+                    
+                    <h2>2. Spécialiste en Cybersécurité</h2>
+                    <p>Avec la digitalisation, la protection des données devient cruciale. Peu de spécialistes locaux.</p>
+                    
+                    <blockquote>"Nous cherchons désespérément des experts en sécurité depuis 6 mois" - DSI, Entreprise A</blockquote>
+                    
+                    <h2>3. Data Analyst</h2>
+                    <p>Savoir traiter et interpréter les données est une compétence très valorisée dans tous les secteurs.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Métiers du numérique">
+                    
+                    <h2>4. Expert en Cloud Computing</h2>
+                    <p>Les entreprises migrent vers le cloud et ont besoin de spécialistes AWS, Azure ou Google Cloud.</p>
+                    
+                    <h2>5. Designer UI/UX</h2>
+                    <p>Créer des interfaces utilisateur intuitives est essentiel pour les applications modernes.</p>
+                    
+                    <h2>Où se former en RDC?</h2>
+                    <p>Plusieurs options existent :</p>
+                    <ul>
+                        <li>Universités et instituts supérieurs</li>
+                        <li>Formations en ligne (Coursera, Udemy)</li>
+                        <li>Bootcamps locaux (Kinshasa Digital Academy, etc.)</li>
+                        <li>Auto-formation via tutoriels et projets personnels</li>
+                    </ul>
+                    
+                    <p>Ces métiers offrent d'excellentes perspectives, mais requièrent une formation continue pour rester à jour.</p>
+                `,
+                author: {
+                    name: "Jonathan Kabila",
+                    avatar: "https://randomuser.me/api/portraits/men/51.jpg",
+                    position: "Expert en technologies"
+                }
+            },
+            {
+                id: 8,
+                title: "Réseautage efficace: Comment se faire remarquer?",
+                excerpt: "Techniques pour bâtir un réseau professionnel solide en RDC, même quand on débute.",
+                category: "conseils-rh",
+                tags: ["reseau", "entretien"],
+                date: "24 Avril 2023",
+                readTime: "5 min",
+                image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+                views: 1400,
+                comments: 12,
+                rating: 4.1,
+                content: `
+                    <p>En RDC comme ailleurs, votre réseau est souvent aussi important que vos compétences. Voici comment le développer efficacement.</p>
+                    
+                    <h2>1. Participez aux événements professionnels</h2>
+                    <p>Conférences, afterworks, salons... Ces occasions sont idéales pour rencontrer des professionnels de votre secteur.</p>
+                    
+                    <h2>2. Utilisez LinkedIn stratégiquement</h2>
+                    <p>Ne vous contentez pas d'un profil basique :</p>
+                    <ul>
+                        <li>Complétez toutes les sections</li>
+                        <li>Postez du contenu pertinent</li>
+                        <li>Commentez les publications des influenceurs de votre domaine</li>
+                        <li>Envoyez des messages personnalisés</li>
+                    </ul>
+                    
+                    <blockquote>"80% de mes opportunités viennent de mon réseau LinkedIn" - Responsable marketing</blockquote>
+                    
+                    <h2>3. Offrez de la valeur d'abord</h2>
+                    <p>Au lieu de demander directement des faveurs, cherchez comment aider vos contacts. Le donnant-donnant fonctionne mieux.</p>
+                    
+                    <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Réseautage">
+                    
+                    <h2>4. Rejoignez des associations professionnelles</h2>
+                    <p>Les associations sectorielles offrent un accès privilégié à des réseaux établis.</p>
+                    
+                    <h2>5. Maintenez les relations</h2>
+                    <p>Un réseau se cultive dans la durée. Prenez des nouvelles régulièrement, partagez des opportunités, félicitez les succès.</p>
+                    
+                    <p>En appliquant ces techniques avec authenticité, vous bâtirez un réseau solide qui ouvrira des portes tout au long de votre carrière.</p>
+                `,
+                author: {
+                    name: "Sophie Mbayo",
+                    avatar: "https://randomuser.me/api/portraits/women/28.jpg",
+                    position: "Coach en développement professionnel"
+                }
+            }
+        ];
+
+        // Sample data for success stories
+        const storiesData = [
+            {
+                id: 1,
+                title: "Sarah: De diplômée à entrepreneure tech",
+                excerpt: "Comment Sarah a créé une application qui révolutionne l'agriculture urbaine à Kinshasa.",
+                image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1973&q=80",
+                video: "https://www.youtube.com/embed/example1"
+            },
+            {
+                id: 2,
+                title: "David: Comment j'ai levé 50K$ pour ma startup",
+                excerpt: "Le parcours de David pour convaincre des investisseurs internationaux.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+                video: "https://www.youtube.com/embed/example2"
+            },
+            {
+                id: 3,
+                title: "Fatou: De vendeuse à directrice marketing",
+                excerpt: "Comment Fatou a transformé sa carrière grâce à une formation en digital marketing.",
+                image: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2067&q=80",
+                video: "https://www.youtube.com/embed/example3"
+            },
+            {
+                id: 4,
+                title: "Le collectif qui forme 1000 jeunes par an",
+                excerpt: "L'histoire d'un groupe de jeunes qui a créé un centre de formation réputé.",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+                video: "https://www.youtube.com/embed/example4"
+            }
+        ];
+
+        // Sample data for comments
+        const commentsData = [
+            {
+                id: 1,
+                articleId: 1,
+                author: "Jean Dupont",
+                avatar: "https://randomuser.me/api/portraits/men/1.jpg",
+                date: "12 Juin 2023",
+                text: "Excellent article! J'ai appliqué ces conseils et j'ai déjà obtenu deux entretiens. Merci!",
+                rating: 5,
+                replies: [
+                    {
+                        id: 101,
+                        author: "Equipe Vijana",
+                        avatar: "https://via.placeholder.com/40",
+                        date: "13 Juin 2023",
+                        text: "Merci pour votre retour Jean! Nous sommes ravis que ces conseils vous aient été utiles."
+                    }
+                ]
+            },
+            {
+                id: 2,
+                articleId: 1,
+                author: "Marie K.",
+                avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+                date: "11 Juin 2023",
+                text: "J'aimerais plus d'exemples concrets de CV adaptés au marché congolais. Serait-il possible d'avoir des templates?",
+                rating: 4
+            }
+        ];
+
+        // Sample data for popular articles
+        const popularArticlesData = [
+            {
+                id: 1,
+                title: "Comment décrocher un stage à Kinshasa sans expérience",
+                date: "12 Juin 2023",
+                image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+            },
+            {
+                id: 4,
+                title: "De chômeur à CEO: L'histoire de Patrick",
+                date: "22 Mai 2023",
+                image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
+            },
+            {
+                id: 3,
+                title: "Les compétences tech les plus demandées en 2023",
+                date: "29 Mai 2023",
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
+            }
+        ];
+
+        // Current state
+        let currentPage = 1;
+        const articlesPerPage = 6;
+        let filteredArticles = [...articlesData];
+        let currentArticle = null;
+        let currentComments = [];
+        let userRating = 0;
+
+        // DOM Elements
+        const articleGrid = document.getElementById('article-grid');
+        const pagination = document.getElementById('pagination');
+        const prevPageBtn = document.getElementById('prev-page');
+        const nextPageBtn = document.getElementById('next-page');
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const exploreBtn = document.getElementById('explore-btn');
+        const sortSelect = document.getElementById('sort-select');
+        const categorySelect = document.getElementById('category-select');
+        const categoryList = document.getElementById('category-list');
+        const popularArticlesList = document.getElementById('popular-articles');
+        const storySlider = document.getElementById('story-slider');
+        const tags = document.querySelectorAll('.tag');
+        const articleModal = document.getElementById('article-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const articleDetailContent = document.getElementById('article-detail-content');
+        const newsletterForm = document.getElementById('newsletter-form');
+
+        // Initialize the page
+        function init() {
+            renderArticles();
+            renderPagination();
+            renderPopularArticles();
+            renderStories();
+            setupEventListeners();
+        }
+
+        // Render articles based on current page and filters
+        function renderArticles() {
+            articleGrid.innerHTML = '';
+            
+            const startIndex = (currentPage - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const articlesToShow = filteredArticles.slice(startIndex, endIndex);
+            
+            if (articlesToShow.length === 0) {
+                articleGrid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                        <h3>Aucun article ne correspond à votre recherche</h3>
+                        <p>Essayez de modifier vos critères de filtrage</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            articlesToShow.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.className = 'article-card';
+                articleCard.innerHTML = `
+                    <div class="article-image">
+                        <img src="${article.image}" alt="${article.title}">
+                    </div>
+                    <div class="article-content">
+                        <span class="article-category">${getCategoryName(article.category)}</span>
+                        <h3 class="article-title">${article.title}</h3>
+                        <p class="article-excerpt">${article.excerpt}</p>
+                        <div class="article-meta">
+                            <span>${article.date}</span>
+                            <span class="read-time"><i class="far fa-clock"></i> ${article.readTime}</span>
+                        </div>
+                        <a href="#" class="read-more" data-id="${article.id}">Lire l'article</a>
+                    </div>
+                `;
+                articleGrid.appendChild(articleCard);
+            });
+            
+            // Add click event to read more buttons
+            document.querySelectorAll('.read-more').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const articleId = parseInt(this.getAttribute('data-id'));
+                    showArticleDetail(articleId);
+                });
+            });
+        }
+
+        // Render pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            
+            // Clear existing page numbers (keep prev/next buttons)
+            const pageLinks = pagination.querySelectorAll('a[data-page]');
+            pageLinks.forEach(link => link.remove());
+            
+            // Add page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const pageLink = document.createElement('a');
+                pageLink.href = '#';
+                pageLink.textContent = i;
+                pageLink.setAttribute('data-page', i);
+                if (i === currentPage) {
+                    pageLink.classList.add('active');
+                }
+                
+                pageLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentPage = parseInt(this.getAttribute('data-page'));
+                    renderArticles();
+                    updatePagination();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                pagination.insertBefore(pageLink, nextPageBtn);
+            }
+            
+            updatePagination();
+        }
+
+        // Update pagination buttons state
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+            
+            prevPageBtn.classList.toggle('disabled', currentPage === 1);
+            nextPageBtn.classList.toggle('disabled', currentPage === totalPages);
+            
+            // Update active state for page numbers
+            pagination.querySelectorAll('a[data-page]').forEach(link => {
+                link.classList.toggle('active', parseInt(link.getAttribute('data-page')) === currentPage);
+            });
+        }
+
+        // Render popular articles
+        function renderPopularArticles() {
+            popularArticlesList.innerHTML = '';
+            
+            popularArticlesData.forEach(article => {
+                const popularArticle = document.createElement('li');
+                popularArticle.className = 'popular-article';
+                popularArticle.innerHTML = `
+                    <img src="${article.image}" alt="${article.title}">
+                    <div class="popular-article-content">
+                        <h4><a href="#" data-id="${article.id}">${article.title}</a></h4>
+                        <div class="date"><i class="far fa-calendar-alt"></i> ${article.date}</div>
+                    </div>
+                `;
+                popularArticlesList.appendChild(popularArticle);
+            });
+            
+            // Add click event to popular articles
+            document.querySelectorAll('.popular-article-content a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const articleId = parseInt(this.getAttribute('data-id'));
+                    showArticleDetail(articleId);
+                });
+            });
+        }
+
+        // Render success stories
+        function renderStories() {
+            storySlider.innerHTML = '';
+            
+            storiesData.forEach(story => {
+                const storyCard = document.createElement('div');
+                storyCard.className = 'story-card';
+                storyCard.innerHTML = `
+                    <div class="story-image">
+                        <img src="${story.image}" alt="${story.title}">
+                    </div>
+                    <div class="story-content">
+                        <h3 class="story-title">${story.title}</h3>
+                        <p class="story-excerpt">${story.excerpt}</p>
+                        <button class="watch-btn" data-id="${story.id}">Voir l'histoire <i class="fas fa-play"></i></button>
+                    </div>
+                `;
+                storySlider.appendChild(storyCard);
+            });
+            
+            // Add click event to watch buttons
+            document.querySelectorAll('.watch-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const storyId = parseInt(this.getAttribute('data-id'));
+                    const story = storiesData.find(s => s.id === storyId);
+                    alert(`Ouverture de la vidéo: ${story.title}\nURL: ${story.video}`);
+                    // In a real implementation, this would open the video in a modal or new page
+                });
+            });
+        }
+
+        // Show article detail in modal
+        function showArticleDetail(articleId) {
+            currentArticle = articlesData.find(article => article.id === articleId);
+            currentComments = commentsData.filter(comment => comment.articleId === articleId);
+            
+            if (!currentArticle) return;
+            
+            // Render article detail
+            articleDetailContent.innerHTML = `
+                <div class="article-header">
+                    <span class="category">${getCategoryName(currentArticle.category)}</span>
+                    <h1>${currentArticle.title}</h1>
+                    <div class="article-meta">
+                        <div class="author">
+                            <div class="author-avatar">
+                                <img src="${currentArticle.author.avatar}" alt="${currentArticle.author.name}">
+                            </div>
+                            <div class="author-info">
+                                <h4>${currentArticle.author.name}</h4>
+                                <p>${currentArticle.author.position}</p>
+                            </div>
+                        </div>
+                        <div class="article-date">
+                            <i class="far fa-calendar-alt"></i> ${currentArticle.date} • ${currentArticle.readTime} de lecture
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="article-image">
+                    <img src="${currentArticle.image}" alt="${currentArticle.title}">
+                </div>
+                
+                <div class="article-content">
+                    ${currentArticle.content}
+                </div>
+                
+                <div class="article-footer">
+                    <div class="tags-container">
+                        <span>Tags:</span>
+                        <div class="article-tags">
+                            ${currentArticle.tags.map(tag => `<span class="article-tag">#${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="share-btn twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="rating-section">
+                    <h3 class="rating-title">Notez cet article</h3>
+                    <div class="rating-stars">
+                        <i class="fas fa-star rating-star" data-rating="1"></i>
+                        <i class="fas fa-star rating-star" data-rating="2"></i>
+                        <i class="fas fa-star rating-star" data-rating="3"></i>
+                        <i class="fas fa-star rating-star" data-rating="4"></i>
+                        <i class="fas fa-star rating-star" data-rating="5"></i>
+                    </div>
+                    <p class="rating-text">${currentArticle.rating.toFixed(1)}/5 (${currentArticle.comments} avis)</p>
+                </div>
+                
+                <div class="comments-section">
+                    <h3 class="section-heading">Commentaires (${currentComments.length})</h3>
+                    
+                    <div class="comments-list" id="comments-list">
+                        ${currentComments.map(comment => `
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="${comment.avatar}" alt="${comment.author}">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <span class="comment-author">${comment.author}</span>
+                                        <span class="comment-date">${comment.date}</span>
+                                    </div>
+                                    <div class="comment-text">
+                                        ${comment.text}
+                                    </div>
+                                    ${comment.rating ? `<div class="comment-rating">
+                                        Note: ${'★'.repeat(comment.rating)}${'☆'.repeat(5 - comment.rating)}
+                                    </div>` : ''}
+                                    <div class="comment-reply">Répondre</div>
+                                    
+                                    ${comment.replies && comment.replies.length > 0 ? `
+                                        <div class="reply-form">
+                                            ${comment.replies.map(reply => `
+                                                <div class="comment">
+                                                    <div class="comment-avatar">
+                                                        <img src="${reply.avatar}" alt="${reply.author}">
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <div class="comment-header">
+                                                            <span class="comment-author">${reply.author}</span>
+                                                            <span class="comment-date">${reply.date}</span>
+                                                        </div>
+                                                        <div class="comment-text">
+                                                            ${reply.text}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="comment-form">
+                        <h3 class="form-title">Laisser un commentaire</h3>
+                        <form id="comment-form">
+                            <div class="form-group">
+                                <label for="comment-name">Nom</label>
+                                <input type="text" id="comment-name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment-email">Email (ne sera pas affiché)</label>
+                                <input type="email" id="comment-email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment-text">Commentaire</label>
+                                <textarea id="comment-text" class="form-control" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Publier le commentaire</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="related-articles">
+                    <h3 class="section-heading">Articles similaires</h3>
+                    <div class="related-grid">
+                        ${getRelatedArticles(currentArticle.id, currentArticle.category).map(article => `
+                            <div class="article-card">
+                                <div class="article-image">
+                                    <img src="${article.image}" alt="${article.title}">
+                                </div>
+                                <div class="article-content">
+                                    <span class="article-category">${getCategoryName(article.category)}</span>
+                                    <h3 class="article-title">${article.title}</h3>
+                                    <p class="article-excerpt">${article.excerpt}</p>
+                                    <div class="article-meta">
+                                        <span>${article.date}</span>
+                                        <span class="read-time"><i class="far fa-clock"></i> ${article.readTime}</span>
+                                    </div>
+                                    <a href="#" class="read-more" data-id="${article.id}">Lire l'article</a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            // Open modal
+            articleModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Add event listeners for modal content
+            setupArticleDetailEvents();
+        }
+
+        // Setup event listeners for article detail
+        function setupArticleDetailEvents() {
+            // Rating stars
+            const stars = articleDetailContent.querySelectorAll('.rating-star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = parseInt(this.getAttribute('data-rating'));
+                    userRating = rating;
+                    
+                    // Update stars appearance
+                    stars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                    
+                    // In a real app, you would send this rating to the server
+                    console.log(`User rated article ${currentArticle.id} with ${rating} stars`);
+                });
+            });
+            
+            // Share buttons
+            const shareButtons = articleDetailContent.querySelectorAll('.share-btn');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const platform = this.classList.contains('facebook') ? 'Facebook' :
+                                  this.classList.contains('twitter') ? 'Twitter' :
+                                  this.classList.contains('linkedin') ? 'LinkedIn' : 'WhatsApp';
+                    alert(`Partager sur ${platform}: ${currentArticle.title}`);
+                    // In a real app, this would use the platform's sharing API
+                });
+            });
+            
+            // Comment form
+            const commentForm = articleDetailContent.getElementById('comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('comment-name').value;
+                    const email = document.getElementById('comment-email').value;
+                    const text = document.getElementById('comment-text').value;
+                    
+                    if (!name || !email || !text) return;
+                    
+                    // In a real app, you would send this to the server
+                    const newComment = {
+                        id: Date.now(),
+                        articleId: currentArticle.id,
+                        author: name,
+                        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
+                        date: 'Aujourd\'hui',
+                        text: text,
+                        rating: userRating
+                    };
+                    
+                    // Add to comments list
+                    const commentsList = document.getElementById('comments-list');
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment';
+                    commentDiv.innerHTML = `
+                        <div class="comment-avatar">
+                            <img src="${newComment.avatar}" alt="${newComment.author}">
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <span class="comment-author">${newComment.author}</span>
+                                <span class="comment-date">${newComment.date}</span>
+                            </div>
+                            <div class="comment-text">
+                                ${newComment.text}
+                            </div>
+                            ${newComment.rating ? `<div class="comment-rating">
+                                Note: ${'★'.repeat(newComment.rating)}${'☆'.repeat(5 - newComment.rating)}
+                            </div>` : ''}
+                        </div>
+                    `;
+                    commentsList.appendChild(commentDiv);
+                    
+                    // Reset form
+                    commentForm.reset();
+                    userRating = 0;
+                    stars.forEach(star => star.classList.remove('active'));
+                    
+                    alert('Votre commentaire a été soumis pour modération. Merci!');
+                });
+            }
+            
+            // Read more links in related articles
+            articleDetailContent.querySelectorAll('.read-more').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const articleId = parseInt(this.getAttribute('data-id'));
+                    showArticleDetail(articleId);
+                });
+            });
+        }
+
+        // Get related articles
+        function getRelatedArticles(currentId, category, limit = 3) {
+            return articlesData
+                .filter(article => article.id !== currentId && article.category === category)
+                .slice(0, limit);
+        }
+
+        // Get category name
+        function getCategoryName(categoryKey) {
+            const categories = {
+                'emploi': 'Emploi',
+                'entrepreneuriat': 'Entrepreneuriat',
+                'formations': 'Formations',
+                'success-stories': 'Success Story',
+                'conseils-rh': 'Conseils RH',
+                'metiers': 'Métiers',
+                'financement': 'Financement'
+            };
+            return categories[categoryKey] || categoryKey;
+        }
+
+        // Filter articles based on search, category and tags
+        function filterArticles() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const category = categorySelect.value;
+            const activeTag = document.querySelector('.tag.active')?.getAttribute('data-tag');
+            const sortBy = sortSelect.value;
+            
+            filteredArticles = articlesData.filter(article => {
+                // Search term
+                const matchesSearch = searchTerm === '' || 
+                    article.title.toLowerCase().includes(searchTerm) || 
+                    article.excerpt.toLowerCase().includes(searchTerm);
+                
+                // Category
+                const matchesCategory = category === 'all' || article.category === category;
+                
+                // Tag
+                const matchesTag = !activeTag || activeTag === 'all' || 
+                    article.tags.includes(activeTag);
+                
+                return matchesSearch && matchesCategory && matchesTag;
+            });
+            
+            // Sort articles
+            if (sortBy === 'popular') {
+                filteredArticles.sort((a, b) => b.views - a.views);
+            } else if (sortBy === 'commented') {
+                filteredArticles.sort((a, b) => b.comments - a.comments);
+            } else { // newest
+                filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            currentPage = 1;
+            renderArticles();
+            renderPagination();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search button
+            searchBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                filterArticles();
+            });
+            
+            // Search input (search on enter)
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    filterArticles();
+                }
+            });
+            
+            // Explore articles button
+            exploreBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.filter-bar').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Sort select
+            sortSelect.addEventListener('change', filterArticles);
+            
+            // Category select
+            categorySelect.addEventListener('change', filterArticles);
+            
+            // Category list
+            categoryList.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.getAttribute('data-category');
+                    categorySelect.value = category;
+                    filterArticles();
+                });
+            });
+            
+            // Tags
+            tags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    tags.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    filterArticles();
+                });
+            });
+            
+            // Pagination previous/next
+            prevPageBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderArticles();
+                    updatePagination();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderArticles();
+                    updatePagination();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                articleModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === articleModal) {
+                    articleModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Newsletter form
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input').value;
+                if (email) {
+                    alert(`Merci pour votre abonnement! Vous recevrez nos actualités à ${email}`);
+                    this.querySelector('input').value = '';
+                } else {
+                    alert('Veuillez entrer une adresse email valide');
+                }
+            });
+        }
+
+        // <!-- =================== Scripts pour le footer ================== -->
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation du bouton CTA
+            const ctaButton = document.getElementById('ctaVijana');
+            
+            if (ctaButton) {
+                ctaButton.addEventListener('mouseenter', function() {
+                    this.querySelector('i').style.transform = 'rotate(360deg)';
+                    this.querySelector('i').style.transition = 'transform 0.6s ease';
+                });
+                
+                ctaButton.addEventListener('mouseleave', function() {
+                    this.querySelector('i').style.transform = 'rotate(0deg)';
+                });
+            }
+            
+            // Animation des icônes de contact
+            const contactIcons = document.querySelectorAll('.contact-vijana .icon');
+            contactIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'rotate(15deg) scale(1.1)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'rotate(0deg) scale(1)';
+                });
+            });
+            
+            // Effet de soulignement dynamique
+            const navLinks = document.querySelectorAll('.links-vijana a');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.fontWeight = '500';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.fontWeight = '400';
+                });
+            });
+        });
+
+        // Initialize the page
+        init();
+    </script>
+</body>
+</html>

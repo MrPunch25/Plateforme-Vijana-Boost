@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | Vijana Boost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --secondary: #0033A0;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --gray: #F5F5F5;
+            --error: #E74C3C;
+            --success: #2ECC71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .auth-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: var(--light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .auth-header .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-header .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Container Principal */
+        .auth-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 100px auto 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: var(--light);
+        }
+
+        /* Section Illustration */
+        .auth-illustration {
+            flex: 1;
+            background: linear-gradient(135deg, var(--secondary), #0066CC);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-illustration::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .auth-illustration::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .auth-illustration img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+
+        .auth-illustration h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .auth-illustration p {
+            opacity: 0.9;
+            text-align: center;
+            max-width: 400px;
+            z-index: 1;
+        }
+
+        /* Section Formulaire */
+        .auth-form-section {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--gray);
+        }
+
+        .auth-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark);
+            opacity: 0.7;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .auth-tab.active {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+            outline: none;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary);
+            color: var(--light);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-auth:hover {
+            background: #E05D00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #777;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .auth-divider span {
+            padding: 0 1rem;
+        }
+
+        .social-auth {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-btn.facebook {
+            background: #3B5998;
+        }
+
+        .social-btn.google {
+            background: #DB4437;
+        }
+
+        .social-btn.linkedin {
+            background: #0077B5;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-redirect {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #777;
+        }
+
+        .auth-redirect a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-redirect a:hover {
+            text-decoration: underline;
+        }
+
+        /* Messages d'erreur */
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .form-group.error .form-control {
+            border-color: var(--error);
+        }
+
+        .form-group.success .form-control {
+            border-color: var(--success);
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .auth-container {
+                flex-direction: column;
+                margin: 80px auto 30px;
+                max-width: 500px;
+            }
+
+            .auth-illustration {
+                padding: 2rem;
+            }
+
+            .auth-illustration img {
+                max-width: 200px;
+            }
+
+            .auth-illustration h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .auth-header {
+                padding: 1rem;
+            }
+
+            .auth-container {
+                margin: 70px 15px 20px;
+                border-radius: 10px;
+            }
+
+            .auth-form-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .auth-tabs {
+                justify-content: center;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="auth-header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-bolt"></i> VIJANA BOOST
+        </a>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="auth-container">
+        <!-- Section Illustration -->
+        <section class="auth-illustration">
+            <img src="jeunes.jpg" alt="Jeunes professionnels congolais">
+            <h2>Rejoignez la communauté Vijana Boost</h2>
+            <p>Connectez-vous à des opportunités d'emploi et d'entrepreneuriat en RDC</p>
+        </section>
+
+        <!-- Section Formulaire -->
+        <section class="auth-form-section">
+            <div class="form-container">
+                <!-- Onglets Connexion/Inscription -->
+                <div class="auth-tabs">
+                    <div class="auth-tab active" data-tab="login">Connexion</div>
+                    <div class="auth-tab" data-tab="register">Inscription</div>
+                </div>
+
+                <!-- Formulaire de Connexion -->
+                <form id="login-form" class="auth-form active">
+                    <h2 class="form-title">Content de vous revoir !</h2>
+                    
+                    <div class="form-group">
+                        <label for="login-email">Email ou Téléphone</label>
+                        <input type="text" id="login-email" class="form-control" placeholder="entrez votre email ou numéro">
+                        <span class="error-message">Veuillez entrer une adresse email ou numéro valide</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="entrez votre mot de passe">
+                        <i class="fas fa-eye password-toggle" id="toggle-login-password"></i>
+                        <span class="error-message">Le mot de passe doit contenir au moins 6 caractères</span>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember-me">
+                            <label for="remember-me">Se souvenir de moi</label>
+                        </div>
+                        <a href="forgot-password.html" class="forgot-password">Mot de passe oublié ?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth">Se connecter</button>
+                    
+                    <div class="auth-divider">
+                        <span>Ou</span>
+                    </div>
+                    
+                    <div class="social-auth">
+                        <a href="#" class="social-btn facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                        </a>
+                        <a href="#" class="social-btn linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                    
+                    <p class="auth-redirect">
+                        Nouveau sur Vijana Boost ? <a href="#" id="go-to-register">Créer un compte</a>
+                    </p>
+                </form>
+
+                <!-- Formulaire d'Inscription -->
+                <form id="register-form" class="auth-form">
+                    <h2 class="form-title">Commencez votre voyage</h2>
+                    
+                    <div class="form-group">
+                        <label for="register-name">Nom complet</label>
+                        <input type="text" id="register-name" class="form-control" placeholder="entrez votre nom complet">
+                        <span class="error-message">Veuillez entrer votre nom complet</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" class="form-control" placeholder="entrez votre email">
+                        <span class="error-message">Veuillez entrer une adresse email valide</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-phone">Téléphone</label>
+                        <input type="tel" id="register-phone" class="form-control" placeholder="entrez votre numéro">
+                        <span class="error-message">Veuillez entrer un numéro valide</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Mot de passe</label>
+                        <input type="password" id="register-password" class="form-control" placeholder="créez un mot de passe">
+                        <i class="fas fa-eye password-toggle" id="toggle-register-password"></i>
+                        <span class="error-message">Le mot de passe doit contenir au moins 6 caractères</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirmez le mot de passe</label>
+                        <input type="password" id="register-confirm-password" class="form-control" placeholder="confirmez votre mot de passe">
+                        <span class="error-message">Les mots de passe ne correspondent pas</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-user-type">Je suis :</label>
+                        <select id="register-user-type" class="form-control">
+                            <option value="">-- Sélectionnez --</option>
+                            <option value="job-seeker">Chercheur d'emploi/stage</option>
+                            <option value="entrepreneur">Entrepreneur/Porteur de projet</option>
+                            <option value="employer">Employeur/Recruteur</option>
+                            <option value="investor">Investisseur</option>
+                        </select>
+                        <span class="error-message">Veuillez sélectionner un type de compte</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="checkbox" id="accept-terms">
+                        <label for="accept-terms">J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a></label>
+                        <span class="error-message">Vous devez accepter les conditions</span>
+                    </div>
+                    
+                    <button type="submit" class="btn-auth">S'inscrire</button>
+                    
+                    <p class="auth-redirect">
+                        Vous avez déjà un compte ? <a href="#" id="go-to-login">Se connecter</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Basculer entre les formulaires
+        const loginTab = document.querySelector('[data-tab="login"]');
+        const registerTab = document.querySelector('[data-tab="register"]');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const goToRegister = document.getElementById('go-to-register');
+        const goToLogin = document.getElementById('go-to-login');
+
+        function showLoginForm() {
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+        }
+
+        function showRegisterForm() {
+            loginTab.classList.remove('active');
+            registerTab.classList.add('active');
+            loginForm.classList.remove('active');
+            registerForm.classList.add('active');
+        }
+
+        loginTab.addEventListener('click', showLoginForm);
+        registerTab.addEventListener('click', showRegisterForm);
+        goToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            showRegisterForm();
+        });
+        goToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            showLoginForm();
+        });
+
+        // Basculer la visibilité du mot de passe
+        function setupPasswordToggle(toggleId, inputId) {
+            const toggle = document.getElementById(toggleId);
+            const input = document.getElementById(inputId);
+            
+            toggle.addEventListener('click', () => {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggle.classList.remove('fa-eye');
+                    toggle.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    toggle.classList.remove('fa-eye-slash');
+                    toggle.classList.add('fa-eye');
+                }
+            });
+        }
+
+        setupPasswordToggle('toggle-login-password', 'login-password');
+        setupPasswordToggle('toggle-register-password', 'register-password');
+
+        // Validation des formulaires
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+            return re.test(phone);
+        }
+
+        // Validation formulaire de connexion
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validation email/phone
+            const emailPhone = document.getElementById('login-email').value.trim();
+            const emailPhoneGroup = document.getElementById('login-email').parentElement;
+            
+            if (!emailPhone || (!validateEmail(emailPhone) && !validatePhone(emailPhone))) {
+                emailPhoneGroup.classList.add('error');
+                isValid = false;
+            } else {
+                emailPhoneGroup.classList.remove('error');
+            }
+            
+            // Validation mot de passe
+            const password = document.getElementById('login-password').value;
+            const passwordGroup = document.getElementById('login-password').parentElement;
+            
+            if (!password || password.length < 6) {
+                passwordGroup.classList.add('error');
+                isValid = false;
+            } else {
+                passwordGroup.classList.remove('error');
+            }
+            
+            if (isValid) {
+                // Soumission du formulaire (simulé)
+                alert('Connexion réussie ! Redirection...');
+                // window.location.href = 'dashboard.html';
+            }
+        });
+
+        // Validation formulaire d'inscription
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Validation nom complet
+            const name = document.getElementById('register-name').value.trim();
+            const nameGroup = document.getElementById('register-name').parentElement;
+            
+            if (!name) {
+                nameGroup.classList.add('error');
+                isValid = false;
+            } else {
+                nameGroup.classList.remove('error');
+            }
+            
+            // Validation email
+            const email = document.getElementById('register-email').value.trim();
+            const emailGroup = document.getElementById('register-email').parentElement;
+            
+            if (!email || !validateEmail(email)) {
+                emailGroup.classList.add('error');
+                isValid = false;
+            } else {
+                emailGroup.classList.remove('error');
+            }
+            
+            // Validation téléphone
+            const phone = document.getElementById('register-phone').value.trim();
+            const phoneGroup = document.getElementById('register-phone').parentElement;
+            
+            if (!phone || !validatePhone(phone)) {
+                phoneGroup.classList.add('error');
+                isValid = false;
+            } else {
+                phoneGroup.classList.remove('error');
+            }
+            
+            // Validation mot de passe
+            const password = document.getElementById('register-password').value;
+            const passwordGroup = document.getElementById('register-password').parentElement;
+            
+            if (!password || password.length < 6) {
+                passwordGroup.classList.add('error');
+                isValid = false;
+            } else {
+                passwordGroup.classList.remove('error');
+            }
+            
+            // Validation confirmation mot de passe
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const confirmPasswordGroup = document.getElementById('register-confirm-password').parentElement;
+            
+            if (!confirmPassword || confirmPassword !== password) {
+                confirmPasswordGroup.classList.add('error');
+                isValid = false;
+            } else {
+                confirmPasswordGroup.classList.remove('error');
+            }
+            
+            // Validation type d'utilisateur
+            const userType = document.getElementById('register-user-type').value;
+            const userTypeGroup = document.getElementById('register-user-type').parentElement;
+            
+            if (!userType) {
+                userTypeGroup.classList.add('error');
+                isValid = false;
+            } else {
+                userTypeGroup.classList.remove('error');
+            }
+            
+            // Validation conditions
+            const acceptTerms = document.getElementById('accept-terms').checked;
+            const acceptTermsGroup = document.getElementById('accept-terms').parentElement;
+            
+            if (!acceptTerms) {
+                acceptTermsGroup.classList.add('error');
+                isValid = false;
+            } else {
+                acceptTermsGroup.classList.remove('error');
+            }
+            
+            if (isValid) {
+                // Soumission du formulaire (simulé)
+                alert('Inscription réussie ! Un email de confirmation a été envoyé.');
+                showLoginForm();
+            }
+        });
+
+        // Animation au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = 1;
+        });
+    </script>
+</body>
+</html>

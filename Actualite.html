@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualités - Vijana Boost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --secondary: #0033A0;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --light-blue: #E6F0FF;
+            --light-orange: #FFF5EF;
+            --gray: #f5f5f5;
+            --dark-gray: #777;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles (identique à la version précédente) */
+        header {
+            background-color: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 5%;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 36px;
+        }
+
+        .logo-text {
+            color: var(--secondary);
+            font-size: 2.2rem;
+            margin-left: 8px;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        .nav-links li {
+            margin-left: 1.9rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 700;
+            transition: color 0.3s;
+            font-size: 0.92rem;
+            position: relative;
+            padding: 0.3rem 0;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            gap: 0.8rem;
+        }
+
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .register-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 12px rgba(255, 107, 0, 0.25);
+        }
+
+        .register-btn:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.35);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 26px;
+            height: 20px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2.5px;
+            width: 100%;
+            background: var(--secondary);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+
+        .hamburger span:nth-child(1) {
+            top: 0;
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+            transform-origin: left center;
+        }
+
+        .hamburger span:nth-child(3) {
+            top: 100%;
+            transform-origin: left center;
+            transform: translateY(-100%);
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -1px;
+            left: 3px;
+            width: 110%;
+        }
+
+        .hamburger.open span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 100%;
+            left: 3px;
+            width: 110%;
+        }
+
+        /* Overlay when menu is open */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--light);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 25px 30px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 0.8rem 0;
+                width: 100%;
+                padding: 0.3rem 0;
+            }
+
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.5rem 0;
+                display: block;
+                white-space: normal;
+            }
+
+            .auth-buttons {
+                flex-direction: column;
+                margin: 1.5rem 0 0;
+                width: 100%;
+                gap: 0.8rem;
+            }
+
+            .login-btn, .register-btn {
+                width: 100%;
+                padding: 0.7rem;
+                font-size: 0.9rem;
+                margin: 0;
+            }
+        }
+
+        /* Hero Section Attractive */
+            .news-hero {
+            background-image: linear-gradient(rgba(0, 51, 160, 0.7), rgba(0, 51, 160, 0.7)), url('actualite.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .news-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .news-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .news-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .news-hero {
+                padding: 80px 20px;
+            }
+            
+            .news-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .news-hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
+        .page-description {
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* News Filter */
+        .news-filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            background-color: var(--light);
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--light-blue);
+            border-color: var(--secondary);
+        }
+
+        .filter-btn.active {
+            background-color: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1.2rem 0.6rem 2.5rem;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-gray);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .news-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.05);
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            display: inline-block;
+            background-color: var(--light-orange);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .news-excerpt {
+            color: var(--dark-gray);
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+        }
+
+        .news-date i {
+            margin-right: 0.3rem;
+            color: var(--primary);
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #e05e00;
+            text-decoration: underline;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 0.3rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .pagination a:hover {
+            background-color: var(--light-orange);
+            color: var(--primary);
+            border-color: var(--light-orange);
+        }
+
+        .pagination a.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.2);
+        }
+
+        .pagination a.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 5%;
+            margin: 4rem 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-description {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px 0 0 30px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 1.8rem;
+            border-radius: 0 30px 30px 0;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e05e00;
+        }
+
+
+        /* News Detail Page Styles */
+        .news-detail-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .news-detail-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .news-detail-title {
+            font-size: 2.2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .news-detail-meta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+        }
+
+        .news-detail-category {
+            background-color: var(--light-orange);
+            color: var(--primary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .news-detail-date {
+            display: flex;
+            align-items: center;
+        }
+
+        .news-detail-date i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .news-detail-image {
+            width: 100%;
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .news-detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-detail-content {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .news-detail-text {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .news-detail-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .news-detail-text h2, 
+        .news-detail-text h3 {
+            color: var(--secondary);
+            margin: 2rem 0 1rem;
+        }
+
+        .news-detail-text ul, 
+        .news-detail-text ol {
+            margin: 1rem 0 1.5rem 2rem;
+        }
+
+        .news-detail-text li {
+            margin-bottom: 0.5rem;
+        }
+
+        .news-detail-social {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .news-detail-like {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .like-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .like-btn:hover {
+            color: var(--primary);
+        }
+
+        .like-btn.liked {
+            color: #e63946;
+        }
+
+        .like-count {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+        }
+
+        .social-share {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .share-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .facebook {
+            background-color: #3b5998;
+        }
+
+        .twitter {
+            background-color: #1da1f2;
+        }
+
+        .linkedin {
+            background-color: #0077b5;
+        }
+
+        .whatsapp {
+            background-color: #25d366;
+        }
+
+        .news-detail-back {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 2rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .news-detail-back i {
+            margin-right: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .news-detail-back:hover {
+            color: #e05e00;
+        }
+
+        .news-detail-back:hover i {
+            transform: translateX(-3px);
+        }
+
+        /* Related News */
+        .related-news {
+            margin: 4rem 0;
+        }
+
+        .related-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .related-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 3rem;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .comments-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .comments-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 120px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+        }
+
+        .comment-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-form button:hover {
+            background-color: #e05e00;
+        }
+
+        .comment-list {
+            list-style: none;
+        }
+
+        .comment-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .comment-author {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .comment-date {
+            font-size: 0.8rem;
+            color: var(--dark-gray);
+            margin-left: 0.5rem;
+        }
+
+        .comment-text {
+            margin-left: 55px;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .news-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 1rem;
+            }
+            
+            .newsletter-form button {
+                border-radius: 30px;
+                padding: 0.8rem;
+            }
+
+            .news-detail-image {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .news-filter {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+
+            .news-detail-title {
+                font-size: 1.8rem;
+            }
+
+            .news-detail-image {
+                height: 300px;
+            }
+
+            .news-detail-content {
+                padding: 1.5rem;
+            }
+
+            .news-detail-social {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .news-detail-title {
+                font-size: 1.6rem;
+            }
+
+            .news-detail-image {
+                height: 250px;
+            }
+
+            .news-detail-meta {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: center;
+            }
+        }
+            /* Section Footer */
+    .footer-vijana {
+        background: var(--secondary);
+        color: var(--light);
+        padding: 80px 0 40px;
+        position: relative;
+        border-top: 4px solid var(--primary);
+    }
+
+    .footer-vijana::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23FF6B00" opacity="0.1"></path></svg>');
+        background-size: cover;
+        z-index: 1;
+    }
+
+    .container-vijana {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 60px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .brand-vijana {
+        position: relative;
+    }
+
+    .logo-vijana {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .logo-icon-vijana {
+        width: 55px;
+        height: 55px;
+        background: var(--primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        transform: rotate(-10deg);
+        box-shadow: var(--glow);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .logo-icon-vijana:hover {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    .logo-text-vijana {
+        font-size: 30px;
+        font-weight: 1000;
+        color: var(--light);
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .slogan-vijana {
+        font-size: 17px;
+        line-height: 1.8;
+        margin-bottom: 35px;
+        color: var(--light-blue);
+        font-weight: 400;
+    }
+
+    .cta-vijana {
+        display: inline-flex;
+        align-items: center;
+        background: var(--primary);
+        color: var(--light);
+        border: none;
+        padding: 16px 32px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 25px rgba(255, 107, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .cta-vijana:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+        background: linear-gradient(to right, var(--primary), #FF8C00);
+    }
+
+    .section-vijana h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+        color: var(--light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-vijana h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60%;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 4px;
+        transition: width 0.4s ease;
+    }
+
+    .section-vijana h3:hover::after {
+        width: 100%;
+    }
+
+    .links-vijana {
+        list-style: none;
+    }
+
+    .links-vijana li {
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover {
+        transform: translateX(5px);
+    }
+
+    .links-vijana li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover::before {
+        opacity: 1;
+        left: -5px;
+    }
+
+    .links-vijana a {
+        color: var(--light-blue);
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 4px 0;
+    }
+
+    .links-vijana a:hover {
+        color: var(--light);
+    }
+
+    .contact-vijana .item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover {
+        transform: translateX(5px);
+    }
+
+    .contact-vijana .icon {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--primary);
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover .icon {
+        background: var(--primary);
+        color: var(--light);
+        transform: rotate(15deg) scale(1.1);
+        box-shadow: var(--glow);
+    }
+
+    .contact-vijana .text {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--light-blue);
+    }
+
+    .social-vijana {
+        margin-top: 40px;
+    }
+
+    .social-vijana .title {
+        display: block;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--light);
+    }
+
+    .social-links-vijana {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-links-vijana a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--light);
+        font-size: 18px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .social-links-vijana a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .social-links-vijana a:hover {
+        transform: translateY(-5px) scale(1.1);
+    }
+
+    .social-links-vijana a:hover::before {
+        opacity: 1;
+    }
+
+    .social-links-vijana a i {
+        position: relative;
+        z-index: 2;
+    }
+
+    .copyright-vijana {
+        text-align: center;
+        margin-top: 80px;
+        padding-top: 30px;
+        position: relative;
+        font-size: 14px;
+        color: var(--light-blue);
+        z-index: 2;
+    }
+
+    .copyright-vijana::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+
+    .copyright-vijana a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .copyright-vijana a:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container-vijana {
+            grid-template-columns: 1fr;
+            gap: 50px;
+            padding: 0 30px;
+        }
+        
+        .logo-vijana {
+            margin-bottom: 25px;
+        }
+        
+        .copyright-vijana {
+            margin-top: 60px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-vijana {
+            padding: 60px 0 30px;
+        }
+        
+        .logo-icon-vijana {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .logo-text-vijana {
+            font-size: 28px;
+        }
+        
+        .cta-vijana {
+            padding: 14px 25px;
+            font-size: 15px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <img src="https://via.placeholder.com/36" alt="Logo">
+                <span class="logo-text">Vijana<span>Boost</span></span>
+            </a>
+
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="Actualite.html#news-listing-page" class="active">Actualités</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                
+                <div class="auth-buttons">
+                    <a href="authentification.html"><button class="login-btn">Connexion</button></a>
+                    <a href="authentification.html"><button class="register-btn">Inscription</button></a>
+                </div>
+            </ul>
+        </nav>
+        <div class="overlay"></div>
+    </header>
+
+    <!-- Hero Section pour la page Actualités -->
+    <section class="news-hero">
+        <div class="news-hero-content">
+            <h1>Vous êtes sur la page d'actualités de Vijana Boost</h1>
+            <p>Restez informés des dernières opportunités et événements pour booster votre carrière</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- News Listing Page (default view) -->
+        <div id="news-listing-page" >
+            <div class="page-header">
+                <h1 class="page-title">Actualités</h1>
+                <p class="page-description">Restez informé des dernières nouvelles et événements concernant l'emploi et l'entrepreneuriat en RDC</p>
+            </div>
+
+            <div class="news-filter">
+                <div class="filter-options">
+                    <button class="filter-btn active" data-category="all">Toutes</button>
+                    <button class="filter-btn" data-category="emploi">Emploi</button>
+                    <button class="filter-btn" data-category="formation">Formations</button>
+                    <button class="filter-btn" data-category="evenement">Événements</button>
+                    <button class="filter-btn" data-category="partenaire">Partenariats</button>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher des actualités...">
+                </div>
+            </div>
+
+            <div class="news-grid" id="news-grid">
+                <!-- Article 1 -->
+                <div class="news-card" data-id="1" data-category="emploi">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Actualité 1">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">Emploi</span>
+                        <h3 class="news-title">Nouveau programme de recrutement pour les jeunes diplômés</h3>
+                        <p class="news-excerpt">Le gouvernement lance une initiative pour embaucher 5000 jeunes diplômés dans le secteur public avant la fin de l'année.</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> 15 Juin 2023</span>
+                             <a href="" class="read-more" data-id="1">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 2 -->
+                <div class="news-card" data-id="2" data-category="formation">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Actualité 2">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">Formation</span>
+                        <h3 class="news-title">Formation gratuite en développement web à Kinshasa</h3>
+                        <p class="news-excerpt">Kinshasa Digital Academy ouvre ses portes pour une session intensive de 3 mois en développement web et mobile.</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> 10 Juin 2023</span>
+                            <a href="#" class="read-more" data-id="2">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 3 -->
+                <div class="news-card" data-id="3" data-category="evenement">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Actualité 3">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">Événement</span>
+                        <h3 class="news-title">Forum de l'emploi 2023 : 100 entreprises recrutent</h3>
+                        <p class="news-excerpt">Le plus grand forum de recrutement de l'année aura lieu le 25 juin au Palais du Peuple avec plus de 5000 postes à pourvoir.</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> 5 Juin 2023</span>
+                            <a href="#" class="read-more" data-id="3">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 4 -->
+                <div class="news-card" data-id="4" data-category="partenaire">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1434626881859-194d67b2b86f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="Actualité 4">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">Partenariat</span>
+                        <h3 class="news-title">Vijana Boost signe un accord avec la BGF</h3>
+                        <p class="news-excerpt">Un nouveau fonds de garantie pour les jeunes entrepreneurs sera disponible dès juillet grâce à ce partenariat stratégique.</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> 1 Juin 2023</span>
+                            <a href="#" class="read-more" data-id="4">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 5 -->
+                <div class="news-card" data-id="5" data-category="emploi">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Actualité 5">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">Emploi</span>
+                        <h3 class="news-title">Les métiers les plus demandés en 2023</h3>
+                        <p class="news-excerpt">Découvrez le classement des compétences les plus recherchées par les employeurs congolais cette année.</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> 28 Mai 2023</span>
+                            <a href="#" class="read-more" data-id="5">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Article 6 -->
+                <div class="news-card" data-id="6" data-category="formation">
+                    <div class="news-image">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Actualité 6">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-category">Formation</span>
+                        <h3 class="news-title">Ateliers gratuits de préparation aux entretiens</h3>
+                        <p class="news-excerpt">Une série d'ateliers pratiques pour maîtriser les techniques de réussite aux entretiens d'embauche.</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="far fa-calendar-alt"></i> 22 Mai 2023</span>
+                            <a href="#" class="read-more" data-id="6">Lire plus</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <a href="#" class="disabled"><i class="fas fa-chevron-left"></i></a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#"><i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <section class="newsletter-section">
+                <div class="newsletter-content">
+                    <h2 class="newsletter-title">Restez informé</h2>
+                    <p class="newsletter-description">Abonnez-vous à notre newsletter pour recevoir les dernières actualités directement dans votre boîte email.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Votre adresse email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <!-- News Detail Page (hidden by default) -->
+        <div id="news-detail-page" style="display: none;">
+            <div class="news-detail-container">
+                <a href="#" class="news-detail-back" id="back-to-news"><i class="fas fa-arrow-left"></i> Retour aux actualités</a>
+                
+                <div class="news-detail-header">
+                    <h1 class="news-detail-title" id="detail-title">Nouveau programme de recrutement pour les jeunes diplômés</h1>
+                    <div class="news-detail-meta">
+                        <span class="news-detail-category" id="detail-category">Emploi</span>
+                        <span class="news-detail-date" id="detail-date"><i class="far fa-calendar-alt"></i> 15 Juin 2023</span>
+                    </div>
+                </div>
+                
+                <div class="news-detail-image">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Détail actualité" id="detail-image">
+                </div>
+                
+                <div class="news-detail-content">
+                    <div class="news-detail-text" id="detail-content">
+                        <p>Le gouvernement de la République Démocratique du Congo a annoncé ce lundi le lancement d'un ambitieux programme de recrutement destiné aux jeunes diplômés du pays. Cette initiative, baptisée "Jeunesse Compétente pour la Nation", vise à embaucher 5000 jeunes professionnels dans divers ministères et institutions publiques d'ici la fin de l'année 2023.</p>
+                        
+                        <h2>Un programme en trois phases</h2>
+                        
+                        <p>Le programme se déroulera en trois phases distinctes :</p>
+                        
+                        <ul>
+                            <li><strong>Phase 1 (Juin-Juillet 2023)</strong> : Appel à candidatures et sélection des dossiers</li>
+                            <li><strong>Phase 2 (Août 2023)</strong> : Évaluations techniques et entretiens</li>
+                            <li><strong>Phase 3 (Septembre-Décembre 2023)</strong> : Intégration progressive des lauréats</li>
+                        </ul>
+                        
+                        <h2>Domaines prioritaires</h2>
+                        
+                        <p>Les recrutements cibleront principalement les domaines suivants :</p>
+                        
+                        <ul>
+                            <li>Ingénierie et technologies</li>
+                            <li>Économie et finances</li>
+                            <li>Santé publique</li>
+                            <li>Éducation et formation</li>
+                            <li>Administration publique</li>
+                            <li>Développement rural</li>
+                        </ul>
+                        
+                        <h2>Critères d'éligibilité</h2>
+                        
+                        <p>Pour postuler, les candidats doivent :</p>
+                        
+                        <ul>
+                            <li>Être de nationalité congolaise</li>
+                            <li>Être âgé de 21 à 35 ans</li>
+                            <li>Posséder un diplôme universitaire (Licence minimum) ou un diplôme technique supérieur</li>
+                            <li>Avoir au moins une année d'expérience professionnelle (stage inclus)</li>
+                            <li>Maîtriser le français et au moins une langue nationale</li>
+                        </ul>
+                        
+                        <p>Les candidatures féminines sont particulièrement encouragées, avec un objectif de 40% de femmes recrutées dans le cadre de ce programme.</p>
+                        
+                        <h2>Modalités de candidature</h2>
+                        
+                        <p>Les dossiers de candidature doivent être déposés en ligne sur la plateforme <a href="#">emploi.gouv.cd</a> à partir du 20 juin 2023. Les documents requis incluent :</p>
+                        
+                        <ul>
+                            <li>Un CV détaillé</li>
+                            <li>Une lettre de motivation</li>
+                            <li>Les copies certifiées des diplômes</li>
+                            <li>Une attestation d'expérience professionnelle</li>
+                            <li>Une copie de la carte d'identité nationale</li>
+                        </ul>
+                        
+                        <p>Ce programme s'inscrit dans le cadre du plan stratégique "Vision 2025" du gouvernement, qui vise à renforcer les capacités administratives tout en luttant contre le chômage des jeunes diplômés. Selon le ministre de la Fonction Publique, ce recrutement massif permettra également de rajeunir et de moderniser l'administration congolaise.</p>
+                    </div>
+                    
+                    <div class="news-detail-social">
+                        <div class="news-detail-like">
+                            <button class="like-btn" id="like-btn">
+                                <i class="far fa-heart"></i>
+                                <span class="like-count" id="like-count">0</span>
+                            </button>
+                        </div>
+                        
+                        <div class="social-share">
+                            <span>Partager :</span>
+                            <a href="#" class="share-btn facebook" title="Partager sur Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-btn twitter" title="Partager sur Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-btn linkedin" title="Partager sur LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="share-btn whatsapp" title="Partager sur WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Related News -->
+                <div class="related-news">
+                    <h3 class="related-title">Actualités similaires</h3>
+                    <div class="news-grid">
+                        <!-- Article 5 -->
+                        <div class="news-card" data-id="5">
+                            <div class="news-image">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Actualité 5">
+                            </div>
+                            <div class="news-content">
+                                <span class="news-category">Emploi</span>
+                                <h3 class="news-title">Les métiers les plus demandés en 2023</h3>
+                                <p class="news-excerpt">Découvrez le classement des compétences les plus recherchées par les employeurs congolais cette année.</p>
+                                <div class="news-meta">
+                                    <span class="news-date"><i class="far fa-calendar-alt"></i> 28 Mai 2023</span>
+                                    <a href="#" class="read-more" data-id="5">Lire plus</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Article 6 -->
+                        <div class="news-card" data-id="6">
+                            <div class="news-image">
+                                <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Actualité 6">
+                            </div>
+                            <div class="news-content">
+                                <span class="news-category">Formation</span>
+                                <h3 class="news-title">Ateliers gratuits de préparation aux entretiens</h3>
+                                <p class="news-excerpt">Une série d'ateliers pratiques pour maîtriser les techniques de réussite aux entretiens d'embauche.</p>
+                                <div class="news-meta">
+                                    <span class="news-date"><i class="far fa-calendar-alt"></i> 22 Mai 2023</span>
+                                    <a href="#" class="read-more" data-id="6">Lire plus</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comments Section -->
+                <div class="comments-section">
+                    <h3 class="comments-title">Commentaires (3)</h3>
+                    
+                    <form class="comment-form">
+                        <textarea placeholder="Ajoutez un commentaire..." required></textarea>
+                        <button type="submit">Publier</button>
+                    </form>
+                    
+                    <ul class="comment-list">
+                        <li class="comment-item">
+                            <div class="comment-header">
+                                <div class="comment-avatar">JD</div>
+                                <span class="comment-author">Jean Dupont</span>
+                                <span class="comment-date">- 16 Juin 2023</span>
+                            </div>
+                            <p class="comment-text">C'est une excellente initiative ! J'espère que le processus de sélection sera transparent et équitable pour tous les candidats.</p>
+                        </li>
+                        
+                        <li class="comment-item">
+                            <div class="comment-header">
+                                <div class="comment-avatar">MK</div>
+                                <span class="comment-author">Marie Kabasele</span>
+                                <span class="comment-date">- 15 Juin 2023</span>
+                            </div>
+                            <p class="comment-text">Enfin une bonne nouvelle pour nous les jeunes diplômés. Je vais postuler dès l'ouverture des candidatures.</p>
+                        </li>
+                        
+                        <li class="comment-item">
+                            <div class="comment-header">
+                                <div class="comment-avatar">PB</div>
+                                <span class="comment-author">Paul Bahati</span>
+                                <span class="comment-date">- 15 Juin 2023</span>
+                            </div>
+                            <p class="comment-text">Est-ce que les diplômés des universités privées sont également éligibles ? J'aimerais avoir plus de précisions à ce sujet.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Section Footer -->
+
+    <footer class="footer-vijana">
+        <div class="container-vijana">
+            <!-- Brand Section -->
+            <div class="brand-vijana">
+                <div class="logo-vijana">
+                    <div class="logo-icon-vijana">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="logo-text-vijana">VIJANA BOOST</div>
+                </div>
+                <p class="slogan-vijana">
+                    La plateforme qui connecte les jeunes congolais aux meilleures opportunités professionnelles.
+                </p>
+                <button class="cta-vijana" id="ctaVijana">
+                    <i class="fas fa-download" style="margin-right: 12px;"></i> Télécharger l'app
+                </button>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="section-vijana">
+                <h3>Navigation</h3>
+                <ul class="links-vijana">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="Actualite.html">Actualités</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="section-vijana">
+                <h3>Nos Services</h3>
+                <ul class="links-vijana">
+                    <li><a href="emploi-stage.html">Emploi et Stage</a></li>
+                    <li><a href="formations.html">Formation Professionnelle</a></li>
+                    <li><a href="mentorat-coaching.html">Mentorat et Coaching</a></li>
+                    <li><a href="reseautage-professionnel.html">Réseautage Professionnel</a></li>
+                    <li><a href="marketplace.html">Marketplace Entrepreneuriale</a></li>
+                    <li><a href="ateliers-evenements">Ateliers et Événements</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div class="section-vijana contact-vijana">
+                <h3>Contacts</h3>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="text">Kinshasa, RDC</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="text">+243 824 919 938 <br>+243 892 612 200</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="text">ctshipadi2018@gmail.com <br>contact@vijanaboost.cd</div>
+                </div>
+                
+                <div class="social-vijana">
+                    <span class="title">Suivez-nous sur</span>
+                    <div class="social-links-vijana">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="copyright-vijana">
+            <p>© 2025 Vijana Boost. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a> | <a href="#">Mentions légales</a></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const overlay = document.querySelector('.overlay');
+            const loginBtn = document.querySelector('.login-btn');
+            const registerBtn = document.querySelector('.register-btn');
+
+            // Toggle mobile menu
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close menu when clicking on overlay or link
+            overlay.addEventListener('click', closeMenu);
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            function closeMenu() {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Auth buttons functionality
+            loginBtn.addEventListener('click', function() {
+                alert('Ouverture du formulaire de connexion');
+            });
+
+            registerBtn.addEventListener('click', function() {
+                alert('Ouverture du formulaire d\'inscription');
+            });
+
+            // News filtering
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const newsGrid = document.getElementById('news-grid');
+            const newsCards = document.querySelectorAll('.news-card');
+            const searchInput = document.querySelector('.search-box input');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterNews();
+                });
+            });
+
+            searchInput.addEventListener('input', filterNews);
+
+            function filterNews() {
+                const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+                const searchTerm = searchInput.value.toLowerCase();
+
+                newsCards.forEach(card => {
+                    const category = card.querySelector('.news-category').textContent.toLowerCase();
+                    const title = card.querySelector('.news-title').textContent.toLowerCase();
+                    const excerpt = card.querySelector('.news-excerpt').textContent.toLowerCase();
+
+                    const matchesCategory = activeCategory === 'all' || 
+                        (activeCategory === 'emploi' && category === 'emploi') ||
+                        (activeCategory === 'formation' && category === 'formation') ||
+                        (activeCategory === 'evenement' && category === 'événement') ||
+                        (activeCategory === 'partenaire' && category === 'partenariat');
+
+                    const matchesSearch = searchTerm === '' || 
+                        title.includes(searchTerm) || 
+                        excerpt.includes(searchTerm);
+
+                    if (matchesCategory && matchesSearch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+
+            // Newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input').value;
+                if (email) {
+                    alert(`Merci pour votre abonnement! Vous recevrez nos actualités à ${email}`);
+                    this.querySelector('input').value = '';
+                }
+            });
+
+            // Pagination
+            const paginationLinks = document.querySelectorAll('.pagination a');
+            paginationLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (this.classList.contains('disabled')) return;
+
+                    paginationLinks.forEach(l => l.classList.remove('active'));
+                    
+                    if (!this.querySelector('i')) {
+                        this.classList.add('active');
+                    }
+                    
+                    // In a real implementation, this would load the corresponding page
+                    alert(`Chargement de la page ${this.textContent}`);
+                });
+            });
+
+            // News detail page functionality
+            const newsListingPage = document.getElementById('news-listing-page');
+            const newsDetailPage = document.getElementById('news-detail-page');
+            const backToNewsBtn = document.getElementById('back-to-news');
+            const readMoreLinks = document.querySelectorAll('.read-more');
+            
+            // Sample news data (in a real app, this would come from a database)
+            const newsData = {
+                1: {
+                    title: "Nouveau programme de recrutement pour les jeunes diplômés",
+                    category: "Emploi",
+                    date: "15 Juin 2023",
+                    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+                    content: `
+                        <p>Le gouvernement de la République Démocratique du Congo a annoncé ce lundi le lancement d'un ambitieux programme de recrutement destiné aux jeunes diplômés du pays. Cette initiative, baptisée "Jeunesse Compétente pour la Nation", vise à embaucher 5000 jeunes professionnels dans divers ministères et institutions publiques d'ici la fin de l'année 2023.</p>
+                        
+                        <h2>Un programme en trois phases</h2>
+                        
+                        <p>Le programme se déroulera en trois phases distinctes :</p>
+                        
+                        <ul>
+                            <li><strong>Phase 1 (Juin-Juillet 2023)</strong> : Appel à candidatures et sélection des dossiers</li>
+                            <li><strong>Phase 2 (Août 2023)</strong> : Évaluations techniques et entretiens</li>
+                            <li><strong>Phase 3 (Septembre-Décembre 2023)</strong> : Intégration progressive des lauréats</li>
+                        </ul>
+                        
+                        <h2>Domaines prioritaires</h2>
+                        
+                        <p>Les recrutements cibleront principalement les domaines suivants :</p>
+                        
+                        <ul>
+                            <li>Ingénierie et technologies</li>
+                            <li>Économie et finances</li>
+                            <li>Santé publique</li>
+                            <li>Éducation et formation</li>
+                            <li>Administration publique</li>
+                            <li>Développement rural</li>
+                        </ul>
+                        
+                        <h2>Critères d'éligibilité</h2>
+                        
+                        <p>Pour postuler, les candidats doivent :</p>
+                        
+                        <ul>
+                            <li>Être de nationalité congolaise</li>
+                            <li>Être âgé de 21 à 35 ans</li>
+                            <li>Posséder un diplôme universitaire (Licence minimum) ou un diplôme technique supérieur</li>
+                            <li>Avoir au moins une année d'expérience professionnelle (stage inclus)</li>
+                            <li>Maîtriser le français et au moins une langue nationale</li>
+                        </ul>
+                        
+                        <p>Les candidatures féminines sont particulièrement encouragées, avec un objectif de 40% de femmes recrutées dans le cadre de ce programme.</p>
+                        
+                        <h2>Modalités de candidature</h2>
+                        
+                        <p>Les dossiers de candidature doivent être déposés en ligne sur la plateforme <a href="#">emploi.gouv.cd</a> à partir du 20 juin 2023. Les documents requis incluent :</p>
+                        
+                        <ul>
+                            <li>Un CV détaillé</li>
+                            <li>Une lettre de motivation</li>
+                            <li>Les copies certifiées des diplômes</li>
+                            <li>Une attestation d'expérience professionnelle</li>
+                            <li>Une copie de la carte d'identité nationale</li>
+                        </ul>
+                        
+                        <p>Ce programme s'inscrit dans le cadre du plan stratégique "Vision 2025" du gouvernement, qui vise à renforcer les capacités administratives tout en luttant contre le chômage des jeunes diplômés. Selon le ministre de la Fonction Publique, ce recrutement massif permettra également de rajeunir et de moderniser l'administration congolaise.</p>
+                    `
+                },
+                2: {
+                    title: "Formation gratuite en développement web à Kinshasa",
+                    category: "Formation",
+                    date: "10 Juin 2023",
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    content: `
+                        <p>Kinshasa Digital Academy, en partenariat avec le ministère du Numérique, lance une nouvelle session de formation intensive en développement web et mobile entièrement gratuite pour les jeunes de Kinshasa. Cette formation de 3 mois permettra à 50 jeunes sélectionnés d'acquérir des compétences techniques recherchées sur le marché de l'emploi.</p>
+                        
+                        <h2>Programme de la formation</h2>
+                        
+                        <p>La formation couvrira les technologies suivantes :</p>
+                        
+                        <ul>
+                            <li>HTML5, CSS3 et JavaScript (ES6+)</li>
+                            <li>React.js pour le développement frontend</li>
+                            <li>Node.js et Express pour le backend</li>
+                            <li>MongoDB pour la gestion des bases de données</li>
+                            <li>Git pour le contrôle de version</li>
+                            <li>Déploiement d'applications</li>
+                        </ul>
+                        
+                        <h2>Conditions d'admission</h2>
+                        
+                        <p>Pour postuler, les candidats doivent :</p>
+                        
+                        <ul>
+                            <li>Être âgé entre 18 et 30 ans</li>
+                            <li>Résider à Kinshasa</li>
+                            <li>Avoir une base en informatique</li>
+                            <li>Passer avec succès les tests de sélection</li>
+                            <li>Être disponible à temps plein pendant 3 mois</li>
+                        </ul>
+                        
+                        <p>Les femmes sont particulièrement encouragées à postuler, avec un quota de 40% de places réservées.</p>
+                        
+                        <h2>Modalités pratiques</h2>
+                        
+                        <ul>
+                            <li><strong>Lieu :</strong> Kinshasa Digital Academy, Gombe</li>
+                            <li><strong>Date de début :</strong> 10 Juillet 2023</li>
+                            <li><strong>Horaires :</strong> Lundi à Vendredi, 9h-17h</li>
+                            <li><strong>Date limite de candidature :</strong> 25 Juin 2023</li>
+                        </ul>
+                        
+                        <p>À l'issue de la formation, les meilleurs participants se verront proposer des stages en entreprise avec possibilité d'embauche. Les inscriptions se font en ligne sur le site de Kinshasa Digital Academy.</p>
+                    `
+                },
+                3: {
+                    title: "Forum de l'emploi 2023 : 100 entreprises recrutent",
+                    category: "Événement",
+                    date: "5 Juin 2023",
+                    image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+                    content: `
+                        <p>La 5ème édition du Forum National de l'Emploi se tiendra le 25 juin prochain au Palais du Peuple à Kinshasa. Cet événement, organisé par le ministère de l'Emploi en collaboration avec la Chambre de Commerce, rassemblera plus de 100 entreprises locales et internationales à la recherche de talents.</p>
+                        
+                        <h2>Opportunités à saisir</h2>
+                        
+                        <p>Plus de 5000 postes seront à pourvoir dans divers secteurs :</p>
+                        
+                        <ul>
+                            <li>Banque et finance (1200 postes)</li>
+                            <li>Télécommunications (800 postes)</li>
+                            <li>Mines et ressources naturelles (700 postes)</li>
+                            <li>Santé (500 postes)</li>
+                            <li>Éducation (400 postes)</li>
+                            <li>Technologie (600 postes)</li>
+                            <li>Autres secteurs (800 postes)</li>
+                        </ul>
+                        
+                        <h2>Programme de la journée</h2>
+                        
+                        <ul>
+                            <li><strong>8h-9h :</strong> Accueil des participants</li>
+                            <li><strong>9h-10h :</strong> Cérémonie d'ouverture</li>
+                            <li><strong>10h-13h :</strong> Rencontres avec les recruteurs</li>
+                            <li><strong>13h-14h :</strong> Pause déjeuner</li>
+                            <li><strong>14h-16h :</strong> Ateliers et conférences</li>
+                            <li><strong>16h-17h :</strong> Clôture et remise des prix</li>
+                        </ul>
+                        
+                        <h2>Préparation recommandée</h2>
+                        
+                        <p>Pour maximiser vos chances lors du forum :</p>
+                        
+                        <ul>
+                            <li>Préparez plusieurs exemplaires de votre CV</li>
+                            <li>Habillez-vous professionnellement</li>
+                            <li>Préparez un pitch de présentation de 30 secondes</li>
+                            <li>Recherchez les entreprises participantes et leurs offres</li>
+                            <li>Arrivez tôt pour éviter les files d'attente</li>
+                        </ul>
+                        
+                        <p>L'entrée au forum est gratuite mais l'inscription préalable en ligne est obligatoire. Les visiteurs recevront un badge d'accès qu'ils devront présenter à l'entrée.</p>
+                    `
+                },
+                4: {
+                    title: "Vijana Boost signe un accord avec la BGF",
+                    category: "Partenariat",
+                    date: "1 Juin 2023",
+                    image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
+                    content: `
+                        <p>Vijana Boost et la Banque de Garantie pour la Femme (BGF) ont signé ce jeudi un partenariat stratégique visant à faciliter l'accès au financement pour les jeunes entrepreneurs congolais. Cet accord permettra la création d'un fonds de garantie spécifique doté de 5 millions de dollars.</p>
+                        
+                        <h2>Détails du partenariat</h2>
+                        
+                        <p>Le partenariat prévoit :</p>
+                        
+                        <ul>
+                            <li>Un fonds de garantie de 5 millions USD pour les jeunes entrepreneurs</li>
+                            <li>Une couverture de garantie allant jusqu'à 70% des prêts</li>
+                            <li>Des taux d'intérêt préférentiels pour les membres de Vijana Boost</li>
+                            <li>Un accompagnement technique des porteurs de projets</li>
+                            <li>Un programme de mentorat spécifique</li>
+                        </ul>
+                        
+                        <h2>Bénéficiaires éligibles</h2>
+                        
+                        <p>Pour bénéficier de ce programme, les entrepreneurs doivent :</p>
+                        
+                        <ul>
+                            <li>Être âgé entre 18 et 35 ans</li>
+                            <li>Avoir un projet viable ou une entreprise existante de moins de 3 ans</li>
+                            <li>Être membre de la plateforme Vijana Boost</li>
+                            <li>Suivre une formation préalable en gestion d'entreprise</li>
+                            <li>Présenter un business plan complet</li>
+                        </ul>
+                        
+                        <h2>Secteurs prioritaires</h2>
+                        
+                        <p>Les projets dans les secteurs suivants seront prioritaires :</p>
+                        
+                        <ul>
+                            <li>Agriculture et agroalimentaire</li>
+                            <li>Technologie et innovation</li>
+                            <li>Énergies renouvelables</li>
+                            <li>Artisanat et création</li>
+                            <li>Services aux entreprises</li>
+                        </ul>
+                        
+                        <p>Les demandes de financement pourront être déposées à partir du 15 juillet 2023 sur les plateformes en ligne de Vijana Boost et de la BGF. Une commission mixte examinera les dossiers et sélectionnera les bénéficiaires.</p>
+                        
+                        <p>Ce partenariat s'inscrit dans la vision du gouvernement de promouvoir l'entrepreneuriat jeune comme solution au chômage et au sous-emploi des jeunes diplômés.</p>
+                    `
+                },
+                5: {
+                    title: "Les métiers les plus demandés en 2023",
+                    category: "Emploi",
+                    date: "28 Mai 2023",
+                    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    content: `
+                        <p>Une étude récente du ministère de l'Emploi révèle les métiers et compétences les plus recherchés par les employeurs congolais en 2023. Cette analyse, basée sur plus de 5000 offres d'emploi, montre une nette évolution des besoins du marché.</p>
+                        
+                        <h2>Top 10 des métiers les plus demandés</h2>
+                        
+                        <ol>
+                            <li><strong>Développeurs Full Stack</strong> (JavaScript, Python, PHP)</li>
+                            <li><strong>Spécialistes en Cybersécurité</strong></li>
+                            <li><strong>Analystes Data</strong></li>
+                            <li><strong>Ingénieurs Cloud</strong></li>
+                            <li><strong>Responsables Marketing Digital</strong></li>
+                            <li><strong>Comptables certifiés</strong></li>
+                            <li><strong>Techniciens en énergies renouvelables</strong></li>
+                            <li><strong>Spécialistes en Intelligence Artificielle</strong></li>
+                            <li><strong>Gestionnaires de projets</strong> (certifiés PMP de préférence)</li>
+                            <li><strong>Infirmiers spécialisés</strong></li>
+                        </ol>
+                        
+                        <h2>Compétences transversales recherchées</h2>
+                        
+                        <p>Au-delà des compétences techniques, les employeurs recherchent particulièrement :</p>
+                        
+                        <ul>
+                            <li>Maîtrise des outils numériques</li>
+                            <li>Capacité d'adaptation</li>
+                            <li>Esprit d'équipe</li>
+                            <li>Créativité et innovation</li>
+                            <li>Résolution de problèmes</li>
+                            <li>Gestion du stress</li>
+                            <li>Maîtrise de l'anglais professionnel</li>
+                        </ul>
+                        
+                        <h2>Évolution par rapport à 2022</h2>
+                        
+                        <p>L'étude révèle plusieurs tendances fortes :</p>
+                        
+                        <ul>
+                            <li>Une augmentation de 45% des demandes pour les métiers du numérique</li>
+                            <li>Une pénurie marquée dans les métiers techniques spécialisés</li>
+                            <li>Une demande croissante pour les profils bilingues (français-anglais)</li>
+                            <li>Une valorisation des certifications professionnelles</li>
+                        </ul>
+                        
+                        <p>Le ministère de l'Emploi annonce le lancement prochain de programmes de formation ciblés pour répondre à ces besoins spécifiques du marché.</p>
+                    `
+                },
+                6: {
+                    title: "Ateliers gratuits de préparation aux entretiens",
+                    category: "Formation",
+                    date: "22 Mai 2023",
+                    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+                    content: `
+                        <p>Le Centre de Développement Professionnel (CDP) organise une série d'ateliers pratiques gratuits pour aider les jeunes chercheurs d'emploi à maîtriser les techniques de réussite aux entretiens d'embauche. Ces ateliers auront lieu dans les principales villes du pays à partir du 5 juin.</p>
+                        
+                        <h2>Programme des ateliers</h2>
+                        
+                        <p>Chaque atelier de 3 heures couvrira :</p>
+                        
+                        <ul>
+                            <li>Les différents types d'entretiens (traditionnel, comportemental, technique)</li>
+                            <li>La préparation en amont (recherche sur l'entreprise, anticipation des questions)</li>
+                            <li>La tenue vestimentaire appropriée</li>
+                            <li>Le langage corporel et la communication non verbale</li>
+                            <li>La gestion du stress</li>
+                            <li>Les questions pièges et comment y répondre</li>
+                            <li>La négociation salariale</li>
+                        </ul>
+                        
+                        <h2>Modalités pratiques</h2>
+                        
+                        <ul>
+                            <li><strong>Lieux :</strong> Kinshasa, Lubumbashi, Goma, Bukavu, Matadi</li>
+                            <li><strong>Dates :</strong> Du 5 au 30 juin 2023</li>
+                            <li><strong>Horaires :</strong> 9h-12h ou 14h-17h selon les jours</li>
+                            <li><strong>Inscription :</strong> Obligatoire et gratuite sur le site du CDP</li>
+                            <li><strong>Nombre de places :</strong> 25 par session</li>
+                        </ul>
+                        
+                        <h2>Particularités de cette édition</h2>
+                        
+                        <p>Cette année, le CDP introduit plusieurs nouveautés :</p>
+                        
+                        <ul>
+                            <li>Des simulations d'entretiens filmées et analysées</li>
+                            <li>Un atelier spécifique sur les entretiens en ligne</li>
+                            <li>La participation de recruteurs de grandes entreprises</li>
+                            <li>Un suivi personnalisé après l'atelier</li>
+                        </ul>
+                        
+                        <p>Ces ateliers sont financés par le ministère de la Jeunesse dans le cadre du programme "Jeunes Compétents". Les participants recevront une attestation de participation qui pourra être jointe à leur dossier de candidature.</p>
+                    `
+                }
+            };
+
+            // Handle "Read more" clicks
+            readMoreLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newsId = this.getAttribute('data-id');
+                    showNewsDetail(newsId);
+                });
+            });
+
+            // Handle "Back to news" click
+            backToNewsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                newsListingPage.style.display = 'block';
+                newsDetailPage.style.display = 'none';
+                window.scrollTo(0, 0);
+            });
+
+            // Function to show news detail
+            function showNewsDetail(newsId) {
+                const news = newsData[newsId];
+                if (!news) return;
+
+                // Update detail page content
+                document.getElementById('detail-title').textContent = news.title;
+                document.getElementById('detail-category').textContent = news.category;
+                document.getElementById('detail-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${news.date}`;
+                document.getElementById('detail-image').src = news.image;
+                document.getElementById('detail-image').alt = news.title;
+                document.getElementById('detail-content').innerHTML = news.content;
+
+                // Reset like button
+                const likeBtn = document.getElementById('like-btn');
+                likeBtn.classList.remove('liked');
+                likeBtn.innerHTML = '<i class="far fa-heart"></i>';
+                document.getElementById('like-count').textContent = '0';
+
+                // Show detail page and hide listing
+                newsListingPage.style.display = 'none';
+                newsDetailPage.style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+
+            // Like button functionality
+            const likeBtn = document.getElementById('like-btn');
+            const likeCount = document.getElementById('like-count');
+            
+            likeBtn.addEventListener('click', function() {
+                const isLiked = this.classList.contains('liked');
+                let count = parseInt(likeCount.textContent);
+                
+                if (isLiked) {
+                    this.classList.remove('liked');
+                    this.innerHTML = '<i class="far fa-heart"></i>';
+                    likeCount.textContent = count - 1;
+                } else {
+                    this.classList.add('liked');
+                    this.innerHTML = '<i class="fas fa-heart"></i>';
+                    likeCount.textContent = count + 1;
+                }
+            });
+
+            // Social share buttons
+            const shareButtons = document.querySelectorAll('.share-btn');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const platform = this.classList.contains('facebook') ? 'Facebook' :
+                                  this.classList.contains('twitter') ? 'Twitter' :
+                                  this.classList.contains('linkedin') ? 'LinkedIn' : 'WhatsApp';
+                    alert(`Partager sur ${platform}`);
+                });
+            });
+
+            // Comment form submission
+            const commentForm = document.querySelector('.comment-form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const commentText = this.querySelector('textarea').value;
+                    if (commentText.trim()) {
+                        alert('Commentaire publié: ' + commentText);
+                        this.querySelector('textarea').value = '';
+                    }
+                });
+            }
+        });
+
+        // <!-- =================== Scripts pour le footer ================== -->
+          document.addEventListener('DOMContentLoaded', function() {
+        // Animation du bouton CTA
+        const ctaButton = document.getElementById('ctaVijana');
+        
+        if (ctaButton) {
+            ctaButton.addEventListener('mouseenter', function() {
+                this.querySelector('i').style.transform = 'rotate(360deg)';
+                this.querySelector('i').style.transition = 'transform 0.6s ease';
+            });
+            
+            ctaButton.addEventListener('mouseleave', function() {
+                this.querySelector('i').style.transform = 'rotate(0deg)';
+            });
+        }
+        
+        // Animation des icônes de contact
+        const contactIcons = document.querySelectorAll('.contact-vijana .icon');
+        contactIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(15deg) scale(1.1)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0deg) scale(1)';
+            });
+        });
+        
+        // Effet de soulignement dynamique
+        const navLinks = document.querySelectorAll('.links-vijana a');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.fontWeight = '500';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.fontWeight = '400';
+            });
+        });
+    });
+            
+    </script>
+</body>
+</html>

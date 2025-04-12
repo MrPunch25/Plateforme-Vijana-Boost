@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijana Boost - Mentorat & Coaching</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --secondary: #0033A0;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --light-blue: #E6F0FF;
+            --light-orange: #FFF5EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header-container {
+            background-color: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Navigation Desktop */
+        .nav-desktop {
+            display: flex;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 0.8rem;
+        }
+
+        .nav-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            border: 2px solid var(--primary);
+            color: var(--light);
+        }
+
+        .btn-signup:hover {
+            background: var(--light);
+            border-color: #FF6B00;
+            color: #FF6B00;
+            transition: 0.5s;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--secondary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--light);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .nav-mobile ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .nav-mobile li {
+            margin: 1.5rem 0;
+        }
+
+        .mobile-nav-link {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-auth {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 80%;
+            max-width: 250px;
+            align-items: center;
+            
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-desktop, .auth-buttons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+
+        /* Hero Section avec image de fond */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('mentorat-coaching.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 9rem 5%;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h2 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+
+        .btn-primary:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--light);
+        }
+
+        .btn-secondary:hover {
+            background-color: #002a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 51, 160, 0.2);
+        }
+
+        /* Mentor vs Coach Section */
+        .comparison {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--dark);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .comparison-cards {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            flex: 1;
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .card-body p {
+            margin: 0.5rem 0;
+            color: var(--dark);
+            justify-content: center;
+        }
+
+        .mentor-header {
+            background-color: var(--secondary);
+        }
+
+        .coach-header {
+            background-color: var(--primary);
+        }
+
+        .card-header i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-header h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body ul {
+            list-style-type: none;
+        }
+
+        .card-body li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .card-body li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .mentor-card li:before {
+            color: var(--secondary);
+        }
+
+        .card-footer {
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background-color: var(--light-blue);
+            padding: 4rem 5%;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+            gap: 1.5rem;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step h4 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .step p {
+            color: var(--dark);
+        }
+
+        .step:not(:last-child):after {
+            content: "";
+            position: absolute;
+            top: 25px;
+            left: calc(50% + 25px);
+            width: calc(100% - 50px);
+            height: 2px;
+            background-color: var(--primary);
+            opacity: 0.3;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .testimonial-info h5 {
+            font-size: 1.1rem;
+            color: var(--secondary);
+        }
+
+        .testimonial-info p {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--dark);
+        }
+
+        .rating {
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #002a8a 100%);
+            padding: 4rem 5%;
+            text-align: center;
+            color: var(--light);
+        }
+
+        .cta-section h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* Pages de profils */
+        .profile-page {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .search-filters {
+            background-color: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .filter-group select, 
+        .filter-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .search-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #e05e00;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .profile-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-header {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .profile-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .mentor-badge {
+            background-color: var(--secondary);
+        }
+
+        .profile-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .profile-card:hover .profile-avatar {
+            transform: scale(1.05);
+        }
+
+        .profile-body {
+            padding: 1.5rem;
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .profile-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+        }
+
+        .profile-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .expertise-tag {
+            background-color: var(--light-orange);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .expertise-tag:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .mentor-tag {
+            background-color: var(--light-blue);
+            color: var(--secondary);
+        }
+
+        .mentor-tag:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .profile-bio {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .profile-stat {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-stat i {
+            margin-right: 0.3rem;
+            color: var(--primary);
+        }
+
+        .mentor-stat i {
+            color: var(--secondary);
+        }
+
+        .profile-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .view-profile {
+            background-color: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .view-profile:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .coach-view {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .coach-view:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Animation pour les résultats de recherche */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .search-results {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* Message quand aucun résultat */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+            }
+
+            .nav-links li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .comparison-cards {
+                flex-direction: column;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            .step:not(:last-child):after {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .filter-row {
+                flex-direction: column;
+            }
+        }
+
+        /* Section Footer */
+    .footer-vijana {
+        background: var(--secondary);
+        color: var(--light);
+        padding: 80px 0 40px;
+        position: relative;
+        border-top: 4px solid var(--primary);
+    }
+
+    .footer-vijana::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%23FF6B00" opacity="0.1"></path></svg>');
+        background-size: cover;
+        z-index: 1;
+    }
+
+    .container-vijana {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 60px;
+        padding: 0 40px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .brand-vijana {
+        position: relative;
+    }
+
+    .logo-vijana {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .logo-icon-vijana {
+        width: 55px;
+        height: 55px;
+        background: var(--primary);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        transform: rotate(-10deg);
+        box-shadow: var(--glow);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .logo-icon-vijana:hover {
+        transform: rotate(0deg) scale(1.1);
+    }
+
+    .logo-text-vijana {
+        font-size: 30px;
+        font-weight: 1000;
+        color: var(--light);
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .slogan-vijana {
+        font-size: 17px;
+        line-height: 1.8;
+        margin-bottom: 35px;
+        color: var(--light-blue);
+        font-weight: 400;
+    }
+
+    .cta-vijana {
+        display: inline-flex;
+        align-items: center;
+        background: var(--primary);
+        color: var(--light);
+        border: none;
+        padding: 16px 32px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 25px rgba(255, 107, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .cta-vijana:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+        background: linear-gradient(to right, var(--primary), #FF8C00);
+    }
+
+    .section-vijana h3 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+        color: var(--light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-vijana h3::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 60%;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 4px;
+        transition: width 0.4s ease;
+    }
+
+    .section-vijana h3:hover::after {
+        width: 100%;
+    }
+
+    .links-vijana {
+        list-style: none;
+    }
+
+    .links-vijana li {
+        margin-bottom: 18px;
+        position: relative;
+        padding-left: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover {
+        transform: translateX(5px);
+    }
+
+    .links-vijana li::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: bold;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .links-vijana li:hover::before {
+        opacity: 1;
+        left: -5px;
+    }
+
+    .links-vijana a {
+        color: var(--light-blue);
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 4px 0;
+    }
+
+    .links-vijana a:hover {
+        color: var(--light);
+    }
+
+    .contact-vijana .item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover {
+        transform: translateX(5px);
+    }
+
+    .contact-vijana .icon {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: var(--primary);
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: all 0.3s ease;
+    }
+
+    .contact-vijana .item:hover .icon {
+        background: var(--primary);
+        color: var(--light);
+        transform: rotate(15deg) scale(1.1);
+        box-shadow: var(--glow);
+    }
+
+    .contact-vijana .text {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--light-blue);
+    }
+
+    .social-vijana {
+        margin-top: 40px;
+    }
+
+    .social-vijana .title {
+        display: block;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--light);
+    }
+
+    .social-links-vijana {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-links-vijana a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--light);
+        font-size: 18px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .social-links-vijana a::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .social-links-vijana a:hover {
+        transform: translateY(-5px) scale(1.1);
+    }
+
+    .social-links-vijana a:hover::before {
+        opacity: 1;
+    }
+
+    .social-links-vijana a i {
+        position: relative;
+        z-index: 2;
+    }
+
+    .copyright-vijana {
+        text-align: center;
+        margin-top: 80px;
+        padding-top: 30px;
+        position: relative;
+        font-size: 14px;
+        color: var(--light-blue);
+        z-index: 2;
+    }
+
+    .copyright-vijana::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+
+    .copyright-vijana a {
+        color: var(--light);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .copyright-vijana a:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container-vijana {
+            grid-template-columns: 1fr;
+            gap: 50px;
+            padding: 0 30px;
+        }
+        
+        .logo-vijana {
+            margin-bottom: 25px;
+        }
+        
+        .copyright-vijana {
+            margin-top: 60px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-vijana {
+            padding: 60px 0 30px;
+        }
+        
+        .logo-icon-vijana {
+            width: 45px;
+            height: 45px;
+        }
+        
+        .logo-text-vijana {
+            font-size: 28px;
+        }
+        
+        .cta-vijana {
+            padding: 14px 25px;
+            font-size: 15px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-container">
+        <div class="header-content">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <i class="fas fa-rocket"></i> VIJANA BOOST
+            </a>
+
+            <!-- Navigation Desktop -->
+            <nav class="nav-desktop">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Accueil</a></li>
+                    <li><a href="about.html" class="nav-link">À propos</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="Actualite.html" class="nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Boutons Auth Desktop -->
+            <div class="auth-buttons">
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-login">Connexion</a>
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-signup">Inscription</a>
+            </div>
+
+            <!-- Menu Hamburger Mobile -->
+            <button class="hamburger" aria-label="Menu mobile" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="index.html" class="logo">
+                <i class="fas fa-rocket"></i> VIJANA BOOST
+            </a>
+            <nav class="nav-mobile">
+                <ul>
+                    <li><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                    <li><a href="about.html" class="mobile-nav-link">À propos</a></li>
+                    <li><a href="index.html#services" class="mobile-nav-link">Services</a></li>
+                    <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+                    <li><a href="Actualite.html" class="mobile-nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-auth">
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-login">Connexion</a>
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-signup">Inscription</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section avec image de fond -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Mentorat & Coaching : <span>Libérez votre potentiel</span></h2>
+            <p>Bénéficiez de conseils personnalisés, que vous soyez entrepreneur, chercheur d'emploi ou en pleine reconversion. Choisissez l'accompagnement qui correspond à vos besoins !</p>
+            <div class="hero-buttons">
+                <a href="#mentors" class="btn btn-primary" id="find-mentor-btn">Trouver un mentor</a>
+                <a href="#coaches" class="btn btn-secondary" id="find-coach-btn">Trouver un coach</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentor vs Coach Section -->
+    <section class="comparison" id="mentor-coach">
+        <div class="section-title">
+            <h3>Mentor ou Coach ?</h3>
+            <p>Il est essentiel de comprendre la différence pour choisir l'accompagnement qui répond le mieux à vos besoins.</p>
+        </div>
+        <div class="comparison-cards">
+            <!-- Mentor Card -->
+            <div class="card mentor-card">
+                <div class="card-header mentor-header">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Mentorat</h4>
+                </div>
+                <div class="card-body">
+                    <P>Un mentor offre un soutien stratégique à long terme en partageant son expérience et ses connaissances.</P>
+                    <ul>
+                        <li><strong>Long terme</strong> : Relation durable (3 mois +)</li>
+                        <li><strong>Focus</strong> : Sagesse, réseau, vision globale</li>
+                        <li><strong>Pour qui ?</strong> Jeunes entrepreneurs, chercheurs d'emploi, étudiants, professionnels en reconversion</li>
+                        <li><strong>Format</strong> : Échanges informels réguliers</li>
+                        <li><strong>Résultat</strong> : Construction de carrière à long terme</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#mentors" class="btn btn-secondary" id="mentor-card-btn">Trouver un mentor</a>
+                </div>
+            </div>
+
+            <!-- Coach Card -->
+            <div class="card coach-card">
+                <div class="card-header coach-header">
+                    <i class="fas fa-running"></i>
+                    <h4>Coaching</h4>
+                </div>
+                <div class="card-body">
+                    <P>Un coach vous aide à atteindre des objectifs spécifiques à court terme en vous aidant à développer des compétences pratiques.</P>
+                    <ul>
+                        <li><strong>Court terme</strong> : Sessions ciblées (1-5 séances)</li>
+                        <li><strong>Focus</strong> : Compétences pratiques, objectifs SMART</li>
+                        <li><strong>Pour qui ?</strong> Jeunes entrepreneurs, chercheurs d'emploi, étudiants, professionnels en reconversion</li>
+                        <li><strong>Format</strong> : Ateliers structurés</li>
+                        <li><strong>Résultat</strong> : Surmonter des obstacles spécifiques</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#coaches" class="btn btn-primary" id="coach-card-btn">Trouver un coach</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page des Mentors (cachée par défaut) -->
+    <section id="mentors" class="profile-page" style="display: none;">
+        <div class="section-title">
+            <h3>Trouvez votre mentor idéal</h3>
+            <p>Parcourez notre réseau de mentors expérimentés prêts à partager leurs connaissances avec vous.</p>
+        </div>
+
+        <div class="search-filters">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="mentor-domain">Domaine d'expertise</label>
+                    <select id="mentor-domain">
+                        <option value="">Tous les domaines</option>
+                        <option value="tech">Technologie</option>
+                        <option value="business">Business & Entrepreneuriat</option>
+                        <option value="finance">Finance</option>
+                        <option value="marketing">Marketing Digital</option>
+                        <option value="agro">Agro-business</option>
+                        <option value="education">Éducation</option>
+                        <option value="healthcare">Santé</option>
+                        <option value="legal">Droit</option>
+                        <option value="art">Arts & Culture</option>
+                        <option value="sports">Sports & Loisirs</option>
+                        <option value="nonprofit">ONG & Social</option>
+                        <option value="government">Gouvernement & Politique</option>
+                        <option value="environment">Environnement</option>
+                        <option value="real-estate">Immobilier</option>
+                        <option value="transportation">Transports</option>
+                        <option value="construction">Construction</option>
+                        <option value="hospitality">Hôtellerie & Tourisme</option>
+                        <option value="media">Médias & Communication</option>
+                        <option value="retail">Vente au détail</option>
+                        <option value="telecom">Télécommunications</option>
+                        <option value="energy">Énergie</option>
+                        <option value="manufacturing">Fabrication</option>
+                        <option value="logistics">Logistique</option>
+                        <option value="pharmaceutical">Pharmaceutique</option>
+                        <option value="automotive">Automobile</option>
+                        <option value="aerospace">Aérospatial</option>
+                        <option value="textile">Textile</option>
+                        <option value="chemicals">Chimie</option>
+                        <option value="electronics">Électronique</option>
+                        <option value="biotechnology">Biotechnologie</option>
+                        <option value="agriculture">Agriculture</option>
+                        <option value="fisheries">Pêche</option>
+                        <option value="forestry">Foresterie</option>
+                        <option value="mining">Exploitation minière</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="mentor-location">Localisation</label>
+                    <select id="mentor-location">
+                        <option value="">Toute la RDC</option>
+                        <option value="kinshasa">Kinshasa</option>
+                        <option value="lubumbashi">Lubumbashi</option>
+                        <option value="goma">Goma</option>
+                        <option value="matadi">Matadi</option>
+                        <option value="online">En ligne seulement</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="mentor-language">Langue</label>
+                    <select id="mentor-language">
+                        <option value="">Toutes les langues</option>
+                        <option value="french">Français</option>
+                        <option value="lingala">Lingala</option>
+                        <option value="swahili">Swahili</option>
+                        <option value="english">Anglais</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="mentor-experience">Expérience minimum</label>
+                    <select id="mentor-experience">
+                        <option value="0">Peu importe</option>
+                        <option value="5">5+ ans</option>
+                        <option value="10">10+ ans</option>
+                        <option value="15">15+ ans</option>
+                    </select>
+                </div>
+            </div>
+            <button class="search-button" id="search-mentors">Rechercher des mentors</button>
+        </div>
+
+        <div class="profiles-grid" id="mentors-results">
+            <!-- Mentor 1 -->
+            <div class="profile-card" data-domain="tech business" data-location="kinshasa" data-language="french lingala" data-experience="15">
+                <div class="profile-header">
+                    <span class="profile-badge mentor-badge">Mentor</span>
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Jean K." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Jean K.</h4>
+                    <p class="profile-title">CEO, Tech Solutions RDC</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag mentor-tag">Technologie</span>
+                        <span class="expertise-tag mentor-tag">Entrepreneuriat</span>
+                        <span class="expertise-tag mentor-tag">Leadership</span>
+                    </div>
+                    <p class="profile-bio">15 ans d'expérience dans le secteur tech en RDC. J'ai lancé 3 startups et accompagné plus de 50 jeunes entrepreneurs. Passionné par l'innovation et le développement des compétences techniques.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat mentor-stat"><i class="fas fa-user-graduate"></i> 25 mentorés</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-star"></i> 4.9/5</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-map-marker-alt"></i> Kinshasa</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <a href="page-detail-mentor-jean-k.html"><button class="view-profile" data-profile="mentor-1">Voir le profil</button></a>
+                </div>
+            </div>
+
+             <!-- Mentor 2 -->
+             <div class="profile-card" data-domain="agro marketing" data-location="lubumbashi" data-language="french swahili" data-experience="12">
+                <div class="profile-header">
+                    <span class="profile-badge mentor-badge">Mentor</span>
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Marie L." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Marie L.</h4>
+                    <p class="profile-title">Directrice Marketing, AgroPlus</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag mentor-tag">Agro-business</span>
+                        <span class="expertise-tag mentor-tag">Marketing</span>
+                        <span class="expertise-tag mentor-tag">Gestion</span>
+                    </div>
+                    <p class="profile-bio">Spécialiste en développement d'entreprises agricoles. Je partage mon réseau et mon expérience de 12 ans dans le secteur. J'ai aidé à développer 15 coopératives agricoles dans le Katanga.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat mentor-stat"><i class="fas fa-user-graduate"></i> 18 mentorés</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-star"></i> 4.8/5</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-map-marker-alt"></i> Lubumbashi</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <a href="page-detail-mentor-marie-l.html"><button class="view-profile" data-profile="mentor-2">Voir le profil</button></a>
+                </div>
+            </div>
+
+            <!-- Mentor 3 -->
+            <div class="profile-card" data-domain="finance" data-location="kinshasa" data-language="french english" data-experience="20">
+                <div class="profile-header">
+                    <span class="profile-badge mentor-badge">Mentor</span>
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Pascal M." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Pascal M.</h4>
+                    <p class="profile-title">Consultant Financier</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag mentor-tag">Finance</span>
+                        <span class="expertise-tag mentor-tag">Investissement</span>
+                        <span class="expertise-tag mentor-tag">Business Plan</span>
+                    </div>
+                    <p class="profile-bio">J'aide les jeunes entrepreneurs à structurer leurs projets et trouver des financements. 20 ans d'expérience en banque et finance. Expert en levée de fonds et gestion financière pour PME.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat mentor-stat"><i class="fas fa-user-graduate"></i> 32 mentorés</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-star"></i> 4.7/5</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-map-marker-alt"></i> Kinshasa</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile" data-profile="mentor-3">Voir le profil</button>
+                </div>
+            </div>
+
+            <!-- Mentor 4 -->
+            <div class="profile-card" data-domain="education" data-location="online" data-language="french english" data-experience="8">
+                <div class="profile-header">
+                    <span class="profile-badge mentor-badge">Mentor</span>
+                    <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sophie K." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Sophie K.</h4>
+                    <p class="profile-title">Professeure d'Université</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag mentor-tag">Éducation</span>
+                        <span class="expertise-tag mentor-tag">Recherche</span>
+                        <span class="expertise-tag mentor-tag">Bourses d'étude</span>
+                    </div>
+                    <p class="profile-bio">Je guide les étudiants dans leur parcours académique et professionnel. Spécialiste des bourses internationales et de la recherche scientifique. 8 ans d'expérience dans l'enseignement supérieur.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat mentor-stat"><i class="fas fa-user-graduate"></i> 40 mentorés</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-star"></i> 4.9/5</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-map-marker-alt"></i> En ligne</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile" data-profile="mentor-4">Voir le profil</button>
+                </div>
+            </div>
+
+            <!-- Mentor 5 -->
+            <div class="profile-card" data-domain="tech marketing" data-location="goma" data-language="french swahili english" data-experience="7">
+                <div class="profile-header">
+                    <span class="profile-badge mentor-badge">Mentor</span>
+                    <img src="https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Eric N." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Eric N.</h4>
+                    <p class="profile-title">Expert en Marketing Digital</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag mentor-tag">Marketing Digital</span>
+                        <span class="expertise-tag mentor-tag">Réseaux sociaux</span>
+                        <span class="expertise-tag mentor-tag">E-commerce</span>
+                    </div>
+                    <p class="profile-bio">J'aide les entrepreneurs à développer leur présence en ligne et booster leurs ventes. Créateur de la première agence de marketing digital à Goma. Passionné par l'empowerment des jeunes.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat mentor-stat"><i class="fas fa-user-graduate"></i> 28 mentorés</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-star"></i> 4.6/5</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-map-marker-alt"></i> Goma</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile" data-profile="mentor-5">Voir le profil</button>
+                </div>
+            </div>
+
+           <!-- Mentor 6 -->
+           <div class="profile-card" data-domain="legal" data-location="kinshasa" data-language="french english" data-experience="12">
+                <div class="profile-header">
+                    <span class="profile-badge mentor-badge">Mentor</span>
+                    <img src="https://images.unsplash.com/photo-1502767085883-4b9438c0f2a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dr. Alice M." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Dr. Alice M.</h4>
+                    <p class="profile-title">Médecin Généraliste</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag mentor-tag">Santé</span>
+                        <span class="expertise-tag mentor-tag">Prévention</span>
+                        <span class="expertise-tag mentor-tag">Bien-être</span>
+                    </div>
+                    <p class="profile-bio">Je partage mon expérience en santé publique et prévention des maladies. 10 ans d'expérience dans le secteur médical en RDC. Passionnée par l'éducation à la santé.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat mentor-stat"><i class="fas fa-user-graduate"></i> 15 mentorés</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-star"></i> 4.9/5</span>
+                        <span class="profile-stat mentor-stat"><i class="fas fa-map-marker-alt"></i> Kinshasa</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile" data-profile="mentor-8">Voir le profil</button>
+                </div>
+            </div>
+    </section>
+
+    <!-- Page des Coaches (cachée par défaut) -->
+    <section id="coaches" class="profile-page" style="display: none;">
+        <div class="section-title">
+            <h3>Trouvez votre coach professionnel</h3>
+            <p>Des experts pour vous aider à atteindre des objectifs précis en peu de temps.</p>
+        </div>
+
+        <div class="search-filters">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="coach-specialty">Spécialité</label>
+                    <select id="coach-specialty">
+                        <option value="">Toutes les spécialités</option>
+                        <option value="cv">CV & Entretiens</option>
+                        <option value="pitch">Pitch & Levée de fonds</option>
+                        <option value="digital">Transformation digitale</option>
+                        <option value="finance">Gestion financière</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="leadership">Leadership</option>
+                        <option value="productivity">Productivité</option>
+                        <option value="hr">Ressources humaines</option>
+                        <option value="sales">Ventes</option>
+                        <option value="business">Business Development</option>
+                        <option value="networking">Réseautage</option>
+                        <option value="personal">Développement personnel</option>
+                        <option value="wellness">Bien-être</option>
+                        <option value="communication">Communication</option>
+                        <option value="team">Gestion d'équipe</option>
+                        <option value="strategy">Stratégie d'entreprise</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="coach-format">Format de coaching</label>
+                    <select id="coach-format">
+                        <option value="">Tous formats</option>
+                        <option value="online">En ligne</option>
+                        <option value="in-person">En présentiel</option>
+                        <option value="hybrid">Hybride</option>
+                        <option value="group">Groupe</option>
+                        <option value="one-on-one">Individuel</option>
+                        <option value="session">Session</option>
+                        <option value="workshop">Atelier</option>
+                        <option value="webinar">Webinaire</option>
+                        <option value="bootcamp">Bootcamp</option>
+                        <option value="retreat">Retraite</option>
+                        <option value="intensive">Session intensive</option>
+                        <option value="consultation">Consultation</option>
+                        <option value="mentoring">Mentorat</option>
+                        <option value="training">Formation</option>
+                        <option value="seminar">Séminaire</option>
+                        <option value="conference">Conférence</option>
+                        <option value="panel">Panel</option>
+                        <option value="roundtable">Table ronde</option>
+                        <option value="networking">Réseautage</option>
+                        <option value="coaching">Coaching</option>
+                        <option value="advisory">Conseil</option>
+                        <option value="consulting">Consulting</option>
+                        <option value="facilitation">Facilitation</option>
+                        <option value="collaboration">Collaboration</option>
+                        <option value="partnership">Partenariat</option>
+                        <option value="alliance">Alliance</option>
+                        <option value="synergy">Synergie</option>
+                        <option value="co-creation">Co-création</option>
+                        <option value="innovation">Innovation</option>
+                        <option value="research">Recherche</option>
+                        <option value="development">Développement</option>
+                        <option value="implementation">Mise en œuvre</option>
+                        <option value="evaluation">Évaluation</option>
+                        <option value="monitoring">Suivi</option>                        
+                    </select>
+                </div>
+            </div>
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="coach-price">Budget maximum</label>
+                    <select id="coach-price">
+                        <option value="">Tous budgets</option>
+                        <option value="10">Moins de $10</option>
+                        <option value="20">Moins de $20</option>
+                        <option value="30">Moins de $30</option>
+                        <option value="40">Moins de $40</option>
+                        <option value="50">Moins de $50</option>
+                        <option value="100">Moins de $100</option>
+                        <option value="200">Moins de $200</option>
+                        <option value="500">Moins de $500</option> 
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="coach-certification">Certification</label>
+                    <select id="coach-certification">
+                        <option value="">Peu importe</option>
+                        <option value="yes">Certifié uniquement</option>
+                    </select>
+                </div>
+            </div>
+            <button class="search-button" id="search-coaches">Rechercher des coaches</button>
+        </div>
+
+        <div class="profiles-grid" id="coaches-results">
+            <!-- Coach 1 -->
+            <div class="profile-card" data-specialty="cv" data-format="online in-person" data-price="100" data-certification="yes">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sarah T." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Sarah T.</h4>
+                    <p class="profile-title">Spécialiste RH & Carrières</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">CV & Entretiens</span>
+                        <span class="expertise-tag">Développement personnel</span>
+                        <span class="expertise-tag">LinkedIn</span>
+                    </div>
+                    <p class="profile-bio">Je vous aide à décrocher le job de vos rêves avec des techniques éprouvées et un accompagnement sur mesure. Certifiée en coaching professionnel et ancienne recruteuse.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 120 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 4.9/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $80/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <a href="page-detail-mentor-marie-l.html"><button class="view-profile coach-view" data-profile="coach-1">Voir le profil</button></a>
+                </div>
+            </div>
+
+            <!-- Coach 2 -->
+            <div class="profile-card" data-specialty="pitch finance" data-format="online hybrid" data-price="200" data-certification="yes">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="David K." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">David K.</h4>
+                    <p class="profile-title">Expert en Pitch & Finance</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">Pitch</span>
+                        <span class="expertise-tag">Levée de fonds</span>
+                        <span class="expertise-tag">Business Plan</span>
+                    </div>
+                    <p class="profile-bio">En 3 sessions, je vous prépare à convaincre n'importe quel investisseur. J'ai aidé à lever plus de $2M pour des startups. Méthode adaptée au contexte africain.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 45 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 5/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $150/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile coach-view" data-profile="coach-2">Voir le profil</button>
+                </div>
+            </div>
+
+            <!-- Coach 3 -->
+            <div class="profile-card" data-specialty="productivity" data-format="online" data-price="50" data-certification="no">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Grace M." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Grace M.</h4>
+                    <p class="profile-title">Productivité & Organisation</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">Gestion du temps</span>
+                        <span class="expertise-tag">Productivité</span>
+                        <span class="expertise-tag">Outils digitaux</span>
+                    </div>
+                    <p class="profile-bio">Décuplez votre efficacité avec des méthodes adaptées au contexte africain. Résultats visibles dès la première semaine. Programme personnalisé en fonction de vos besoins.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 85 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 4.8/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $40/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile coach-view" data-profile="coach-3">Voir le profil</button>
+                </div>
+            </div>
+
+            <!-- Coach 4 -->
+            <div class="profile-card" data-specialty="digital" data-format="online hybrid" data-price="100" data-certification="yes">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Patrick D." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Patrick D.</h4>
+                    <p class="profile-title">Expert en Transformation Digitale</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">Digital</span>
+                        <span class="expertise-tag">Stratégie en ligne</span>
+                        <span class="expertise-tag">Outils collaboratifs</span>
+                    </div>
+                    <p class="profile-bio">Je vous accompagne dans la digitalisation de votre entreprise avec des solutions adaptées et abordables. 10 ans d'expérience dans le conseil aux PME africaines.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 62 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 4.7/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $90/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile coach-view" data-profile="coach-4">Voir le profil</button>
+                </div>
+            </div>
+
+            <!-- Coach 5 -->
+            <div class="profile-card" data-specialty="leadership" data-format="in-person hybrid" data-price="500" data-certification="yes">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Olivier N." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Olivier N.</h4>
+                    <p class="profile-title">Coach en Leadership</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">Leadership</span>
+                        <span class="expertise-tag">Gestion d'équipe</span>
+                        <span class="expertise-tag">Communication</span>
+                    </div>
+                    <p class="profile-bio">Développez votre leadership et inspirez vos équipes. Méthodes adaptées aux managers africains. Certifié ICF avec plus de 15 ans d'expérience en développement organisationnel.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 110 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 4.9/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $300/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile coach-view" data-profile="coach-5">Voir le profil</button>
+                </div>
+            </div>
+
+            <!-- Coach 5 -->
+            <div class="profile-card" data-specialty="marketing" data-format="online" data-price="200" data-certification="no">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Nadia B." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Nadia B.</h4>
+                    <p class="profile-title">Spécialiste en Marketing Digital</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">Marketing</span>
+                        <span class="expertise-tag">Réseaux sociaux</span>
+                        <span class="expertise-tag">E-commerce</span>
+                    </div>
+                    <p class="profile-bio">Je vous aide à développer votre stratégie marketing et à atteindre vos objectifs de vente. 7 ans d'expérience dans le secteur du marketing digital.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 75 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 4.6/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $150/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile coach-view" data-profile="coach-6">Voir le profil</button>
+                </div>
+            </div>
+            
+            <!-- Coach 7 -->
+            <div class="profile-card" data-specialty="business" data-format="online hybrid" data-price="300" data-certification="yes">
+                <div class="profile-header">
+                    <span class="profile-badge">Coach</span>
+                    <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Nadia B." class="profile-avatar">
+                </div>
+                <div class="profile-body">
+                    <h4 class="profile-name">Nadia B.</h4>
+                    <p class="profile-title">Spécialiste en Business Development</p>
+                    <div class="profile-expertise">
+                        <span class="expertise-tag">Business</span>
+                        <span class="expertise-tag">Développement</span>
+                        <span class="expertise-tag">Stratégie</span>
+                    </div>
+                    <p class="profile-bio">Je vous aide à développer votre stratégie commerciale et à atteindre vos objectifs de vente. 7 ans d'expérience dans le secteur du business development.</p>
+                    <div class="profile-stats">
+                        <span class="profile-stat"><i class="fas fa-user-graduate"></i> 75 coachés</span>
+                        <span class="profile-stat"><i class="fas fa-star"></i> 4.6/5</span>
+                        <span class="profile-stat"><i class="fas fa-dollar-sign"></i> $150/session</span>
+                    </div>
+                </div>
+                <div class="profile-footer">
+                    <button class="view-profile coach-view" data-profile="coach-7">Voir le profil</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-title">
+            <h3>Comment ça marche ?</h3>
+            <p>Trois étapes simples pour trouver le mentor ou coach parfait pour vos besoins.</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h4>Créez votre profil</h4>
+                <p>Dites-nous qui vous êtes et ce que vous recherchez</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h4>Trouvez votre expert</h4>
+                <p>Parcourez notre annuaire ou laissez-nous vous recommander</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h4>Planifiez votre session</h4>
+                <p>Choisissez un créneau qui vous convient</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h3>Ils ont transformé leur parcours</h3>
+            <p>Découvrez ce que disent nos bénéficiaires du mentorat et coaching Vijana Boost.</p>
+        </div>
+        <div class="testimonial-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah K." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h5>Sarah K.</h5>
+                        <p>Entrepreneure en agro-business</p>
+                    </div>
+                </div>
+                <div class="testimonial-text">
+                    <p>"Mon mentor m'a ouvert les portes de son réseau et m'a aidé à éviter les pièges du secteur. En 6 mois, j'ai pu doubler mon chiffre d'affaires."</p>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="David M." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h5>David M.</h5>
+                        <p>Chercheur d'emploi</p>
+                    </div>
+                </div>
+                <div class="testimonial-text">
+                    <p>"Le coaching CV et entretien m'a donné la confiance nécessaire. J'ai décroché un emploi dans une grande entreprise 2 semaines après ma session !"</p>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Grace L." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h5>Grace L.</h5>
+                        <p>Étudiante en informatique</p>
+                    </div>
+                </div>
+                <div class="testimonial-text">
+                    <p>"Mon mentor dans le secteur tech m'a guidé vers les bonnes formations et m'a recommandé pour un stage. Une expérience inestimable !"</p>
+                </div>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h3>Prêt à booster votre parcours ?</h3>
+        <p>Rejoignez des centaines de jeunes congolais qui ont transformé leur potentiel en opportunités concrètes grâce à Vijana Boost.</p>
+        <a href="authentification.html" class="btn btn-primary">Commencer maintenant</a>
+    </section>
+
+    <!-- Section Footer -->
+
+    <footer class="footer-vijana">
+        <div class="container-vijana">
+            <!-- Brand Section -->
+            <div class="brand-vijana">
+                <div class="logo-vijana">
+                    <div class="logo-icon-vijana">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="logo-text-vijana">VIJANA BOOST</div>
+                </div>
+                <p class="slogan-vijana">
+                    La plateforme qui connecte les jeunes congolais aux meilleures opportunités professionnelles.
+                </p>
+                <button class="cta-vijana" id="ctaVijana">
+                    <i class="fas fa-download" style="margin-right: 12px;"></i> Télécharger l'app
+                </button>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="section-vijana">
+                <h3>Navigation</h3>
+                <ul class="links-vijana">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="about.html">À propos</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="Actualite.html">Actualités</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="section-vijana">
+                <h3>Nos Services</h3>
+                <ul class="links-vijana">
+                    <li><a href="emploi-stage.html">Emploi et Stage</a></li>
+                    <li><a href="formations.html">Formation Professionnelle</a></li>
+                    <li><a href="mentorat-coaching.html">Mentorat et Coaching</a></li>
+                    <li><a href="reseautage-professionnel.html">Réseautage Professionnel</a></li>
+                    <li><a href="marketplace.html">Marketplace Entrepreneuriale</a></li>
+                    <li><a href="ateliers-evenements.html">Ateliers et Événements</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact -->
+            <div class="section-vijana contact-vijana">
+                <h3>Contacts</h3>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="text">Kinshasa, RDC</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="text">+243 824 919 938 <br>+243 892 612 200</div>
+                </div>
+                <div class="item">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="text">ctshipadi2018@gmail.com <br>contact@vijanaboost.cd</div>
+                </div>
+                
+                <div class="social-vijana">
+                    <span class="title">Suivez-nous sur</span>
+                    <div class="social-links-vijana">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div class="copyright-vijana">
+            <p>© 2025 Vijana Boost. Tous droits réservés. | <a href="#">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a> | <a href="#">Mentions légales</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Hamburger
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const header = document.querySelector('.header-container');
+        
+        // Gestion du clic sur le hamburger
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Mise à jour de l'attribut ARIA
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            
+            // Empêcher le défilement lorsque le menu est ouvert
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Fermer le menu lorsqu'un lien est cliqué
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Animation du header au scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Animation du hamburger en croix
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.querySelectorAll('.hamburger-line').forEach((line, index) => {
+                    if (index === 0) {
+                        line.style.transform = 'translateY(7px) rotate(45deg)';
+                    } else if (index === 1) {
+                        line.style.opacity = '0';
+                    } else if (index === 2) {
+                        line.style.transform = 'translateY(-7px) rotate(-45deg)';
+                    }
+                });
+            } else {
+                this.querySelectorAll('.hamburger-line').forEach(line => {
+                    line.style.transform = '';
+                    line.style.opacity = '';
+                });
+            }
+        });
+
+
+        // Navigation entre les pages
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cacher toutes les pages sauf la première
+            document.querySelectorAll('.profile-page').forEach(page => {
+                page.style.display = 'none';
+            });
+
+            // Gestion des clics sur les boutons "Trouver un mentor"
+            document.querySelectorAll('#find-mentor-btn, #mentor-card-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.profile-page').forEach(page => {
+                        page.style.display = 'none';
+                    });
+                    document.getElementById('mentors').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // Gestion des clics sur les boutons "Trouver un coach"
+            document.querySelectorAll('#find-coach-btn, #coach-card-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.profile-page').forEach(page => {
+                        page.style.display = 'none';
+                    });
+                    document.getElementById('coaches').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+             // Fonction de recherche pour les mentors
+             document.getElementById('search-mentors').addEventListener('click', function() {
+                const domain = document.getElementById('mentor-domain').value;
+                const location = document.getElementById('mentor-location').value;
+                const language = document.getElementById('mentor-language').value;
+                const experience = parseInt(document.getElementById('mentor-experience').value);
+                
+                const mentors = document.querySelectorAll('#mentors-results .profile-card');
+                let visibleCount = 0;
+                
+                mentors.forEach(mentor => {
+                    const mentorDomain = mentor.getAttribute('data-domain');
+                    const mentorLocation = mentor.getAttribute('data-location');
+                    const mentorLanguage = mentor.getAttribute('data-language');
+                    const mentorExperience = parseInt(mentor.getAttribute('data-experience'));
+                    
+                    const domainMatch = !domain || mentorDomain.includes(domain);
+                    const locationMatch = !location || mentorLocation.includes(location);
+                    const languageMatch = !language || mentorLanguage.includes(language);
+                    const experienceMatch = !experience || mentorExperience >= experience;
+                    
+                    if (domainMatch && locationMatch && languageMatch && experienceMatch) {
+                        mentor.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        mentor.style.display = 'none';
+                    }
+                });
+                
+                // Afficher un message si aucun résultat
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = '<i class="fas fa-search"></i><h4>Aucun mentor ne correspond à vos critères</h4><p>Essayez d\'élargir votre recherche</p>';
+                
+                const resultsContainer = document.getElementById('mentors-results');
+                const existingNoResults = document.querySelector('#mentors-results .no-results');
+                
+                if (visibleCount === 0) {
+                    if (!existingNoResults) {
+                        resultsContainer.appendChild(noResults);
+                    }
+                } else {
+                    if (existingNoResults) {
+                        existingNoResults.remove();
+                    }
+                }
+                
+                // Animation des résultats
+                resultsContainer.classList.remove('search-results');
+                void resultsContainer.offsetWidth; // Trigger reflow
+                resultsContainer.classList.add('search-results');
+            });
+
+            // Fonction de recherche pour les coaches
+            document.getElementById('search-coaches').addEventListener('click', function() {
+                const specialty = document.getElementById('coach-specialty').value;
+                const format = document.getElementById('coach-format').value;
+                const price = document.getElementById('coach-price').value;
+                const certification = document.getElementById('coach-certification').value;
+                
+                const coaches = document.querySelectorAll('#coaches-results .profile-card');
+                let visibleCount = 0;
+                
+                coaches.forEach(coach => {
+                    const coachSpecialty = coach.getAttribute('data-specialty');
+                    const coachFormat = coach.getAttribute('data-format');
+                    const coachPrice = parseInt(coach.getAttribute('data-price'));
+                    const coachCertification = coach.getAttribute('data-certification');
+                    
+                    const specialtyMatch = !specialty || coachSpecialty.includes(specialty);
+                    const formatMatch = !format || coachFormat.includes(format);
+                    const priceMatch = !price || coachPrice <= parseInt(price);
+                    const certificationMatch = certification !== 'yes' || coachCertification === 'yes';
+                    
+                    if (specialtyMatch && formatMatch && priceMatch && certificationMatch) {
+                        coach.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        coach.style.display = 'none';
+                    }
+                });
+                
+                // Afficher un message si aucun résultat
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = '<i class="fas fa-search"></i><h4>Aucun coach ne correspond à vos critères</h4><p>Essayez d\'élargir votre recherche</p>';
+                
+                const resultsContainer = document.getElementById('coaches-results');
+                const existingNoResults = document.querySelector('#coaches-results .no-results');
+                
+                if (visibleCount === 0) {
+                    if (!existingNoResults) {
+                        resultsContainer.appendChild(noResults);
+                    }
+                } else {
+                    if (existingNoResults) {
+                        existingNoResults.remove();
+                    }
+                }
+                
+                // Animation des résultats
+                resultsContainer.classList.remove('search-results');
+                void resultsContainer.offsetWidth; // Trigger reflow
+                resultsContainer.classList.add('search-results');
+            });
+            
+            // Gestion des clics sur les tags
+            document.querySelectorAll('.expertise-tag').forEach(tag => {
+                tag.addEventListener('click', function() {
+                    // Pour les mentors
+                    if (this.classList.contains('mentor-tag')) {
+                        const domain = this.textContent.toLowerCase();
+                        document.getElementById('mentor-domain').value = domain;
+                        document.getElementById('search-mentors').click();
+                    }
+                    // Pour les coaches
+                    else {
+                        const specialtyMap = {
+                            'CV & Entretiens': 'cv',
+                            'Pitch & Levée de fonds': 'pitch',
+                            'Transformation digitale': 'digital',
+                            'Gestion financière': 'finance',
+                            'Leadership': 'leadership',
+                            'Productivité': 'productivity'
+                        };
+                        
+                        const specialtyText = this.textContent;
+                        if (specialtyMap[specialtyText]) {
+                            document.getElementById('coach-specialty').value = specialtyMap[specialtyText];
+                            document.getElementById('search-coaches').click();
+                        }
+                    }
+                });
+            });
+
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                if (!anchor.classList.contains('find-btn')) {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        
+                        document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+            });
+
+            // Animation for cards on scroll
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.card, .step, .testimonial, .profile-card').forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            });
+        });
+
+        // <!-- =================== Scripts pour le footer ================== -->
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation du bouton CTA
+            const ctaButton = document.getElementById('ctaVijana');
+            
+            if (ctaButton) {
+                ctaButton.addEventListener('mouseenter', function() {
+                    this.querySelector('i').style.transform = 'rotate(360deg)';
+                    this.querySelector('i').style.transition = 'transform 0.6s ease';
+                });
+                
+                ctaButton.addEventListener('mouseleave', function() {
+                    this.querySelector('i').style.transform = 'rotate(0deg)';
+                });
+            }
+            
+            // Animation des icônes de contact
+            const contactIcons = document.querySelectorAll('.contact-vijana .icon');
+            contactIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'rotate(15deg) scale(1.1)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'rotate(0deg) scale(1)';
+                });
+            });
+            
+            // Effet de soulignement dynamique
+            const navLinks = document.querySelectorAll('.links-vijana a');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.fontWeight = '500';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.fontWeight = '400';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

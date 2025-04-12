@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vijana Boost - Offres d'emploi et stages</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset et Variables Couleur */
+        :root {
+            --primary: #FF6B00;
+            --secondary: #0033A0;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --light-blue: #E6F0FF;
+            --light-orange: #FFF5EF;
+            --background: #F8FAFC;
+            --gray: #F5F5F5;
+            --border: #E0E0E0;
+            --glow: 0 0 15px rgba(255, 107, 0, 0.4);
+            --header-height: 80px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-blue);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        @font-face {
+            font-family: 'Poppins';
+            src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        }
+        
+       /* Header Styles */
+       .header-container {
+            background-color: var(--light);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* Navigation Desktop */
+        .nav-desktop {
+            display: flex;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            margin: 0 0.8rem;
+        }
+
+        .nav-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .auth-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-login:hover {
+            background: var(--primary);
+            color: var(--light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        .btn-signup {
+            background-color: var(--primary);
+            border: 2px solid var(--primary);
+            color: var(--light);
+        }
+
+        .btn-signup:hover {
+            background: var(--light);
+            border-color: #FF6B00;
+            color: #FF6B00;
+            transition: 0.5s;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--secondary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--light);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .nav-mobile ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .nav-mobile li {
+            margin: 1.5rem 0;
+        }
+
+        .mobile-nav-link {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-auth {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            width: 80%;
+            max-width: 250px;
+            align-items: center;
+            
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-desktop, .auth-buttons {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+      
+        /* Hero buttons, Voir toutes les offres, Emploi and Stages buttons*/
+        .hero-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+            border: 2px solid var(--primary);
+            box-shadow: 0 4px 12px rgba(255, 107, 0, 0.25);
+        }
+        
+        .btn-primary:hover {
+            background-color: #E05E00;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 107, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--light);
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #002A8A;
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section Attractive */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Emploi-stage.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--light);
+            padding: 8rem 6% 4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .search-bar {
+            background-color: var(--light-blue);
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: flex;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            border-radius: 6px 0 0 6px;
+        }
+        
+        .search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .search-btn:hover {
+            background-color: #E05E00;
+        }
+        
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 5%;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        /* Filters Sidebar */
+        .filters-sidebar {
+            width: 280px;
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filters-sidebar h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .filter-group h4 {
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .filter-options label:hover {
+            color: var(--primary);
+        }
+        
+        .filter-options input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--light);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        select:hover {
+            border-color: var(--primary);
+        }
+        
+        .filter-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        
+        /* Jobs List */
+        .jobs-main {
+            flex: 1;
+        }
+        
+        .jobs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background-color: var(--light);
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .jobs-header h2 {
+            font-size: 1.4rem;
+            color: var(--secondary);
+        }
+        
+        .jobs-header h2 span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .sort-options {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sort-options select {
+            padding: 0.6rem 1rem;
+            min-width: 180px;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .view-options button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--dark);
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+        
+        .view-options button:hover, .view-options button.active {
+            color: var(--primary);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .job-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .job-card.featured {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .job-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.2rem;
+        }
+        
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .company-logo img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .company-name {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.2rem;
+        }
+        
+        .job-type {
+            background-color: var(--light-blue);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .job-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .meta-item i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .job-description {
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 1.2rem;
+        }
+        
+        .job-date {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        
+        .job-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        .apply-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .apply-btn:hover {
+            background-color: #E05E00;
+            transform: translateY(-2px);
+        }
+        
+        .save-btn {
+            background: none;
+            border: 2px solid var(--border);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .save-btn:hover, .save-btn.saved {
+            color: var(--primary);
+            border-color: var(--primary);
+            background-color: var(--light-orange);
+        }
+        
+        .share-btn {
+            background: none;
+            border: 2px solid var(--border);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-btn:hover {
+            color: var(--secondary);
+            border-color: var(--secondary);
+            background-color: var(--light-blue);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+            gap: 0.8rem;
+        }
+        
+        .pagination button {
+            padding: 0.7rem 1rem;
+            min-width: 40px;
+            border: 1px solid var(--border);
+            background-color: var(--light);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.2);
+        }
+        
+        .pagination button:hover:not(.active) {
+            background-color: var(--gray);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .pagination button i {
+            font-size: 0.9rem;
+        }
+        
+        /* Job Detail Page */
+        .job-detail {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 5%;
+            background-color: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+        }
+        
+        .job-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        
+        .job-detail-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .job-detail-company {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .job-detail-logo {
+            width: 60px;
+            height: 60px;
+            background-color: var(--gray);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .job-detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1rem;
+        }
+        
+        .detail-meta-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .job-detail-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .job-detail-section h3 {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-blue);
+        }
+        
+        .job-detail-section ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .job-detail-section li {
+            margin-bottom: 0.7rem;
+        }
+        
+        .job-detail-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .filters-sidebar {
+                width: 100%;
+                position: static;
+            }
+            
+            .filter-actions {
+                flex-direction: row;
+            }
+            
+            .filter-actions .btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1.2rem;
+                padding: 1rem 5%;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .auth-buttons {
+                margin-top: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-bar {
+                flex-direction: column;
+                background: transparent;
+                box-shadow: none;
+                gap: 0.5rem;
+            }
+            
+            .search-input {
+                border-radius: 8px;
+                padding: 1rem;
+            }
+            
+            .search-btn {
+                border-radius: 8px;
+                padding: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .quick-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .jobs-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .sort-options {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+            
+            .sort-options select {
+                width: 100%;
+            }
+            
+            .job-detail-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .job-card {
+                padding: 1.5rem;
+            }
+            
+            .company-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+            
+            .job-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .job-detail {
+                padding: 1.5rem;
+            }
+            
+            .job-detail-header {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .job-detail-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .job-card {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .job-card:nth-child(1) { animation-delay: 0.1s; }
+        .job-card:nth-child(2) { animation-delay: 0.2s; }
+        .job-card:nth-child(3) { animation-delay: 0.3s; }
+        .job-card:nth-child(4) { animation-delay: 0.4s; }
+        .job-card:nth-child(5) { animation-delay: 0.5s; }
+        .job-card:nth-child(6) { animation-delay: 0.6s; }
+        .job-card:nth-child(7) { animation-delay: 0.7s; }
+        .job-card:nth-child(8) { animation-delay: 0.8s; }
+        .job-card:nth-child(9) { animation-delay: 0.9s; }
+        .job-card:nth-child(10) { animation-delay: 1s; }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast.success {
+            background-color: #28a745;
+        }
+        
+        .toast.error {
+            background-color: #dc3545;
+        }
+        
+        .toast i {
+            font-size: 1.2rem;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Header -->
+    <header class="header-container">
+        <div class="header-content">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                <i class="fas fa-rocket"></i> VIJANA BOOST
+            </a>
+
+            <!-- Navigation Desktop -->
+            <nav class="nav-desktop">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Accueil</a></li>
+                    <li><a href="about.html" class="nav-link">À propos</a></li>
+                    <li><a href="index.html#services.html" class="nav-link">Services</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="Actualite.html" class="nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- Boutons Auth Desktop -->
+            <div class="auth-buttons">
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-login">Connexion</a>
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-signup">Inscription</a>
+            </div>
+
+            <!-- Menu Hamburger Mobile -->
+            <button class="hamburger" aria-label="Menu mobile" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <nav class="nav-mobile">
+                <ul>
+                    <li><a href="index.html" class="mobile-nav-link">Accueil</a></li>
+                    <li><a href="about.html" class="mobile-nav-link">À propos</a></li>
+                    <li><a href="index.html#services" class="mobile-nav-link">Services</a></li>
+                    <li><a href="blog.html" class="mobile-nav-link">Blog</a></li>
+                    <li><a href="Actualite.html" class="mobile-nav-link">Actualités</a></li>
+                    <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <div class="mobile-auth">
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-login">Connexion</a>
+                <a href="Authentification.html" target="_blank" class="auth-btn btn-signup">Inscription</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Trouvez l'emploi ou le stage de vos rêves</h1>
+            <p>Découvrez des centaines d'opportunités exclusives adaptées à votre profil et lancez votre carrière professionnelle dès aujourd'hui !</p>
+            <div class="search-bar">
+                <input type="text" class="search-input" id="mainSearchInput" placeholder="Recherchez par mot-clé, compétence ou entreprise...">
+                <button class="search-btn" id="mainSearchBtn"><i class="fas fa-search"></i> Rechercher</button>
+            </div>
+            
+            <div class="quick-actions">
+                <a href="#" class="hero-btn btn-primary" id="viewAllJobs"><i class="fas fa-briefcase"></i> Voir toutes les offres</a>
+                <a href="#" class="hero-btn btn-secondary" id="viewJobs"><i class="fas fa-suitcase"></i> Emplois</a>
+                <a href="#" class="hero-btn btn-secondary" id="viewInternships"><i class="fas fa-graduation-cap"></i> Stages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <h3><i class="fas fa-sliders-h"></i> Filtres</h3>
+            
+            <div class="filter-group">
+                <h4><i class="fas fa-search"></i> Mots-clés</h4>
+                <input type="text" id="keywordFilter" placeholder="Développeur, Marketing..." class="search-input" style="width: 100%; padding: 0.8rem; border: 1px solid var(--border); border-radius: 8px;">
+            </div>
+            
+            <div class="filter-group">
+                <h4><i class="fas fa-industry"></i> Secteur d'activité</h4>
+                <div class="filter-options">
+                    <label><input type="checkbox" name="sector" value="it"> IT & Numérique</label>
+                    <label><input type="checkbox" name="sector" value="marketing"> Marketing</label>
+                    <label><input type="checkbox" name="sector" value="finance"> Finance</label>
+                    <label><input type="checkbox" name="sector" value="sante"> Santé</label>
+                    <label><input type="checkbox" name="sector" value="education"> Éducation</label>
+                    <label><input type="checkbox" name="sector" value="agro"> Agroalimentaire</label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4><i class="fas fa-file-contract"></i> Type de contrat</h4>
+                <div class="filter-options">
+                    <label><input type="checkbox" name="contract" value="emploi"> Emploi</label>
+                    <label><input type="checkbox" name="contract" value="stage"> Stage</label>
+                    <label><input type="checkbox" name="contract" value="freelance"> Freelance</label>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <h4><i class="fas fa-map-marker-alt"></i> Ville</h4>
+                <select id="citySelect">
+                    <option value="">Toutes les villes</option>
+                    <option value="kinshasa">Kinshasa</option>
+                    <option value="lubumbashi">Lubumbashi</option>
+                    <option value="mbuji-mayi">Mbuji-Mayi</option>
+                    <option value="kananga">Kananga</option>
+                    <option value="kisangani">Kisangani</option>
+                    <option value="bukavu">Bukavu</option>
+                    <option value="goma">Goma</option>
+                    <option value="matadi">Matadi</option>
+                    <option value="kolwezi">Kolwezi</option>
+                    <option value="remote">Télétravail</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <h4><i class="fas fa-user-graduate"></i> Niveau d'expérience</h4>
+                <div class="filter-options">
+                    <label><input type="checkbox" name="experience" value="debutant"> Débutant</label>
+                    <label><input type="checkbox" name="experience" value="1-3"> 1-3 ans</label>
+                    <label><input type="checkbox" name="experience" value="3+"> 3+ ans</label>
+                    <label><input type="checkbox" name="experience" value="diplome"> Jeune diplômé</label>
+                </div>
+            </div>
+            
+            <div class="filter-actions">
+                <button class="hero-btn btn-primary" id="applyFilters"><i class="fas fa-check"></i> Appliquer</button>
+                <button class="hero-btn btn-outline" id="resetFilters"><i class="fas fa-redo"></i> Réinitialiser</button>
+            </div>
+        </aside>
+
+        <!-- Jobs List -->
+        <main class="jobs-main">
+            <div class="jobs-header">
+                <h2><span id="jobsCount">24</span> offres disponibles</h2>
+                <div class="sort-options">
+                    <span>Trier par :</span>
+                    <select id="sortSelect">
+                        <option value="relevance">Pertinence</option>
+                        <option value="newest">Plus récentes</option>
+                        <option value="salary">Salaire (élevé)</option>
+                        <option value="deadline">Date limite</option>
+                    </select>
+                    <div class="view-options">
+                        <button class="active" data-view="grid"><i class="fas fa-th"></i></button>
+                        <button data-view="list"><i class="fas fa-list"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="jobs-grid" id="jobsContainer">
+                <!-- Les offres seront générées dynamiquement par JavaScript -->
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button id="prevPage"><i class="fas fa-chevron-left"></i></button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>...</button>
+                <button>5</button>
+                <button id="nextPage"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Job Detail Modal (hidden by default) -->
+    <div id="jobDetailModal" class="job-detail" style="display: none;">
+        <!-- Le contenu sera généré dynamiquement par JavaScript -->
+    </div>
+
+    <script>
+         // Menu Hamburger
+         const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const header = document.querySelector('.header-container');
+        
+        // Gestion du clic sur le hamburger
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Mise à jour de l'attribut ARIA
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            
+            // Empêcher le défilement lorsque le menu est ouvert
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Fermer le menu lorsqu'un lien est cliqué
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Animation du header au scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Fermer le menu si on clique en dehors
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Animation du hamburger en croix
+        hamburger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            if (this.classList.contains('active')) {
+                this.querySelectorAll('.hamburger-line').forEach((line, index) => {
+                    if (index === 0) {
+                        line.style.transform = 'translateY(7px) rotate(45deg)';
+                    } else if (index === 1) {
+                        line.style.opacity = '0';
+                    } else if (index === 2) {
+                        line.style.transform = 'translateY(-7px) rotate(-45deg)';
+                    }
+                });
+            } else {
+                this.querySelectorAll('.hamburger-line').forEach(line => {
+                    line.style.transform = '';
+                    line.style.opacity = '';
+                });
+            }
+        });
+
+        // Données des offres d'emploi
+        const jobsData = [
+            {
+                id: 1,
+                title: "Développeur Fullstack",
+                company: "Vijana Tech Solutions",
+                logo: "https://via.placeholder.com/40",
+                type: "emploi",
+                location: "kinshasa",
+                remote: true,
+                salary: "$800 - $1200",
+                contract: "Temps plein",
+                sector: "it",
+                experience: "1-3",
+                description: "Nous recherchons un développeur fullstack expérimenté pour rejoindre notre équipe technique. Vous travaillerez sur des projets innovants avec les dernières technologies comme React, Node.js et MongoDB. Responsabilités incluent le développement de nouvelles fonctionnalités, la maintenance du code existant et la collaboration avec l'équipe produit.",
+                missions: [
+                    "Développer de nouvelles fonctionnalités pour nos applications web",
+                    "Collaborer avec les designers pour implémenter des interfaces utilisateur réactives",
+                    "Optimiser les performances des applications existantes",
+                    "Participer aux revues de code et aux sessions de brainstorming"
+                ],
+                requirements: [
+                    "Bac+3 en informatique ou domaine similaire",
+                    "2 ans d'expérience en développement web",
+                    "Maîtrise de JavaScript, HTML/CSS",
+                    "Expérience avec React et Node.js",
+                    "Connaissance des bases de données MongoDB et SQL"
+                ],
+                benefits: [
+                    "Environnement de travail dynamique et stimulant",
+                    "Possibilité de télétravail partiel",
+                    "Formations techniques régulières",
+                    "Assurance maladie"
+                ],
+                date: "Publié il y a 2 jours",
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Assistant Marketing Digital",
+                company: "AgroBusiness Ltd",
+                logo: "https://via.placeholder.com/40",
+                type: "stage",
+                location: "lubumbashi",
+                remote: false,
+                salary: "$300 - $500",
+                contract: "Stage 6 mois",
+                sector: "marketing",
+                experience: "debutant",
+                description: "Stage de 6 mois pour un étudiant en marketing. Vous participerez à la gestion des réseaux sociaux, la création de contenu et l'analyse des campagnes marketing. Une excellente opportunité pour acquérir une expérience pratique dans le marketing digital.",
+                missions: [
+                    "Création de contenu pour les réseaux sociaux",
+                    "Analyse des performances des campagnes marketing",
+                    "Participation à la stratégie de contenu",
+                    "Recherche de tendances marketings"
+                ],
+                requirements: [
+                    "Étudiant en marketing, communication ou domaine similaire",
+                    "Maîtrise des plateformes sociales (Facebook, Instagram, LinkedIn)",
+                    "Bonne capacité rédactionnelle",
+                    "Esprit créatif et analytique"
+                ],
+                benefits: [
+                    "Encadrement par un mentor expérimenté",
+                    "Possibilité d'embauche à l'issue du stage",
+                    "Environnement de travail convivial"
+                ],
+                date: "Publié il y a 1 semaine",
+                featured: false
+            },
+            {
+                id: 3,
+                title: "Analyste Financier Junior",
+                company: "FinanceNow RDC",
+                logo: "https://via.placeholder.com/40",
+                type: "emploi",
+                location: "goma",
+                remote: false,
+                salary: "$600 - $900",
+                contract: "Temps plein",
+                sector: "finance",
+                experience: "diplome",
+                description: "Poste pour jeune diplômé en finance. Vous serez responsable de l'analyse des données financières, la préparation de rapports et le support aux décisions stratégiques. Un excellent tremplin pour débuter une carrière en finance d'entreprise.",
+                missions: [
+                    "Analyser les données financières et préparer des rapports",
+                    "Assister dans la préparation des budgets",
+                    "Participer aux analyses de rentabilité",
+                    "Préparer des présentations pour la direction"
+                ],
+                requirements: [
+                    "Diplôme en finance, économie ou domaine similaire",
+                    "Maîtrise d'Excel et des outils d'analyse financière",
+                    "Bonne compréhension des principes comptables",
+                    "Esprit analytique et rigoureux"
+                ],
+                benefits: [
+                    "Programme de formation continue",
+                    "Plan de carrière clair",
+                    "Avantages sociaux compétitifs"
+                ],
+                date: "Publié aujourd'hui",
+                featured: false
+            },
+            {
+                id: 4,
+                title: "Graphiste",
+                company: "EduDesign",
+                logo: "https://via.placeholder.com/40",
+                type: "freelance",
+                location: "remote",
+                remote: true,
+                salary: "Par projet",
+                contract: "Contrat flexible",
+                sector: "education",
+                experience: "1-3",
+                description: "Nous recherchons un graphiste freelance pour créer des supports visuels pour nos plateformes éducatives. Vous travaillerez sur une variété de projets incluant des illustrations, des infographies et des maquettes d'interface. Portfolio exigé.",
+                missions: [
+                    "Créer des illustrations et infographies éducatives",
+                    "Développer des maquettes d'interface utilisateur",
+                    "Collaborer avec l'équipe pédagogique",
+                    "Participer aux brainstormings créatifs"
+                ],
+                requirements: [
+                    "Portfolio démontrant vos compétences",
+                    "Maîtrise de Figma et Adobe Creative Suite",
+                    "Expérience en design pour l'éducation (un plus)",
+                    "Bonne compréhension des principes UX/UI"
+                ],
+                benefits: [
+                    "Travail à distance",
+                    "Horaires flexibles",
+                    "Projets variés et stimulants"
+                ],
+                date: "Publié il y a 3 jours",
+                featured: true
+            },
+            {
+                id: 5,
+                title: "Community Manager",
+                company: "HealthConnect",
+                logo: "https://via.placeholder.com/40",
+                type: "emploi",
+                location: "kinshasa",
+                remote: false,
+                salary: "$500 - $800",
+                contract: "Temps plein",
+                sector: "sante",
+                experience: "1-3",
+                description: "Gestion des réseaux sociaux et stratégie de contenu pour notre startup de santé. Vous serez responsable de créer et maintenir une présence en ligne forte pour notre marque, engageant notre communauté autour des questions de santé.",
+                missions: [
+                    "Gérer les comptes sociaux (Facebook, Instagram, Twitter)",
+                    "Créer un calendrier éditorial",
+                    "Analyser les performances des publications",
+                    "Interagir avec la communauté"
+                ],
+                requirements: [
+                    "Expérience en gestion de communauté",
+                    "Excellente maîtrise du français et anglais",
+                    "Connaissance des outils de social media",
+                    "Intérêt pour le domaine de la santé"
+                ],
+                benefits: [
+                    "Impact social significatif",
+                    "Environnement startup dynamique",
+                    "Formation continue"
+                ],
+                date: "Publié il y a 5 jours",
+                featured: false
+            },
+            {
+                id: 6,
+                title: "Assistant Commercial",
+                company: "GreenTech Africa",
+                logo: "https://via.placeholder.com/40",
+                type: "stage",
+                location: "bukavu",
+                remote: false,
+                salary: "$200 - $400",
+                contract: "Stage 3 mois",
+                sector: "agro",
+                experience: "debutant",
+                description: "Stage de 3 mois renouvelable pour un étudiant en commerce. Vous accompagnerez l'équipe commerciale dans la prospection et la gestion des clients. Une excellente opportunité pour découvrir le monde commercial dans le secteur agroalimentaire.",
+                missions: [
+                    "Aider à la prospection de nouveaux clients",
+                    "Participer aux présentations commerciales",
+                    "Gérer la relation avec les clients existants",
+                    "Préparer des rapports d'activité"
+                ],
+                requirements: [
+                    "Étudiant en commerce, marketing ou domaine similaire",
+                    "Excellentes compétences en communication",
+                    "Dynamisme et esprit d'initiative",
+                    "Maîtrise des outils bureautiques"
+                ],
+                benefits: [
+                    "Expérience terrain concrète",
+                    "Encadrement personnalisé",
+                    "Possibilité de voyage dans la région"
+                ],
+                date: "Publié il y a 2 semaines",
+                featured: false
+            },
+            {
+                id: 7,
+                title: "Développeur Mobile",
+                company: "LogiTech Solutions",
+                logo: "https://via.placeholder.com/40",
+                type: "emploi",
+                location: "kinshasa",
+                remote: true,
+                salary: "$700 - $1000",
+                contract: "Temps plein",
+                sector: "it",
+                experience: "3+",
+                description: "Nous recherchons un développeur mobile expérimenté avec Flutter ou React Native pour rejoindre notre équipe. Vous participerez au développement d'applications pour nos clients dans divers secteurs d'activité.",
+                missions: [
+                    "Développer des applications mobiles cross-platform",
+                    "Collaborer avec les designers et les PM",
+                    "Optimiser les performances des applications",
+                    "Maintenir et mettre à jour les applications existantes"
+                ],
+                requirements: [
+                    "3+ ans d'expérience en développement mobile",
+                    "Maîtrise de Flutter ou React Native",
+                    "Connaissance des API REST",
+                    "Expérience avec Git"
+                ],
+                benefits: [
+                    "Télétravail possible",
+                    "Projets variés et innovants",
+                    "Environnement technique stimulant"
+                ],
+                date: "Publié il y a 4 jours",
+                featured: true
+            },
+            {
+                id: 8,
+                title: "Stagiaire en Ressources Humaines",
+                company: "EduPlus RDC",
+                logo: "https://via.placeholder.com/40",
+                type: "stage",
+                location: "lubumbashi",
+                remote: false,
+                salary: "$250 - $450",
+                contract: "Stage 6 mois",
+                sector: "education",
+                experience: "debutant",
+                description: "Stage en RH pour étudiant en dernière année. Vous serez impliqué dans le recrutement, la formation et le développement des compétences. Une excellente opportunité pour découvrir les différentes facettes des ressources humaines.",
+                missions: [
+                    "Aider au processus de recrutement",
+                    "Participer à l'organisation des formations",
+                    "Gérer les dossiers du personnel",
+                    "Assister dans l'administration des avantages sociaux"
+                ],
+                requirements: [
+                    "Étudiant en RH, psychologie ou domaine similaire",
+                    "Excellente organisation",
+                    "Bonne communication",
+                    "Discrétion et professionnalisme"
+                ],
+                benefits: [
+                    "Découverte complète des métiers RH",
+                    "Encadrement par un responsable expérimenté",
+                    "Environnement éducatif stimulant"
+                ],
+                date: "Publié il y a 1 semaine",
+                featured: false
+            },
+            {
+                id: 9,
+                title: "Chef de Projet IT",
+                company: "Digital Congo",
+                logo: "https://via.placeholder.com/40",
+                type: "emploi",
+                location: "kinshasa",
+                remote: true,
+                salary: "$1000 - $1500",
+                contract: "Temps plein",
+                sector: "it",
+                experience: "3+",
+                description: "Nous recherchons un chef de projet IT pour piloter nos projets digitaux. Vous serez responsable de la planification, l'exécution et la livraison des projets dans les délais et le budget impartis.",
+                missions: [
+                    "Planifier et suivre les projets IT",
+                    "Coordonner les équipes techniques et fonctionnelles",
+                    "Gérer les relations avec les clients",
+                    "Assurer la qualité des livrables"
+                ],
+                requirements: [
+                    "5 ans d'expérience en gestion de projets IT",
+                    "Certification PMP ou Agile (un plus)",
+                    "Excellentes compétences en communication",
+                    "Maîtrise des méthodologies Agile"
+                ],
+                benefits: [
+                    "Salaire compétitif",
+                    "Télétravail flexible",
+                    "Projets à fort impact"
+                ],
+                date: "Publié il y a 3 jours",
+                featured: true
+            },
+            {
+                id: 10,
+                title: "Assistant Comptable",
+                company: "FinExpert",
+                logo: "https://via.placeholder.com/40",
+                type: "emploi",
+                location: "kisangani",
+                remote: false,
+                salary: "$400 - $600",
+                contract: "Temps plein",
+                sector: "finance",
+                experience: "1-3",
+                description: "Poste d'assistant comptable pour soutenir notre équipe financière. Vous serez responsable des opérations comptables courantes et de la préparation des rapports financiers mensuels.",
+                missions: [
+                    "Saisie des opérations comptables",
+                    "Préparation des rapports financiers",
+                    "Gestion des factures fournisseurs",
+                    "Collaboration avec l'audit externe"
+                ],
+                requirements: [
+                    "Bac+2 en comptabilité ou domaine similaire",
+                    "2 ans d'expérience en comptabilité",
+                    "Maîtrise des logiciels comptables",
+                    "Rigueur et organisation"
+                ],
+                benefits: [
+                    "Environnement de travail stable",
+                    "Possibilités d'évolution",
+                    "Formation continue"
+                ],
+                date: "Publié il y a 5 jours",
+                featured: false
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables globales
+            let currentPage = 1;
+            const jobsPerPage = 8;
+            let filteredJobs = [...jobsData];
+            let currentView = 'grid';
+            let currentSort = 'relevance';
+            let currentFilters = {
+                keyword: '',
+                sectors: [],
+                contractTypes: [],
+                city: '',
+                experiences: []
+            };
+
+            // Éléments DOM
+            const mainSearchInput = document.getElementById('mainSearchInput');
+            const mainSearchBtn = document.getElementById('mainSearchBtn');
+            const viewAllJobsBtn = document.getElementById('viewAllJobs');
+            const viewJobsBtn = document.getElementById('viewJobs');
+            const viewInternshipsBtn = document.getElementById('viewInternships');
+            const applyFiltersBtn = document.getElementById('applyFilters');
+            const resetFiltersBtn = document.getElementById('resetFilters');
+            const keywordFilter = document.getElementById('keywordFilter');
+            const citySelect = document.getElementById('citySelect');
+            const sortSelect = document.getElementById('sortSelect');
+            const viewButtons = document.querySelectorAll('.view-options button');
+            const jobsContainer = document.getElementById('jobsContainer');
+            const jobsCount = document.getElementById('jobsCount');
+            const prevPageBtn = document.getElementById('prevPage');
+            const nextPageBtn = document.getElementById('nextPage');
+            const paginationButtons = document.querySelectorAll('.pagination button:not(#prevPage):not(#nextPage)');
+            const jobDetailModal = document.getElementById('jobDetailModal');
+            
+            // Initialisation
+            renderJobs();
+            updatePagination();
+
+            // Fonction pour afficher une notification
+            function showToast(message, type = 'success') {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    <span>${message}</span>
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 10);
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Fonction pour rendre les offres
+            function renderJobs() {
+                // Filtrer d'abord
+                filterJobs();
+                
+                // Trier ensuite
+                sortJobs();
+                
+                // Paginer
+                const startIdx = (currentPage - 1) * jobsPerPage;
+                const endIdx = startIdx + jobsPerPage;
+                const jobsToShow = filteredJobs.slice(startIdx, endIdx);
+                
+                // Mettre à jour le compteur
+                jobsCount.textContent = filteredJobs.length;
+                
+                // Vider le conteneur
+                jobsContainer.innerHTML = '';
+                
+                // Rendre chaque offre
+                jobsToShow.forEach((job, index) => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = `job-card ${job.featured ? 'featured' : ''}`;
+                    jobCard.style.animationDelay = `${index * 0.1}s`;
+                    jobCard.innerHTML = `
+                        <div class="job-card-header">
+                            <div class="company-info">
+                                <div class="company-logo">
+                                    <img src="${job.logo}" alt="${job.company} Logo">
+                                </div>
+                                <div>
+                                    <div class="company-name">${job.company}</div>
+                                    <span class="job-type">${job.type === 'emploi' ? 'Emploi' : job.type === 'stage' ? 'Stage' : 'Freelance'}</span>
+                                </div>
+                            </div>
+                            <button class="save-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                        <h3 class="job-title">${job.title}</h3>
+                        <div class="job-meta">
+                            <div class="meta-item"><i class="fas fa-map-marker-alt"></i> ${job.location === 'kinshasa' ? 'Kinshasa' : 
+                              job.location === 'lubumbashi' ? 'Lubumbashi' : 
+                              job.location === 'bukavu' ? 'Bukavu' : 
+                              job.location === 'goma' ? 'Goma' : 
+                              job.location === 'kisangani' ? 'Kisangani' : 
+                              job.location === 'remote' ? 'Télétravail' : job.location}</div>
+                            <div class="meta-item"><i class="fas fa-money-bill-wave"></i> ${job.salary}</div>
+                            <div class="meta-item"><i class="fas fa-clock"></i> ${job.contract}</div>
+                        </div>
+                        <p class="job-description">${job.description}</p>
+                        <div class="job-footer">
+                            <div class="job-date">${job.date}</div>
+                            <div class="job-actions">
+                                <button class="share-btn"><i class="fas fa-share-alt"></i></button>
+                                <button class="apply-btn" data-job-id="${job.id}"><i class="fas fa-paper-plane"></i> Postuler</button>
+                            </div>
+                        </div>
+                    `;
+                    jobsContainer.appendChild(jobCard);
+                });
+                
+                // Ajouter les écouteurs d'événements aux nouveaux éléments
+                addJobCardEventListeners();
+            }
+            
+            // Fonction pour filtrer les offres
+            function filterJobs() {
+                filteredJobs = jobsData.filter(job => {
+                    // Filtre par mot-clé
+                    if (currentFilters.keyword) {
+                        const keyword = currentFilters.keyword.toLowerCase();
+                        const titleMatch = job.title.toLowerCase().includes(keyword);
+                        const companyMatch = job.company.toLowerCase().includes(keyword);
+                        const descMatch = job.description.toLowerCase().includes(keyword);
+                        
+                        if (!titleMatch && !companyMatch && !descMatch) {
+                            return false;
+                        }
+                    }
+                    
+                    // Filtre par secteur
+                    if (currentFilters.sectors.length > 0 && !currentFilters.sectors.includes(job.sector)) {
+                        return false;
+                    }
+                    
+                    // Filtre par type de contrat
+                    if (currentFilters.contractTypes.length > 0) {
+                        if (job.type === 'freelance' && !currentFilters.contractTypes.includes('freelance')) {
+                            return false;
+                        }
+                        if (job.type !== 'freelance' && !currentFilters.contractTypes.includes(job.type)) {
+                            return false;
+                        }
+                    }
+                    
+                    // Filtre par ville
+                    if (currentFilters.city && job.location !== currentFilters.city) {
+                        return false;
+                    }
+                    
+                    // Filtre par expérience
+                    if (currentFilters.experiences.length > 0 && !currentFilters.experiences.includes(job.experience)) {
+                        return false;
+                    }
+                    
+                    return true;
+                });
+            }
+            
+            // Fonction pour trier les offres
+            function sortJobs() {
+                switch (currentSort) {
+                    case 'newest':
+                        filteredJobs.sort((a, b) => {
+                            // Simuler un tri par date (pour cet exemple)
+                            const aDays = parseInt(a.date.split(' ')[3]);
+                            const bDays = parseInt(b.date.split(' ')[3]);
+                            return aDays - bDays;
+                        });
+                        break;
+                    case 'salary':
+                        filteredJobs.sort((a, b) => {
+                            // Extraire les valeurs numériques des salaires
+                            const aSalary = parseInt(a.salary.replace(/\D/g, '')) || 0;
+                            const bSalary = parseInt(b.salary.replace(/\D/g, '')) || 0;
+                            return bSalary - aSalary;
+                        });
+                        break;
+                    case 'deadline':
+                        // Simuler un tri par date limite (non implémenté dans les données)
+                        break;
+                    default: // 'relevance'
+                        // Pas de tri particulier, garder l'ordre original
+                        break;
+                }
+            }
+            
+            // Fonction pour ajouter les écouteurs d'événements aux cartes d'offres
+            function addJobCardEventListeners() {
+                // Boutons de sauvegarde
+                document.querySelectorAll('.save-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const isSaved = this.classList.toggle('saved');
+                        const icon = this.querySelector('i');
+                        
+                        if (isSaved) {
+                            icon.classList.remove('far', 'fa-heart');
+                            icon.classList.add('fas', 'fa-heart');
+                            showToast('Offre enregistrée dans vos favoris !');
+                        } else {
+                            icon.classList.remove('fas', 'fa-heart');
+                            icon.classList.add('far', 'fa-heart');
+                            showToast('Offre retirée de vos favoris');
+                        }
+                    });
+                });
+                
+                // Boutons de partage
+                document.querySelectorAll('.share-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const jobCard = this.closest('.job-card');
+                        const jobTitle = jobCard.querySelector('.job-title').textContent;
+                        const companyName = jobCard.querySelector('.company-name').textContent;
+                        
+                        if (navigator.share) {
+                            navigator.share({
+                                title: `Offre d'emploi: ${jobTitle}`,
+                                text: `Découvrez cette opportunité chez ${companyName} sur Vijana Boost`,
+                                url: window.location.href
+                            }).catch(err => {
+                                console.log('Erreur de partage:', err);
+                            });
+                        } else {
+                            // Fallback pour les navigateurs qui ne supportent pas l'API Web Share
+                            const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=Découvrez cette offre: ${encodeURIComponent(jobTitle)} chez ${encodeURIComponent(companyName)}`;
+                            window.open(shareUrl, '_blank', 'width=600,height=400');
+                        }
+                    });
+                });
+                
+                // Boutons "Postuler"
+                document.querySelectorAll('.apply-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const jobId = parseInt(this.getAttribute('data-job-id'));
+                        showJobDetail(jobId);
+                    });
+                });
+            }
+            
+            // Fonction pour afficher les détails d'une offre
+            function showJobDetail(jobId) {
+                const job = jobsData.find(j => j.id === jobId);
+                if (!job) return;
+                
+                jobDetailModal.innerHTML = `
+                    <div class="job-detail-header">
+                        <div>
+                            <h2 class="job-detail-title">${job.title}</h2>
+                            <div class="job-detail-company">
+                                <div class="job-detail-logo">
+                                    <img src="${job.logo}" alt="${job.company} Logo">
+                                </div>
+                                ${job.company}
+                            </div>
+                        </div>
+                        <button class="save-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                    
+                    <div class="job-detail-meta">
+                        <div class="detail-meta-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${job.location === 'kinshasa' ? 'Kinshasa' : 
+                              job.location === 'lubumbashi' ? 'Lubumbashi' : 
+                              job.location === 'bukavu' ? 'Bukavu' : 
+                              job.location === 'goma' ? 'Goma' : 
+                              job.location === 'kisangani' ? 'Kisangani' : 
+                              job.location === 'remote' ? 'Télétravail' : job.location} ${job.remote ? '(Télétravail possible)' : ''}</span>
+                        </div>
+                        <div class="detail-meta-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>${job.salary}</span>
+                        </div>
+                        <div class="detail-meta-item">
+                            <i class="fas fa-clock"></i>
+                            <span>${job.contract}</span>
+                        </div>
+                        <div class="detail-meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>${job.date}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="job-detail-section">
+                        <h3>Description du poste</h3>
+                        <p>${job.description}</p>
+                    </div>
+                    
+                    <div class="job-detail-section">
+                        <h3>Missions principales</h3>
+                        <ul>
+                            ${job.missions.map(mission => `<li>${mission}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="job-detail-section">
+                        <h3>Exigences</h3>
+                        <ul>
+                            ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    ${job.benefits ? `
+                    <div class="job-detail-section">
+                        <h3>Avantages</h3>
+                        <ul>
+                            ${job.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="job-detail-actions">
+                        <button class="share-btn"><i class="fas fa-share-alt"></i> Partager</button>
+                        <button class="save-btn"><i class="far fa-heart"></i> Sauvegarder</button>
+                        <button class="apply-btn"><i class="fas fa-paper-plane"></i> Postuler maintenant</button>
+                    </div>
+                `;
+                
+                // Afficher la modal
+                jobDetailModal.style.display = 'block';
+                
+                // Ajouter les écouteurs d'événements
+                jobDetailModal.querySelector('.save-btn').addEventListener('click', function() {
+                    const isSaved = this.classList.toggle('saved');
+                    const icon = this.querySelector('i');
+                    
+                    if (isSaved) {
+                        icon.classList.remove('far', 'fa-heart');
+                        icon.classList.add('fas', 'fa-heart');
+                        showToast('Offre enregistrée dans vos favoris !');
+                    } else {
+                        icon.classList.remove('fas', 'fa-heart');
+                        icon.classList.add('far', 'fa-heart');
+                        showToast('Offre retirée de vos favoris');
+                    }
+                });
+                
+                jobDetailModal.querySelector('.share-btn').addEventListener('click', function() {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: `Offre d'emploi: ${job.title}`,
+                            text: `Découvrez cette opportunité chez ${job.company} sur Vijana Boost`,
+                            url: window.location.href
+                        }).catch(err => {
+                            console.log('Erreur de partage:', err);
+                        });
+                    } else {
+                        const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=Découvrez cette offre: ${encodeURIComponent(job.title)} chez ${encodeURIComponent(job.company)}`;
+                        window.open(shareUrl, '_blank', 'width=600,height=400');
+                    }
+                });
+                
+                jobDetailModal.querySelector('.apply-btn').addEventListener('click', function() {
+                    this.innerHTML = '<span class="spinner"></span> Envoi en cours...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        showToast(`Votre candidature pour ${job.title} chez ${job.company} a été envoyée !`);
+                        this.innerHTML = '<i class="fas fa-check"></i> Candidature envoyée';
+                        
+                        // Fermer la modal après 2 secondes
+                        setTimeout(() => {
+                            jobDetailModal.style.display = 'none';
+                            this.innerHTML = '<i class="fas fa-paper-plane"></i> Postuler maintenant';
+                            this.disabled = false;
+                        }, 2000);
+                    }, 1500);
+                });
+            }
+            
+            // Gestion de la pagination
+            function updatePagination() {
+                const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+                
+                paginationButtons.forEach((button, index) => {
+                    if (index === 0) return; // Skip prev button
+                    
+                    const pageNum = parseInt(button.textContent);
+                    button.classList.toggle('active', pageNum === currentPage);
+                    
+                    // Gérer les points de suspension
+                    if (button.textContent === '...') {
+                        const shouldShow = currentPage > 3 && currentPage < totalPages - 2;
+                        button.style.display = shouldShow ? 'flex' : 'none';
+                    } else if (!isNaN(pageNum)) {
+                        // Afficher seulement les pages pertinentes
+                        const shouldShow = 
+                            pageNum === 1 || 
+                            pageNum === totalPages || 
+                            Math.abs(pageNum - currentPage) <= 1;
+                        
+                        button.style.display = shouldShow ? 'flex' : 'none';
+                    }
+                });
+                
+                // Désactiver les boutons précédent/suivant si nécessaire
+                prevPageBtn.disabled = currentPage === 1;
+                nextPageBtn.disabled = currentPage === totalPages;
+            }
+            
+            // Écouteurs d'événements
+            
+            // Recherche principale
+            mainSearchBtn.addEventListener('click', function() {
+                currentFilters.keyword = mainSearchInput.value.trim();
+                currentPage = 1;
+                renderJobs();
+                updatePagination();
+            });
+            
+            mainSearchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    currentFilters.keyword = mainSearchInput.value.trim();
+                    currentPage = 1;
+                    renderJobs();
+                    updatePagination();
+                }
+            });
+            
+            // Boutons de vue rapide
+            viewAllJobsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentFilters.contractTypes = [];
+                currentPage = 1;
+                renderJobs();
+                updatePagination();
+                showToast('Affichage de toutes les offres');
+            });
+            
+            viewJobsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentFilters.contractTypes = ['emploi'];
+                currentPage = 1;
+                renderJobs();
+                updatePagination();
+                showToast('Affichage des offres d\'emploi uniquement');
+            });
+            
+            viewInternshipsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                currentFilters.contractTypes = ['stage'];
+                currentPage = 1;
+                renderJobs();
+                updatePagination();
+                showToast('Affichage des offres de stage uniquement');
+            });
+            
+            // Filtres
+            applyFiltersBtn.addEventListener('click', function() {
+                // Récupérer les filtres
+                currentFilters.keyword = keywordFilter.value.trim();
+                currentFilters.city = citySelect.value;
+                
+                currentFilters.sectors = [];
+                document.querySelectorAll('input[name="sector"]:checked').forEach(checkbox => {
+                    currentFilters.sectors.push(checkbox.value);
+                });
+                
+                currentFilters.contractTypes = [];
+                document.querySelectorAll('input[name="contract"]:checked').forEach(checkbox => {
+                    currentFilters.contractTypes.push(checkbox.value);
+                });
+                
+                currentFilters.experiences = [];
+                document.querySelectorAll('input[name="experience"]:checked').forEach(checkbox => {
+                    currentFilters.experiences.push(checkbox.value);
+                });
+                
+                currentPage = 1;
+                renderJobs();
+                updatePagination();
+                showToast('Filtres appliqués avec succès !');
+            });
+            
+            resetFiltersBtn.addEventListener('click', function() {
+                // Réinitialiser tous les filtres
+                keywordFilter.value = '';
+                citySelect.value = '';
+                
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                currentFilters = {
+                    keyword: '',
+                    sectors: [],
+                    contractTypes: [],
+                    city: '',
+                    experiences: []
+                };
+                
+                currentPage = 1;
+                renderJobs();
+                updatePagination();
+                showToast('Filtres réinitialisés');
+            });
+            
+            // Tri
+            sortSelect.addEventListener('change', function() {
+                currentSort = this.value;
+                renderJobs();
+            });
+            
+            // Changement de vue
+            viewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentView = this.dataset.view;
+                    
+                    if (currentView === 'list') {
+                        jobsContainer.style.gridTemplateColumns = '1fr';
+                    } else {
+                        jobsContainer.style.gridTemplateColumns = 'repeat(auto-fill, minmax(320px, 1fr))';
+                    }
+                });
+            });
+            
+            // Pagination
+            paginationButtons.forEach(button => {
+                if (button.textContent !== '...' && !isNaN(parseInt(button.textContent))) {
+                    button.addEventListener('click', function() {
+                        currentPage = parseInt(this.textContent);
+                        renderJobs();
+                        updatePagination();
+                    });
+                }
+            });
+            
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderJobs();
+                    updatePagination();
+                }
+            });
+            
+            nextPageBtn.addEventListener('click', function() {
+                const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderJobs();
+                    updatePagination();
+                }
+            });
+            
+            // Fermer la modal quand on clique en dehors
+            window.addEventListener('click', function(e) {
+                if (e.target === jobDetailModal) {
+                    jobDetailModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
