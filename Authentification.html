@@ -403,13 +403,33 @@
                 font-size: 1.5rem;
             }
         }
+        .logo {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .logo img {
+        height: 36px;
+    }
+
+    .logo-text {
+        color: var(--secondary);
+        font-size: 2.3rem;
+        margin-left: 8px;
+        font-weight: 700;
+    }
+
+    .logo-text span {
+        color: var(--primary);
+    }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="auth-header">
         <a href="index.html" class="logo">
-            <i class="fas fa-bolt"></i> VIJANA BOOST
+            <span class="logo-text">Vijana<span>Boost</span></span>
         </a>
     </header>
 
@@ -737,4 +757,5 @@
         });
     </script>
 </body>
+
 </html>
